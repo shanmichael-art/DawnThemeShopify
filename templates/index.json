@@ -1,1 +1,446 @@
-{"sections":{"featured_collection":{"type":"featured-collection","settings":{"collection":"guitars-in-stock","products_to_show":8,"title":"<strong>Currently In-Stock<\/strong>","heading_size":"h1","description":"<p><em>Each guitar listed here is one I\u2019d be proud to keep myself \u2014 these aren\u2019t mass listings, and once one\u2019s gone, <\/em><strong><em>it\u2019s gone.<\/em><\/strong><\/p>","show_description":true,"description_style":"body","columns_desktop":3,"enable_desktop_slider":true,"full_width":true,"show_view_all":true,"view_all_style":"solid","color_scheme":"scheme-1","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":true,"show_rating":false,"quick_add":"standard","columns_mobile":"2","swipe_on_mobile":false,"padding_top":60,"padding_bottom":60}},"image_banner":{"type":"image-banner","blocks":{"heading":{"type":"heading","settings":{"heading":"Dialed In. One of a Kind. Gone When It\u2019s Gone.","heading_size":"h0"}},"subtext":{"type":"text","settings":{"text":"Hand-selected guitars, set up and played before they\u2019re ever listed."}},"button":{"type":"buttons","settings":{"button_label_1":"See What\u2019s In Stock","button_link_1":"shopify:\/\/collections\/guitars-in-stock","button_style_secondary_1":false,"button_label_2":"","button_link_2":"","button_style_secondary_2":true}}},"block_order":["heading","subtext","button"],"settings":{"image":"shopify:\/\/shop_images\/ChatGPT_Image_Dec_28_2025_01_38_24_PM.png","image_overlay_opacity":55,"image_height":"large","image_behavior":"none","desktop_content_position":"bottom-center","desktop_content_alignment":"center","show_text_box":false,"color_scheme":"scheme-4","stack_images_on_mobile":false,"mobile_content_alignment":"center","show_text_below":false}},"aeonic_stats":{"type":"aeonic-stats","settings":{"color_scheme":"scheme-4","stat_1_number":"500+","stat_1_label":"Guitars Sold","stat_2_number":"100%","stat_2_label":"Hand-Inspected & Set Up","stat_3_number":"5\u2605","stat_3_label":"Rated on Reverb","stat_4_number":"24hrs","stat_4_label":"Avg. Ship Time","padding_top":0,"padding_bottom":0}},"multicolumn_gr3x7T":{"type":"multicolumn","blocks":{"column_XmzFKU":{"type":"column","settings":{"title":"<strong>Personally Inspected<\/strong>","text":"<p>Every guitar is cleaned, set up, and tested by hand \u2014 no drop-shipping, no warehouse guessing.<\/p>","link_label":"","link":""}},"column_tBGmEX":{"type":"column","settings":{"title":"<strong>Enthusiast-Owned<\/strong>","text":"<p>This isn\u2019t a shop \u2014 it\u2019s a collection curated by a guitarist who plays what he sells.<\/p>","link_label":"","link":""}},"column_d9t9Lb":{"type":"column","settings":{"title":"<strong>Honest Condition Notes<\/strong>","text":"<p>If there\u2019s a flaw, it\u2019s documented clearly. No surprises when the case opens.<\/p>","link_label":"","link":""}},"column_PwVA6z":{"type":"column","settings":{"title":"<strong>Fast, Insured Shipping<\/strong>","text":"<p>Ships quickly, packed properly, and fully insured \u2014 always.<\/p>","link_label":"","link":""}}},"block_order":["column_XmzFKU","column_tBGmEX","column_d9t9Lb","column_PwVA6z"],"name":"t:sections.multicolumn.presets.name","settings":{"title":"<strong>Why Aeonic Frets Is Different<\/strong>","heading_size":"h1","image_width":"full","image_ratio":"adapt","button_label":"","button_link":"","columns_desktop":4,"column_alignment":"center","background_style":"primary","color_scheme":"scheme-4","columns_mobile":"1","swipe_on_mobile":false,"padding_top":60,"padding_bottom":60}},"aeonic_condition_explainer":{"type":"aeonic-condition-explainer","settings":{"color_scheme":"scheme-1","heading":"How We Grade Our Guitars","subheading":"Every listing includes an honest condition grade and full notes. No surprises when the case opens.","grade_1_name":"Excellent","grade_1_desc":"Looks and plays like new. May have been barely played \u2014 cosmetically near-flawless with no structural issues. Full setup done, intonation dialed, action set to preference.","grade_2_name":"Very Good","grade_2_desc":"Shows light play wear \u2014 minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Fully playable and set up. All cosmetic notes are documented in the listing.","grade_3_name":"Good","grade_3_desc":"Has visible character from real use. Nothing hidden \u2014 every mark is photographed and noted. Still fully functional with a proper setup. Priced to reflect its honest condition.","footnote":"All guitars ship fully insured. Condition notes and photos are included in every listing \u2014 no guessing.","padding_top":60,"padding_bottom":60}},"image_with_text_tRhVCj":{"type":"image-with-text","blocks":{"heading_ncMeba":{"type":"heading","settings":{"heading":"<strong>Most Sellers List Guitars. I Prepare Them.<\/strong>","heading_size":"h2"}},"text_KtTAAV":{"type":"text","settings":{"text":"<p>A lot of guitars online are posted exactly how they were found \u2014 dusty, untouched, vaguely described, and priced without much thought beyond profit.<\/p><p>That\u2019s not how Aeonic Frets works.<\/p><p>Every guitar that comes through here is fully cleaned, polished, set up, and played. Not because I have to \u2014 but because I love it. I want to know how it feels, how it rings, how it responds before I ever put it in someone else\u2019s hands. Sometimes I keep them. Sometimes I let one loose out of my personal collection.<\/p><p><strong>If it\u2019s listed here, it passed my standards first.<\/strong><\/p>","text_style":"body"}},"button_epTimm":{"type":"button","settings":{"button_label":"Shop the Collection","button_link":"shopify:\/\/collections\/guitars-in-stock","button_style_secondary":false}}},"block_order":["heading_ncMeba","text_KtTAAV","button_epTimm"],"name":"t:sections.image-with-text.presets.name","settings":{"image":"shopify:\/\/shop_images\/IMG_0014.jpg","height":"adapt","desktop_image_width":"medium","layout":"image_first","image_behavior":"none","content_layout":"no-overlap","desktop_content_position":"top","desktop_content_alignment":"left","mobile_content_alignment":"left","section_color_scheme":"scheme-2","color_scheme":"scheme-2","padding_top":60,"padding_bottom":60}},"rich_text_WzEPcL":{"type":"rich-text","blocks":{"heading_iFRkip":{"type":"heading","settings":{"heading":"<strong>Guitars Worth Keeping. Offered to the Right Player.<\/strong>","heading_size":"h1"}},"text_RDLALw":{"type":"text","settings":{"text":"<p>Hand-selected guitars, professionally cleaned, set up, and played \u2014 not flipped blindly, not rushed, not treated like inventory.<\/p>"}},"button_bwranE":{"type":"button","settings":{"button_label":"Shop Full Collection","button_link":"shopify:\/\/collections\/guitars-in-stock","button_style_secondary":false,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading_iFRkip","text_RDLALw","button_bwranE"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-050f734b-9225-47e5-8dd2-29dbe025e191","full_width":true,"padding_top":60,"padding_bottom":60}},"rich_text_EnfczR":{"type":"rich-text","blocks":{"heading_dzbRwC":{"type":"heading","settings":{"heading":"<strong>Built on Trust, Not Volume<\/strong>","heading_size":"h1"}},"text_nhdFp9":{"type":"text","settings":{"text":"<p>Aeonic Frets started as a passion project and grew through word-of-mouth, repeat buyers, and players who appreciate transparency.<\/p><p>Most customers don\u2019t just buy one guitar \u2014 they come back.<\/p>"}},"button_yVARXi":{"type":"button","settings":{"button_label":"Read Buyer Feedback","button_link":"https:\/\/reverb.com\/shop\/aeonic-frets\/feedback#","button_style_secondary":true,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading_dzbRwC","text_nhdFp9","button_yVARXi"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"scheme-3","full_width":true,"padding_top":60,"padding_bottom":60}},"reviews_header":{"type":"rich-text","blocks":{"heading_reviews":{"type":"heading","settings":{"heading":"From Players Who\u2019ve Bought Here","heading_size":"h2"}}},"block_order":["heading_reviews"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":0}},"1767502048e647336a":{"type":"apps","blocks":{"judge_me_reviews_cards_carousel_ewVMBp":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/cards_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"show_sample_reviews":true,"reviews_selection":"store_reviews","products":[],"star_rating":"all","show_review_media":false,"display_order":"media_first","no_image_fallback":"review_text_only","max_reviews":20,"review_length":"medium","text_size":"medium","image_ratio":"1","reviews_shown":4,"show_reviewer_name":true,"show_product_name":true,"hide_arrows_mobile":true,"arrows_position":"sides","max_width":1100,"corner_styling":"soft","header_text_color":"#000000","text_color":"#000000","card_color":"#f9f9f9","stars_color":"","arrows_color":"#000000","transition_speed":5,"header_text":"","show_average_rating":false}}},"block_order":["judge_me_reviews_cards_carousel_ewVMBp"],"settings":{"include_margins":true}},"rich_text_zNjJRd":{"type":"rich-text","blocks":{"heading_hkaneH":{"type":"heading","settings":{"heading":"","heading_size":"h1"}},"text_a6BddM":{"type":"text","settings":{"text":""}},"button_6ibawJ":{"type":"button","settings":{"button_label":"See All Reviews","button_link":"https:\/\/reverb.com\/shop\/aeonic-frets\/feedback#","button_style_secondary":false,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading_hkaneH","text_a6BddM","button_6ibawJ"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":0,"padding_bottom":28}},"multicolumn_QXXe84":{"type":"multicolumn","blocks":{"column_Ydt9WV":{"type":"column","settings":{"title":"<strong>Reverb<\/strong>","text":"<p>New inventory lands here first. <a href=\"https:\/\/reverb.com\/shop\/aeonic-frets\/\" target=\"_blank\">Check the Reverb shop \u2192<\/a><\/p>","link_label":"","link":"https:\/\/reverb.com\/shop\/aeonic-frets\/"}},"column_gP4Fkq":{"type":"column","settings":{"title":"<strong>eBay<\/strong>","text":"<p>More listings available on eBay. <a href=\"https:\/\/www.ebay.com\/usr\/aeonicfrets\" target=\"_blank\">Visit the eBay store \u2192<\/a><\/p>","link_label":"","link":"https:\/\/www.ebay.com\/usr\/aeonicfrets"}},"column_MNKG9K":{"type":"column","settings":{"title":"<strong>Sweetwater<\/strong>","text":"<p>Also listed on Sweetwater Gear Exchange. <a href=\"https:\/\/www.sweetwater.com\/used\/storefront\/aeonicfrets\" target=\"_blank\">Browse the Sweetwater shop \u2192<\/a><\/p>","link_label":"","link":"https:\/\/www.sweetwater.com\/used\/storefront\/aeonicfrets"}}},"block_order":["column_Ydt9WV","column_gP4Fkq","column_MNKG9K"],"name":"t:sections.multicolumn.presets.name","settings":{"title":"Also Available On","heading_size":"h2","image_width":"full","image_ratio":"adapt","button_label":"","button_link":"","columns_desktop":3,"column_alignment":"left","background_style":"primary","color_scheme":"scheme-2","columns_mobile":"1","swipe_on_mobile":false,"padding_top":52,"padding_bottom":52}}},"order":["image_banner","aeonic_stats","featured_collection","multicolumn_gr3x7T","aeonic_condition_explainer","image_with_text_tRhVCj","rich_text_WzEPcL","rich_text_EnfczR","reviews_header","1767502048e647336a","rich_text_zNjJRd","multicolumn_QXXe84"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shop Available Guitars",
+            "heading_size": "h0"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Available Guitars",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "shopify://pages/about",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_01_38_24_PM.png",
+        "image_overlay_opacity": 50,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-4",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      }
+    },
+    "aeonic_stats": {
+      "type": "aeonic-stats",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "stat_1_number": "500+",
+        "stat_1_label": "Guitars Sold",
+        "stat_2_number": "100%",
+        "stat_2_label": "Hand-Inspected & Set Up",
+        "stat_3_number": "5★",
+        "stat_3_label": "Rated on Reverb",
+        "stat_4_number": "24hrs",
+        "stat_4_label": "Avg. Ship Time",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "guitars-in-stock",
+        "products_to_show": 8,
+        "title": "<strong>Currently In-Stock</strong>",
+        "heading_size": "h1",
+        "description": "<p><em>Each guitar listed here is one I'd be proud to keep myself — </em><em><strong>these aren't mass</strong></em><em> listings, and once one's gone, </em><em><strong>it's gone.</strong></em></p>",
+        "show_description": true,
+        "description_style": "body",
+        "columns_desktop": 3,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "multicolumn_gr3x7T": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_XmzFKU": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Personally Inspected</strong>",
+            "text": "<p>Every guitar is cleaned, set up, and tested by hand — no drop-shipping, no warehouse guessing.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_tBGmEX": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Enthusiast-Owned</strong>",
+            "text": "<p>This isn't a shop — it's a collection curated by a guitarist who plays what he sells.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_d9t9Lb": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Honest Condition Notes</strong>",
+            "text": "<p>If there's a flaw, it's documented clearly. No surprises when the case opens.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_PwVA6z": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Fast, Insured Shipping</strong>",
+            "text": "<p>Ships quickly, packed properly, and fully insured — always.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_XmzFKU",
+        "column_tBGmEX",
+        "column_d9t9Lb",
+        "column_PwVA6z"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "<strong>Why Aeonic Frets Is Different</strong>",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "image_with_text_tRhVCj": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ncMeba": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Most Sellers List Guitars. I Prepare Them.</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text_KtTAAV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A lot of guitars online are posted exactly how they were found — dusty, untouched, vaguely described, and priced without much thought beyond profit.</p><p>That's not how Aeonic Frets works.</p><p>Every guitar that comes through here is fully cleaned, polished, set up, and played. Not because I have to — but because I love it. I want to know how it feels, how it rings, how it responds before I ever put it in someone else's hands. Sometimes I keep them. Sometimes I let one loose out of my personal collection.</p><p><strong>If it's listed here, it passed my standards first.</strong></p>",
+            "text_style": "body"
+          }
+        },
+        "button_epTimm": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop the Collection",
+            "button_link": "shopify://collections/guitars-in-stock",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_ncMeba",
+        "text_KtTAAV",
+        "button_epTimm"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/IMG_0014.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "rich_text_WzEPcL": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_iFRkip": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Guitars Worth Keeping. Offered to the Right Player.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_RDLALw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Hand-selected guitars, professionally cleaned, set up, and played — not flipped blindly, not rushed, not treated like inventory.</p>"
+          }
+        },
+        "button_bwranE": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Full Collection",
+            "button_link": "shopify://collections/guitars-in-stock",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_iFRkip",
+        "text_RDLALw",
+        "button_bwranE"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-050f734b-9225-47e5-8dd2-29dbe025e191",
+        "full_width": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "rich_text_EnfczR": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_dzbRwC": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Built on Trust, Not Volume</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_nhdFp9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aeonic Frets started as a passion project and grew through word-of-mouth, repeat buyers, and players who appreciate transparency.</p><p>Most customers don't just buy one guitar — they come back.</p>"
+          }
+        },
+        "button_yVARXi": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Buyer Feedback",
+            "button_link": "https://reverb.com/shop/aeonic-frets/feedback#",
+            "button_style_secondary": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_dzbRwC",
+        "text_nhdFp9",
+        "button_yVARXi"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "1767502048e647336a": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_ewVMBp": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "store_reviews",
+            "products": [],
+            "star_rating": "all",
+            "show_review_media": false,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "medium",
+            "text_size": "medium",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#f9f9f9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "Recent Reviews",
+            "show_average_rating": true
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_ewVMBp"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_zNjJRd": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_hkaneH": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "text_a6BddM": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "button_6ibawJ": {
+          "type": "button",
+          "settings": {
+            "button_label": "See All Reviews",
+            "button_link": "https://reverb.com/shop/aeonic-frets/feedback#",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_hkaneH",
+        "text_a6BddM",
+        "button_6ibawJ"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 28
+      }
+    },
+    "multicolumn_QXXe84": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Ydt9WV": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Reverb</strong>",
+            "text": "<p><a href=\"https://reverb.com/shop/aeonic-frets/\" target=\"_blank\" title=\"https://reverb.com/shop/aeonic-frets/\">Check us out where inventory lands <strong>first</strong> →</a></p>",
+            "link_label": "",
+            "link": "https://reverb.com/shop/aeonic-frets/"
+          }
+        },
+        "column_gP4Fkq": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>eBay</strong>",
+            "text": "<p><a href=\"https://www.ebay.com/usr/aeonicfrets\" target=\"_blank\" title=\"https://www.ebay.com/usr/aeonicfrets\">Checkout our eBay store →</a></p>",
+            "link_label": "",
+            "link": "https://www.ebay.com/usr/aeonicfrets"
+          }
+        },
+        "column_MNKG9K": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Sweetwater Gear Exchange</strong>",
+            "text": "<p><a href=\"https://www.sweetwater.com/used/storefront/aeonicfrets\" target=\"_blank\" title=\"https://www.sweetwater.com/used/storefront/aeonicfrets\">Checkout our growing Sweetwater shop →</a></p>",
+            "link_label": "",
+            "link": "https://www.sweetwater.com/used/storefront/aeonicfrets"
+          }
+        }
+      },
+      "block_order": [
+        "column_Ydt9WV",
+        "column_gP4Fkq",
+        "column_MNKG9K"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Also Shop On",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "aeonic_stats",
+    "featured_collection",
+    "multicolumn_gr3x7T",
+    "image_with_text_tRhVCj",
+    "rich_text_WzEPcL",
+    "rich_text_EnfczR",
+    "1767502048e647336a",
+    "rich_text_zNjJRd",
+    "multicolumn_QXXe84"
+  ]
+}

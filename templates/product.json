@@ -1,1 +1,150 @@
-{"sections":{"main":{"type":"main-product","blocks":{"vendor":{"type":"text","settings":{"text":"{{ product.vendor }}","text_style":"uppercase"}},"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{}},"condition_block":{"type":"condition_block","settings":{"condition_override":"auto","show_scarcity":true}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":false}},"description":{"type":"description","settings":{}},"inspection_notes":{"type":"collapsible_tab","settings":{"heading":"Inspection Notes","icon":"clipboard","content":"<p>Inspection and setup notes will be added per listing. Each guitar is personally played, cleaned, and set up before listing.<\/p>","page":""}},"shipping_tab":{"type":"collapsible_tab","settings":{"heading":"Shipping & Insurance","icon":"truck","content":"<p>Ships within 1-2 business days via UPS or FedEx Ground. Every guitar is fully insured for its full purchase price. Packed properly — hard cases shipped in a double box with foam padding.<\/p>","page":""}},"judge_me_reviews_preview_badge_nWrXUc":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{}}},"block_order":["vendor","title","price","condition_block","variant_picker","buy_buttons","description","inspection_notes","shipping_tab","judge_me_reviews_preview_badge_nWrXUc"],"settings":{"enable_sticky_info":true,"color_scheme":"scheme-1","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"thumbnail","mobile_thumbnails":"show","media_position":"left","image_zoom":"lightbox","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"related-products":{"type":"related-products","settings":{"heading":"More From the Bench","heading_size":"h2","products_to_show":4,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-2","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":true,"show_rating":false,"padding_top":52,"padding_bottom":36}},"176749964791b34585":{"type":"apps","blocks":{"judge_me_reviews_review_widget_xrH4ay":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"review_data":"sample_data","max_width":1200,"show_shop_reviews":false,"empty_state":"empty_widget"}}},"block_order":["judge_me_reviews_review_widget_xrH4ay"],"settings":{"include_margins":true}}},"order":["main","related-products","176749964791b34585"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "condition_block": {
+          "type": "condition_block",
+          "settings": {
+            "condition_override": "auto",
+            "show_scarcity": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "inspection_notes": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Inspection Notes",
+            "icon": "clipboard",
+            "content": "<p>Inspection and setup notes will be added per listing. Each guitar is personally played, cleaned, and set up before listing.</p>",
+            "page": ""
+          }
+        },
+        "shipping_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Insurance",
+            "icon": "truck",
+            "content": "<p>Ships within 1-2 business days via UPS or FedEx Ground. Every guitar is fully insured for its full purchase price. Packed properly — hard cases shipped in a double box with foam padding.</p>",
+            "page": ""
+          }
+        },
+        "judge_me_reviews_preview_badge_nWrXUc": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "condition_block",
+        "variant_picker",
+        "buy_buttons",
+        "description",
+        "inspection_notes",
+        "shipping_tab",
+        "judge_me_reviews_preview_badge_nWrXUc"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "More From the Bench",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-2",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": false,
+        "padding_top": 52,
+        "padding_bottom": 36
+      }
+    },
+    "176749964791b34585": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_xrH4ay": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_xrH4ay"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "176749964791b34585"
+  ]
+}
