@@ -15,20 +15,21 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Dialed In. One of a Kind. Gone When It\u2019s Gone.",
+            "heading": "Dialed In. One of a Kind. Gone When It’s Gone.",
             "heading_size": "h0"
           }
         },
         "subtext": {
           "type": "text",
           "settings": {
-            "text": "Hand-selected guitars, set up and played before they\u2019re ever listed."
+            "text": "Hand-selected guitars, set up and played before they’re ever listed.",
+            "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "See What\u2019s In Stock",
+            "button_label_1": "See What’s In Stock",
             "button_link_1": "shopify://collections/guitars-in-stock",
             "button_style_secondary_1": false,
             "button_label_2": "",
@@ -59,16 +60,65 @@
     "aeonic_ticker": {
       "type": "aeonic-ticker",
       "blocks": {
-        "item_1": { "type": "item", "settings": { "text": "Every Guitar Personally Played" } },
-        "item_2": { "type": "item", "settings": { "text": "New Inventory Weekly" } },
-        "item_3": { "type": "item", "settings": { "text": "Fully Insured Shipping" } },
-        "item_4": { "type": "item", "settings": { "text": "No Mass Listings" } },
-        "item_5": { "type": "item", "settings": { "text": "One of a Kind" } },
-        "item_6": { "type": "item", "settings": { "text": "One Owner. One Standard." } },
-        "item_7": { "type": "item", "settings": { "text": "Dialed Before It Ships" } },
-        "item_8": { "type": "item", "settings": { "text": "Gone When It\u2019s Gone" } }
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Every Guitar Personally Played"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "New Inventory Weekly"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Fully Insured Shipping"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "No Mass Listings"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "text": "One of a Kind"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "text": "One Owner. One Standard."
+          }
+        },
+        "item_7": {
+          "type": "item",
+          "settings": {
+            "text": "Dialed Before It Ships"
+          }
+        },
+        "item_8": {
+          "type": "item",
+          "settings": {
+            "text": "Gone When It’s Gone"
+          }
+        }
       },
-      "block_order": ["item_1","item_2","item_3","item_4","item_5","item_6","item_7","item_8"],
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6",
+        "item_7",
+        "item_8"
+      ],
       "settings": {
         "color_scheme": "scheme-4",
         "speed": 35,
@@ -143,12 +193,15 @@
           }
         }
       },
-      "block_order": ["bench_placeholder"],
+      "block_order": [
+        "bench_placeholder"
+      ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
-        "eyebrow": "What I\u2019m Working On",
+        "eyebrow": "What I’m Working On",
         "heading": "The Bench",
-        "subheading": "These guitars aren\u2019t listed yet. Setup is in progress \u2014 check back soon, or get notified when they drop.",
+        "subheading": "These guitars aren’t listed yet. Setup is in progress — check back soon, or get notified when they drop.",
         "show_notify": true,
         "notify_label": "Want a heads-up when something drops? Leave your email.",
         "notify_placeholder": "your@email.com",
@@ -228,12 +281,12 @@
         "heading": "How We Grade Our Guitars",
         "subheading": "Every listing includes an honest condition grade and full notes. No surprises when the case opens.",
         "grade_1_name": "Excellent",
-        "grade_1_desc": "Looks and plays like new. May have been barely played \u2014 cosmetically near-flawless with no structural issues. Full setup done, intonation dialed, action set to preference.",
+        "grade_1_desc": "Looks and plays like new. May have been barely played — cosmetically near-flawless with no structural issues. Full setup done, intonation dialed, action set to preference.",
         "grade_2_name": "Very Good",
-        "grade_2_desc": "Shows light play wear \u2014 minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Fully playable and set up. All cosmetic notes are documented in the listing.",
+        "grade_2_desc": "Shows light play wear — minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Fully playable and set up. All cosmetic notes are documented in the listing.",
         "grade_3_name": "Good",
-        "grade_3_desc": "Has visible character from real use. Nothing hidden \u2014 every mark is photographed and noted. Still fully functional with a proper setup. Priced to reflect its honest condition.",
-        "footnote": "All guitars ship fully insured. Condition notes and photos are included in every listing \u2014 no guessing.",
+        "grade_3_desc": "Has visible character from real use. Nothing hidden — every mark is photographed and noted. Still fully functional with a proper setup. Priced to reflect its honest condition.",
+        "footnote": "All guitars ship fully insured. Condition notes and photos are included in every listing — no guessing.",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -376,7 +429,7 @@
       "type": "aeonic-pull-quote",
       "settings": {
         "color_scheme": "scheme-4",
-        "quote": "Showed up exactly as described. Better setup than guitars I\u2019ve bought new.",
+        "quote": "Showed up exactly as described. Better setup than guitars I’ve bought new.",
         "attribution": "James R.",
         "attribution_context": "Verified Reverb buyer",
         "padding_top": 80,
@@ -399,7 +452,7 @@
         "heading_reviews": {
           "type": "heading",
           "settings": {
-            "heading": "From Players Who\u2019ve Bought Here",
+            "heading": "From Players Who’ve Bought Here",
             "heading_size": "h2"
           }
         }
