@@ -115,11 +115,6 @@
               >
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
 
-              {%- if card_condition_label != '' -%}
-                <span class="aeonic-card-condition-badge aeonic-card-condition-badge--{{ card_condition_grade }}">
-                  {{- card_condition_label -}}
-                </span>
-              {%- endif -%}
               {%- if card_product.media[1] != null and show_secondary_image -%}
                 <img
                   srcset="
@@ -141,6 +136,11 @@
                 >
               {%- endif -%}
             </div>
+            {%- if card_condition_label != '' -%}
+              <span class="aeonic-card-condition-badge aeonic-card-condition-badge--{{ card_condition_grade }}">
+                {{- card_condition_label -}}
+              </span>
+            {%- endif -%}
           </div>
         {%- endif -%}
         <div class="card__content">
