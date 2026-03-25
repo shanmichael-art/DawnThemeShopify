@@ -1,0 +1,251 @@
+/* ============================================================
+   Aeonic Frets — Premium Design Layer
+   Layered on top of Dawn base styles
+   ============================================================ */
+
+/* --- Typography Refinements --- */
+h1, h2, .h1, .h2,
+.card__heading,
+.card__information .card__heading {
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.title,
+.section-header .title {
+  letter-spacing: -0.025em;
+}
+
+/* Gold accent underline on major section titles */
+.featured-collection .title,
+.multicolumn .title,
+.rich-text .title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.45em;
+}
+
+.featured-collection .title::after,
+.multicolumn .title::after,
+.rich-text .title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 2px;
+  background: #e7cc87;
+}
+
+/* Left-aligned section titles keep the rule left */
+.multicolumn[data-alignment="left"] .title::after,
+.featured-collection .title::after {
+  left: 0;
+  transform: none;
+}
+
+/* --- Card Enhancements --- */
+.card-wrapper {
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Image zoom on card hover */
+.card-wrapper .media img,
+.card-wrapper .media .placeholder-svg {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-wrapper:hover .media img {
+  transform: scale(1.04);
+}
+
+/* Card price — bolder, slightly larger */
+.price__regular .price-item--regular,
+.price-item--sale {
+  font-weight: 700;
+  font-size: 1.05em;
+}
+
+/* --- Button Enhancements --- */
+.button,
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease,
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              transform 0.15s ease,
+              box-shadow 0.15s ease;
+}
+
+.button:not(.button--secondary):hover,
+.button:not(.button--secondary):focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* --- Announcement Bar --- */
+.announcement-bar__message {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+/* --- Header --- */
+.header__heading-logo {
+  transition: opacity 0.2s ease;
+}
+
+.header__heading-logo:hover {
+  opacity: 0.85;
+}
+
+/* --- Section Rhythm --- */
+.color-scheme-4,
+.color-scheme-3 {
+  --section-vertical-padding: 60px;
+}
+
+/* --- Stats Section (aeonic-stats) --- */
+.aeonic-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: var(--page-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--page-width-padding, 20px);
+}
+
+.aeonic-stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.aeonic-stats__item + .aeonic-stats__item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.aeonic-stats__number {
+  display: block;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: #e7cc87;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-family: var(--font-heading-family), var(--font-heading-fallback);
+  margin-bottom: 0.5rem;
+}
+
+.aeonic-stats__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  max-width: 10rem;
+}
+
+@media screen and (max-width: 749px) {
+  .aeonic-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .aeonic-stats__item:nth-child(3)::before {
+    display: none;
+  }
+
+  .aeonic-stats__item {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .aeonic-stats__number {
+    font-size: 2rem;
+  }
+}
+
+/* --- Multicolumn Feature Cards --- */
+.multicolumn-card {
+  transition: transform 0.2s ease;
+}
+
+.multicolumn-card__info h3,
+.multicolumn-card__info .h3 {
+  letter-spacing: -0.01em;
+}
+
+/* --- Image with Text --- */
+.image-with-text__media-item .media {
+  overflow: hidden;
+}
+
+.image-with-text__media-item .media img {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.image-with-text__media-item:hover .media img {
+  transform: scale(1.03);
+}
+
+/* --- Footer Refinements --- */
+.footer-block__heading {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0.6;
+  margin-bottom: 1.2rem;
+}
+
+.footer-block__brand-info .footer-block__heading {
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* --- Review Cards (Judge.me) --- */
+.jdgm-rev-widg {
+  --jdgm-primary-clr: #e7cc87 !important;
+}
+
+/* --- Scroll Animation Refinement --- */
+.scroll-trigger.animate--slide-in {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-duration: 0.5s;
+}
+
+/* --- Focus Rings --- */
+*:focus-visible {
+  outline: 2px solid #e7cc87;
+  outline-offset: 3px;
+}

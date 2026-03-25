@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m json.tool \"C:\\\\Users\\\\shanm\\\\OneDrive\\\\Documents\\\\GitHub\\\\DawnThemeShopify\\\\config\\\\settings_data.json\")",
+      "Bash(node -e \":*)"
+    ]
+  }
+}
