@@ -13,11 +13,11 @@
   top: 10px;
   right: 10px;
   z-index: 2;
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 4px 9px;
+  padding: 6px 13px;
   border-radius: 3px;
   pointer-events: none;
   line-height: 1;
@@ -141,13 +141,13 @@
 }
 
 .aeonic-condition-explainer__heading {
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   letter-spacing: -0.02em;
   margin-bottom: 0.6rem;
 }
 
 .aeonic-condition-explainer__subheading {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: rgba(var(--color-foreground), 0.65);
   line-height: 1.55;
   margin: 0;
@@ -190,7 +190,7 @@
 .aeonic-condition-grade--good .aeonic-condition-grade__dot { background: #7a5a1a; }
 
 .aeonic-condition-grade__name {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -198,8 +198,8 @@
 }
 
 .aeonic-condition-grade__description {
-  font-size: 0.88rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
   color: rgba(var(--color-foreground), 0.7);
   margin: 0;
 }
