@@ -15,24 +15,31 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Shop Available Guitars",
+            "heading": "Dialed In. One of a Kind. Gone When It\u2019s Gone.",
             "heading_size": "h0"
+          }
+        },
+        "subtext": {
+          "type": "text",
+          "settings": {
+            "text": "Hand-selected guitars, set up and played before they\u2019re ever listed."
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop Available Guitars",
-            "button_link_1": "shopify://collections/all",
+            "button_label_1": "See What\u2019s In Stock",
+            "button_link_1": "shopify://collections/guitars-in-stock",
             "button_style_secondary_1": false,
             "button_label_2": "",
-            "button_link_2": "shopify://pages/about",
+            "button_link_2": "",
             "button_style_secondary_2": true
           }
         }
       },
       "block_order": [
         "heading",
+        "subtext",
         "button"
       ],
       "settings": {
@@ -153,6 +160,23 @@
         "color_scheme": "scheme-4",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "aeonic_condition_explainer": {
+      "type": "aeonic-condition-explainer",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "How We Grade Our Guitars",
+        "subheading": "Every listing includes an honest condition grade and full notes. No surprises when the case opens.",
+        "grade_1_name": "Excellent",
+        "grade_1_desc": "Looks and plays like new. May have been barely played \u2014 cosmetically near-flawless with no structural issues. Full setup done, intonation dialed, action set to preference.",
+        "grade_2_name": "Very Good",
+        "grade_2_desc": "Shows light play wear \u2014 minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Fully playable and set up. All cosmetic notes are documented in the listing.",
+        "grade_3_name": "Good",
+        "grade_3_desc": "Has visible character from real use. Nothing hidden \u2014 every mark is photographed and noted. Still fully functional with a proper setup. Priced to reflect its honest condition.",
+        "footnote": "All guitars ship fully insured. Condition notes and photos are included in every listing \u2014 no guessing.",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -289,6 +313,30 @@
         "full_width": true,
         "padding_top": 60,
         "padding_bottom": 60
+      }
+    },
+    "reviews_header": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_reviews": {
+          "type": "heading",
+          "settings": {
+            "heading": "From Players Who\u2019ve Bought Here",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_reviews"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
       }
     },
     "1767502048e647336a": {
@@ -436,9 +484,11 @@
     "aeonic_stats",
     "featured_collection",
     "multicolumn_gr3x7T",
+    "aeonic_condition_explainer",
     "image_with_text_tRhVCj",
     "rich_text_WzEPcL",
     "rich_text_EnfczR",
+    "reviews_header",
     "1767502048e647336a",
     "rich_text_zNjJRd",
     "multicolumn_QXXe84"
