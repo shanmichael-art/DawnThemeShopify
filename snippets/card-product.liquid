@@ -46,6 +46,20 @@
         assign card_condition_grade = tag | remove: 'condition:'
         break
       endif
+      assign tag_down = tag | downcase
+      if tag_down == 'excellent'
+        assign card_condition_grade = 'excellent'
+        break
+      elsif tag_down == 'very good'
+        assign card_condition_grade = 'very-good'
+        break
+      elsif tag_down == 'good'
+        assign card_condition_grade = 'good'
+        break
+      elsif tag_down == 'fair'
+        assign card_condition_grade = 'fair'
+        break
+      endif
     endfor
     case card_condition_grade
       when 'excellent'
