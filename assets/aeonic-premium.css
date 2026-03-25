@@ -524,6 +524,194 @@ h1, h2, .h1, .h2,
   --jdgm-primary-clr: #e7cc87 !important;
 }
 
+/* --- Card Voice Note --- */
+.aeonic-card-note {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(var(--color-foreground), 0.5);
+  line-height: 1.4;
+  margin: 4px 0 6px;
+}
+
+/* --- Pull Quote Section --- */
+.aeonic-pull-quote-section {
+  position: relative;
+}
+
+.aeonic-pull-quote {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 var(--page-width-padding, 20px);
+}
+
+.aeonic-pull-quote__inner {
+  text-align: center;
+  position: relative;
+}
+
+.aeonic-pull-quote__mark {
+  display: block;
+  font-size: clamp(5rem, 10vw, 9rem);
+  line-height: 0.5;
+  color: #e7cc87;
+  font-family: Georgia, 'Times New Roman', serif;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.aeonic-pull-quote__text {
+  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  font-style: italic;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 1.6rem;
+  quotes: none;
+}
+
+.aeonic-pull-quote__attribution {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  color: rgba(var(--color-foreground), 0.6);
+  text-transform: uppercase;
+}
+
+.aeonic-pull-quote__context {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* --- Section Divider --- */
+.aeonic-divider-section {
+  /* padding set inline via section.settings */
+}
+
+.aeonic-divider {
+  max-width: var(--page-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--page-width-padding, 20px);
+}
+
+.aeonic-divider__rule-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.aeonic-divider__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(var(--color-foreground), 0.15);
+  display: block;
+}
+
+.aeonic-divider__symbol {
+  font-size: 0.6rem;
+  color: #e7cc87;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.aeonic-divider__text {
+  text-align: center;
+  font-size: 0.78rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: rgba(var(--color-foreground), 0.45);
+  margin: 10px 0 0;
+}
+
+/* --- Ticker Section --- */
+.aeonic-ticker-section {
+  /* overflow and padding set inline */
+}
+
+/* --- About Section --- */
+.aeonic-about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.aeonic-about__image-wrap {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.aeonic-about__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.aeonic-about__image-wrap:hover .aeonic-about__image {
+  transform: scale(1.03);
+}
+
+.aeonic-about__eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e7cc87;
+  margin-bottom: 1rem;
+}
+
+.aeonic-about__heading {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 1.4rem;
+  color: rgb(var(--color-foreground));
+}
+
+.aeonic-about__body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(var(--color-foreground), 0.75);
+  margin-bottom: 1.4rem;
+}
+
+.aeonic-about__body p + p {
+  margin-top: 0.8em;
+}
+
+.aeonic-about__signature {
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(var(--color-foreground), 0.5);
+  margin: 0 0 2rem;
+  letter-spacing: -0.01em;
+}
+
+@media screen and (max-width: 989px) {
+  .aeonic-about__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* --- Hero Film Grain Overlay --- */
+.banner__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  opacity: 0.45;
+}
+
 /* --- Scroll Animation Refinement --- */
 .scroll-trigger.animate--slide-in {
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);

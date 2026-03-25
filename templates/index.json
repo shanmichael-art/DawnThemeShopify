@@ -56,6 +56,26 @@
         "show_text_below": false
       }
     },
+    "aeonic_ticker": {
+      "type": "aeonic-ticker",
+      "blocks": {
+        "item_1": { "type": "item", "settings": { "text": "Every Guitar Personally Played" } },
+        "item_2": { "type": "item", "settings": { "text": "New Inventory Weekly" } },
+        "item_3": { "type": "item", "settings": { "text": "Fully Insured Shipping" } },
+        "item_4": { "type": "item", "settings": { "text": "No Mass Listings" } },
+        "item_5": { "type": "item", "settings": { "text": "One of a Kind" } },
+        "item_6": { "type": "item", "settings": { "text": "One Owner. One Standard." } },
+        "item_7": { "type": "item", "settings": { "text": "Dialed Before It Ships" } },
+        "item_8": { "type": "item", "settings": { "text": "Gone When It\u2019s Gone" } }
+      },
+      "block_order": ["item_1","item_2","item_3","item_4","item_5","item_6","item_7","item_8"],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "speed": 35,
+        "padding_top": 14,
+        "padding_bottom": 14
+      }
+    },
     "aeonic_stats": {
       "type": "aeonic-stats",
       "settings": {
@@ -98,6 +118,43 @@
         "swipe_on_mobile": false,
         "padding_top": 52,
         "padding_bottom": 52
+      }
+    },
+    "aeonic_divider_1": {
+      "type": "aeonic-divider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "symbol": "◆",
+        "text": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "aeonic_bench": {
+      "type": "aeonic-bench",
+      "blocks": {
+        "bench_placeholder": {
+          "type": "guitar",
+          "settings": {
+            "guitar_name": "Coming Soon — Watch This Space",
+            "status": "coming_soon",
+            "work_description": "Currently being cleaned, set up, and played. Details will be added before it lists.",
+            "eta": "Est. listing: soon"
+          }
+        }
+      },
+      "block_order": ["bench_placeholder"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "What I\u2019m Working On",
+        "heading": "The Bench",
+        "subheading": "These guitars aren\u2019t listed yet. Setup is in progress \u2014 check back soon, or get notified when they drop.",
+        "show_notify": true,
+        "notify_label": "Want a heads-up when something drops? Leave your email.",
+        "notify_placeholder": "your@email.com",
+        "notify_button": "Notify Me",
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     },
     "multicolumn_gr3x7T": {
@@ -315,6 +372,27 @@
         "padding_bottom": 60
       }
     },
+    "aeonic_pull_quote": {
+      "type": "aeonic-pull-quote",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "quote": "Showed up exactly as described. Better setup than guitars I\u2019ve bought new.",
+        "attribution": "James R.",
+        "attribution_context": "Verified Reverb buyer",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "aeonic_divider_2": {
+      "type": "aeonic-divider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "symbol": "◆",
+        "text": "What buyers are saying",
+        "padding_top": 8,
+        "padding_bottom": 0
+      }
+    },
     "reviews_header": {
       "type": "rich-text",
       "blocks": {
@@ -481,13 +559,18 @@
   },
   "order": [
     "image_banner",
+    "aeonic_ticker",
     "aeonic_stats",
     "featured_collection",
+    "aeonic_divider_1",
+    "aeonic_bench",
     "multicolumn_gr3x7T",
     "aeonic_condition_explainer",
     "image_with_text_tRhVCj",
     "rich_text_WzEPcL",
     "rich_text_EnfczR",
+    "aeonic_pull_quote",
+    "aeonic_divider_2",
     "reviews_header",
     "1767502048e647336a",
     "rich_text_zNjJRd",

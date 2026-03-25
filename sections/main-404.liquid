@@ -1,23 +1,50 @@
 <style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
+  .template-404 {
+    text-align: center;
+    padding: 80px 20px 100px;
+  }
+
+  .template-404__eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e7cc87;
+    margin-bottom: 1.4rem;
+  }
+
+  .template-404 .title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+
+  .template-404__sub {
+    font-size: 1rem;
+    color: rgba(var(--color-foreground), 0.6);
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto 2.4rem;
   }
 
   @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
+    .template-404 {
+      padding: 120px 20px 140px;
     }
   }
 </style>
 
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
+<div class="template-404 page-width page-margin">
+  <span class="template-404__eyebrow">404</span>
   <h1 class="title">
-    {{ 'templates.404.title' | t }}
+    That guitar's already gone.
   </h1>
+  <p class="template-404__sub">
+    They don't stick around here long. But there's always something new on the bench.
+  </p>
   <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
+    See What's In Stock
   </a>
 </div>

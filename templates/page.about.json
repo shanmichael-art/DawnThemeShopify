@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "about": {
+      "type": "aeonic-about",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "eyebrow": "About the Seller",
+        "heading": "One Owner. One Standard.",
+        "body": "<p>I\u2019m not a shop \u2014 I\u2019m a guitarist who got serious about doing this right.</p><p>Every guitar that comes through here gets cleaned, set up, and played by me before it ever hits a listing. Not as a formality. Because I want to know how it feels, how it rings, whether it\u2019s something I\u2019d actually want to play myself.</p><p>Aeonic Frets started as an outlet for my own collection and grew because people appreciated the honesty. No mystery listings, no vague \u201cplays well\u201d descriptions, no guitars shipped dusty from a shelf.</p><p>If there\u2019s a ding, I photograph it. If the neck has a quirk, I mention it. If it\u2019s immaculate, I\u2019ll tell you that too.</p><p>Thanks for being here.</p>",
+        "signature": "\u2014 Aeonic Frets",
+        "cta_label": "See What\u2019s In Stock",
+        "cta_link": "shopify://collections/guitars-in-stock",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": ["about"]
+}

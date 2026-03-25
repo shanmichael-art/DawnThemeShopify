@@ -1,0 +1,140 @@
+<style>
+  .aeonic-ticker-section {
+    overflow: hidden;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .aeonic-ticker__track {
+    display: inline-flex;
+    animation: aeonic-ticker-scroll {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .aeonic-ticker__track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes aeonic-ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .aeonic-ticker__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-ticker__sep {
+    color: #e7cc87;
+    font-size: 0.6rem;
+    margin-left: 2.4rem;
+    flex-shrink: 0;
+  }
+</style>
+
+<div class="aeonic-ticker-section color-{{ section.settings.color_scheme }} gradient" aria-hidden="true">
+  <div class="aeonic-ticker" role="marquee">
+    {%- liquid
+      assign items = section.blocks
+      assign item_count = items.size
+    -%}
+    {%- if item_count > 0 -%}
+      <div class="aeonic-ticker__track">
+        {%- comment -%}Render twice for seamless loop{%- endcomment -%}
+        {%- for n in (1..2) -%}
+          {%- for block in items -%}
+            {%- if block.settings.text != blank -%}
+              <span class="aeonic-ticker__item" {{ block.shopify_attributes }}>
+                {{- block.settings.text | escape -}}
+              </span>
+              <span class="aeonic-ticker__sep" aria-hidden="true">✦</span>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Workshop Ticker",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 15,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Ticker item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Every Guitar Personally Played"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Workshop Ticker",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Every Guitar Personally Played" } },
+        { "type": "item", "settings": { "text": "New Inventory Weekly" } },
+        { "type": "item", "settings": { "text": "Fully Insured Shipping" } },
+        { "type": "item", "settings": { "text": "No Mass Listings" } },
+        { "type": "item", "settings": { "text": "One of a Kind" } },
+        { "type": "item", "settings": { "text": "One Owner. One Standard." } },
+        { "type": "item", "settings": { "text": "Dialed Before It Ships" } },
+        { "type": "item", "settings": { "text": "Gone When It's Gone" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

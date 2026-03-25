@@ -1,0 +1,97 @@
+<style>
+  .aeonic-pull-quote-section {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .aeonic-pull-quote-section {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+
+<div class="aeonic-pull-quote-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="aeonic-pull-quote page-width">
+    <div class="aeonic-pull-quote__inner{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <span class="aeonic-pull-quote__mark" aria-hidden="true">&ldquo;</span>
+      {%- if section.settings.quote != blank -%}
+        <blockquote class="aeonic-pull-quote__text">
+          {{ section.settings.quote | escape }}
+        </blockquote>
+      {%- endif -%}
+      {%- if section.settings.attribution != blank -%}
+        <cite class="aeonic-pull-quote__attribution">
+          &mdash;&nbsp;{{ section.settings.attribution | escape }}
+          {%- if section.settings.attribution_context != blank -%}
+            <span class="aeonic-pull-quote__context">, {{ section.settings.attribution_context | escape }}</span>
+          {%- endif -%}
+        </cite>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pull Quote",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote text",
+      "default": "Showed up exactly as described. Better setup than guitars I've bought new."
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Buyer name",
+      "default": "James R."
+    },
+    {
+      "type": "text",
+      "id": "attribution_context",
+      "label": "Context (platform, date, etc.)",
+      "default": "Verified Reverb buyer"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pull Quote"
+    }
+  ]
+}
+{% endschema %}

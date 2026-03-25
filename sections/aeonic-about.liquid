@@ -1,0 +1,157 @@
+<style>
+  .aeonic-about-section {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .aeonic-about-section {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+
+<div class="aeonic-about-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="aeonic-about page-width">
+
+    <div class="aeonic-about__inner{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+
+      {%- if section.settings.image != blank -%}
+        <div class="aeonic-about__image-wrap">
+          <img
+            src="{{ section.settings.image | image_url: width: 960 }}"
+            alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+            class="aeonic-about__image"
+            loading="lazy"
+            width="960"
+            height="{{ 960 | divided_by: section.settings.image.aspect_ratio | round }}"
+          >
+        </div>
+      {%- endif -%}
+
+      <div class="aeonic-about__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="aeonic-about__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="aeonic-about__heading">{{ section.settings.heading | escape }}</h1>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="aeonic-about__body rte">
+            {{ section.settings.body }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.signature != blank -%}
+          <p class="aeonic-about__signature">{{ section.settings.signature | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="button">
+            {{- section.settings.cta_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About the Seller",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "About the Seller"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "One Owner. One Standard."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body copy",
+      "default": "<p>I'm not a shop — I'm a guitarist who got serious about doing this right.</p><p>Every guitar that comes through here gets cleaned, set up, and played by me before it ever hits a listing. Not as a formality. Because I want to know how it feels, how it rings, whether it's something I'd actually want to play myself.</p><p>Aeonic Frets started as an outlet for my own collection and grew because people appreciated the honesty. No mystery listings, no vague \"plays well\" descriptions, no guitars shipped dusty from a shelf.</p><p>If there's a ding, I photograph it. If the neck has a quirk, I mention it. If it's immaculate, I'll tell you that too.</p><p>Thanks for being here.</p>"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature / sign-off",
+      "default": "— Aeonic Frets"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "See What's In Stock"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "About the Seller"
+    }
+  ]
+}
+{% endschema %}
