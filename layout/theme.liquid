@@ -373,5 +373,43 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {%- if template == 'product' -%}
+      <div class="aeonic-sticky-atc" id="AeonicStickyATC" aria-hidden="true">
+        <span class="aeonic-sticky-atc__title">{{ product.title | escape }}</span>
+        <span class="aeonic-sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {%- if product.available -%}
+          <button
+            class="aeonic-sticky-atc__button"
+            onclick="document.querySelector('[data-type=add-to-cart-form] [type=submit], .product-form__submit')?.click()"
+            aria-label="Add {{ product.title | escape }} to cart"
+          >
+            Add to Cart
+          </button>
+        {%- else -%}
+          <span class="aeonic-sticky-atc__button" style="opacity:0.5;cursor:default;">Sold Out</span>
+        {%- endif -%}
+      </div>
+      <script>
+        (function() {
+          var bar = document.getElementById('AeonicStickyATC');
+          if (!bar) return;
+          var buyBtn = null;
+          var findBtn = function() {
+            buyBtn = document.querySelector('.product-form__submit, [data-type="add-to-cart-form"] [type="submit"]');
+          };
+          var onScroll = function() {
+            if (!buyBtn) findBtn();
+            if (!buyBtn) return;
+            var rect = buyBtn.getBoundingClientRect();
+            var pastBtn = rect.bottom < 0;
+            bar.classList.toggle('is-visible', pastBtn);
+            bar.setAttribute('aria-hidden', String(!pastBtn));
+          };
+          window.addEventListener('scroll', onScroll, { passive: true });
+          findBtn();
+        })();
+      </script>
+    {%- endif -%}
   </body>
 </html>

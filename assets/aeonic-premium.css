@@ -3,6 +3,292 @@
    Layered on top of Dawn base styles
    ============================================================ */
 
+/* --- Condition Badge: Product Card Overlay --- */
+.card__media {
+  position: relative;
+}
+
+.aeonic-card-condition-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 3px;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.aeonic-card-condition-badge--excellent {
+  background: #1a5c38;
+  color: #fff;
+}
+
+.aeonic-card-condition-badge--very-good {
+  background: #4a6b1a;
+  color: #fff;
+}
+
+.aeonic-card-condition-badge--good {
+  background: #7a5a1a;
+  color: #fff;
+}
+
+.aeonic-card-condition-badge--fair {
+  background: #5a2a1a;
+  color: #fff;
+}
+
+/* --- Scarcity Signal: Card --- */
+.aeonic-card-scarcity {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.45);
+  margin-top: 4px;
+}
+
+/* --- Condition Block: Product Page --- */
+.aeonic-condition-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.aeonic-condition-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  width: fit-content;
+}
+
+.aeonic-condition-badge--excellent { background: rgba(26, 92, 56, 0.1); border: 1px solid rgba(26, 92, 56, 0.25); }
+.aeonic-condition-badge--very-good { background: rgba(74, 107, 26, 0.1); border: 1px solid rgba(74, 107, 26, 0.25); }
+.aeonic-condition-badge--good { background: rgba(122, 90, 26, 0.1); border: 1px solid rgba(122, 90, 26, 0.25); }
+.aeonic-condition-badge--fair { background: rgba(90, 42, 26, 0.1); border: 1px solid rgba(90, 42, 26, 0.25); }
+
+.aeonic-condition-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.aeonic-condition-badge--excellent .aeonic-condition-badge__dot { background: #1a5c38; }
+.aeonic-condition-badge--very-good .aeonic-condition-badge__dot { background: #4a6b1a; }
+.aeonic-condition-badge--good .aeonic-condition-badge__dot { background: #7a5a1a; }
+.aeonic-condition-badge--fair .aeonic-condition-badge__dot { background: #7a2a1a; }
+
+.aeonic-condition-badge__label {
+  color: rgb(var(--color-foreground));
+  font-weight: 700;
+}
+
+.aeonic-condition-badge__sublabel {
+  color: rgba(var(--color-foreground), 0.5);
+  font-weight: 400;
+  font-size: 0.72rem;
+}
+
+/* --- Scarcity Signal: Product Page --- */
+.aeonic-scarcity-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.65);
+  letter-spacing: 0.01em;
+}
+
+.aeonic-scarcity-signal__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ea04d;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(46, 160, 77, 0.2);
+  animation: aeonic-pulse 2.5s ease infinite;
+}
+
+@keyframes aeonic-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(46, 160, 77, 0.2); }
+  50% { box-shadow: 0 0 0 5px rgba(46, 160, 77, 0); }
+}
+
+/* --- Condition Grade Explainer Section --- */
+.aeonic-condition-explainer {
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.aeonic-condition-explainer__header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem;
+}
+
+.aeonic-condition-explainer__heading {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.aeonic-condition-explainer__subheading {
+  font-size: 0.95rem;
+  color: rgba(var(--color-foreground), 0.65);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.aeonic-condition-grades {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.aeonic-condition-grade {
+  padding: 28px;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 6px;
+  background: rgba(var(--color-foreground), 0.02);
+  transition: border-color 0.2s ease;
+}
+
+.aeonic-condition-grade:hover {
+  border-color: rgba(var(--color-foreground), 0.2);
+}
+
+.aeonic-condition-grade__badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.aeonic-condition-grade__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.aeonic-condition-grade--excellent .aeonic-condition-grade__dot { background: #1a5c38; }
+.aeonic-condition-grade--very-good .aeonic-condition-grade__dot { background: #4a6b1a; }
+.aeonic-condition-grade--good .aeonic-condition-grade__dot { background: #7a5a1a; }
+
+.aeonic-condition-grade__name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+}
+
+.aeonic-condition-grade__description {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 0;
+}
+
+.aeonic-condition-explainer__footnote {
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(var(--color-foreground), 0.5);
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+@media screen and (max-width: 749px) {
+  .aeonic-condition-grades {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .aeonic-condition-grade {
+    padding: 20px;
+  }
+}
+
+/* --- Mobile Sticky Add-to-Cart Bar --- */
+.aeonic-sticky-atc {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgb(var(--color-background));
+  border-top: 1px solid rgba(var(--color-foreground), 0.12);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.aeonic-sticky-atc.is-visible {
+  transform: translateY(0);
+}
+
+.aeonic-sticky-atc__title {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(var(--color-foreground));
+}
+
+.aeonic-sticky-atc__price {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+  white-space: nowrap;
+}
+
+.aeonic-sticky-atc__button {
+  background: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
+  border: none;
+  padding: 11px 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--buttons-radius, 2px);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.aeonic-sticky-atc__button:hover {
+  opacity: 0.85;
+}
+
+@media screen and (min-width: 990px) {
+  .aeonic-sticky-atc {
+    display: none;
+  }
+}
+
 /* --- Typography Refinements --- */
 h1, h2, .h1, .h2,
 .card__heading,

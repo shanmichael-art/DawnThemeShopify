@@ -477,6 +477,45 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+              {%- when 'condition_block' -%}
+                {%- liquid
+                  assign condition_grade = ''
+                  for tag in product.tags
+                    if tag contains 'condition:'
+                      assign condition_grade = tag | remove: 'condition:'
+                      break
+                    endif
+                  endfor
+                  if block.settings.condition_override != 'auto'
+                    assign condition_grade = block.settings.condition_override
+                  endif
+                  assign condition_label = ''
+                  case condition_grade
+                    when 'excellent'
+                      assign condition_label = 'Excellent'
+                    when 'very-good'
+                      assign condition_label = 'Very Good'
+                    when 'good'
+                      assign condition_label = 'Good'
+                    when 'fair'
+                      assign condition_label = 'Fair'
+                  endcase
+                -%}
+                <div class="aeonic-condition-block" {{ block.shopify_attributes }}>
+                  {%- if condition_label != '' -%}
+                    <div class="aeonic-condition-badge aeonic-condition-badge--{{ condition_grade }}">
+                      <span class="aeonic-condition-badge__dot"></span>
+                      <span class="aeonic-condition-badge__label">{{ condition_label }}</span>
+                      <span class="aeonic-condition-badge__sublabel">Condition</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.show_scarcity and product.available -%}
+                    <div class="aeonic-scarcity-signal">
+                      <span class="aeonic-scarcity-signal__dot"></span>
+                      <span>One of a kind — when it's gone, it's gone.</span>
+                    </div>
+                  {%- endif -%}
+                </div>
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -2084,6 +2123,33 @@
           "default": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.default",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
+        }
+      ]
+    },
+    {
+      "type": "condition_block",
+      "name": "Condition & Availability",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "condition_override",
+          "label": "Condition grade",
+          "info": "Select 'Auto (from tags)' to pull grade from product tag like condition:excellent",
+          "options": [
+            { "value": "auto", "label": "Auto (from product tags)" },
+            { "value": "excellent", "label": "Excellent" },
+            { "value": "very-good", "label": "Very Good" },
+            { "value": "good", "label": "Good" },
+            { "value": "fair", "label": "Fair" }
+          ],
+          "default": "auto"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_scarcity",
+          "label": "Show 'one of a kind' availability signal",
+          "default": true
         }
       ]
     }

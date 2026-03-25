@@ -39,6 +39,24 @@
     if ratio == 0 or ratio == null
       assign ratio = 1
     endif
+    assign card_condition_grade = ''
+    assign card_condition_label = ''
+    for tag in card_product.tags
+      if tag contains 'condition:'
+        assign card_condition_grade = tag | remove: 'condition:'
+        break
+      endif
+    endfor
+    case card_condition_grade
+      when 'excellent'
+        assign card_condition_label = 'Excellent'
+      when 'very-good'
+        assign card_condition_label = 'Very Good'
+      when 'good'
+        assign card_condition_label = 'Good'
+      when 'fair'
+        assign card_condition_label = 'Fair'
+    endcase
   -%}
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
@@ -83,6 +101,11 @@
               >
               {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
 
+              {%- if card_condition_label != '' -%}
+                <span class="aeonic-card-condition-badge aeonic-card-condition-badge--{{ card_condition_grade }}">
+                  {{- card_condition_label -}}
+                </span>
+              {%- endif -%}
               {%- if card_product.media[1] != null and show_secondary_image -%}
                 <img
                   srcset="
@@ -205,6 +228,9 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+            {%- if card_product.available -%}
+              <span class="aeonic-card-scarcity">1 available</span>
+            {%- endif -%}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
