@@ -4,7 +4,24 @@
       "Bash(python3 -m json.tool \"C:\\\\Users\\\\shanm\\\\OneDrive\\\\Documents\\\\GitHub\\\\DawnThemeShopify\\\\config\\\\settings_data.json\")",
       "Bash(node -e \":*)",
       "Bash(python:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(claude mcp:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"vintage guitar shop premium boutique luxury resale marketplace\" --design-system -p \"Aeonic Frets\" -f markdown)",
+      "Bash(where python3.exe)",
+      "Bash(where python.exe)",
+      "Read(//c/Users/shanm/AppData/Local/Programs/Python//**)",
+      "Bash(ls /c/Python*)",
+      "Bash(\"/c/Users/shanm/AppData/Local/Microsoft/WindowsApps/python3.exe\" .claude/skills/ui-ux-pro-max/scripts/search.py \"vintage guitar shop premium boutique luxury resale marketplace\" --design-system -p \"Aeonic Frets\" -f markdown)",
+      "Read(//c/Users/shanm/AppData/Local/Programs//**)",
+      "Read(//c/Program Files/**)",
+      "Read(//usr/**)",
+      "Bash(\"/c/Users/shanm/AppData/Local/Programs/Python/Python312/python.exe\" .claude/skills/ui-ux-pro-max/scripts/search.py \"vintage guitar boutique premium resale collectible\" --design-system -p \"Aeonic Frets\" -f markdown)",
+      "Bash(\"/c/Users/shanm/AppData/Local/Programs/Python/Python312/python.exe\" .claude/skills/ui-ux-pro-max/scripts/search.py \"animation accessibility hover\" --domain ux)",
+      "Bash(\"/c/Users/shanm/AppData/Local/Programs/Python/Python312/python.exe\" .claude/skills/ui-ux-pro-max/scripts/search.py \"elegant luxury dark vintage serif\" --domain typography)",
+      "mcp__shopify-dev-mcp__learn_shopify_api",
+      "mcp__shopify-dev-mcp__validate_theme"
     ]
   }
 }
