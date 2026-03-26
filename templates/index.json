@@ -15,7 +15,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Dialed In. One of a Kind. Gone When It’s Gone.",
+            "heading": "Curated. Dialed In. Ready to Be Played.",
             "heading_size": "h0"
           }
         },
@@ -44,10 +44,10 @@
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Dec_28_2025_01_38_24_PM.png",
-        "image_overlay_opacity": 50,
+        "image": "shopify://shop_images/6c418025-98c7-49ff-afbe-2efee553f57f.jpg",
+        "image_overlay_opacity": 30,
         "image_height": "large",
-        "image_behavior": "none",
+        "image_behavior": "ambient",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
@@ -87,13 +87,7 @@
         "item_5": {
           "type": "item",
           "settings": {
-            "text": "One of a Kind"
-          }
-        },
-        "item_6": {
-          "type": "item",
-          "settings": {
-            "text": "One Owner. One Standard."
+            "text": "Handpicked from trusted brands"
           }
         },
         "item_7": {
@@ -115,7 +109,6 @@
         "item_3",
         "item_4",
         "item_5",
-        "item_6",
         "item_7",
         "item_8"
       ],
@@ -134,9 +127,9 @@
         "stat_1_label": "Guitars Sold",
         "stat_2_number": "100%",
         "stat_2_label": "Hand-Inspected & Set Up",
-        "stat_3_number": "5★",
+        "stat_3_number": "★★★★★",
         "stat_3_label": "Rated on Reverb",
-        "stat_4_number": "24hrs",
+        "stat_4_number": "<24hrs",
         "stat_4_label": "Avg. Ship Time",
         "padding_top": 0,
         "padding_bottom": 0
