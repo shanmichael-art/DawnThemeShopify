@@ -1,9 +1,228 @@
 /* ============================================================
-   Aeonic Frets — Premium Design Layer
+   Aeonic Frets — Premium Design Layer v2
    Layered on top of Dawn base styles
+   Design system: Liquid Glass · Playfair Display · Warm Gold
    ============================================================ */
 
-/* --- Condition Badge: Product Card Overlay --- */
+/* --- Google Fonts: Playfair Display --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  --aeonic-gold:        #e7cc87;
+  --aeonic-gold-bright: #f0d89a;
+  --aeonic-gold-dim:    rgba(231, 204, 135, 0.18);
+  --aeonic-gold-glow:   rgba(231, 204, 135, 0.12);
+  --aeonic-ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --aeonic-ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --aeonic-t-fast:      0.18s;
+  --aeonic-t-mid:       0.32s;
+  --aeonic-t-slow:      0.52s;
+  --aeonic-t-fluid:     0.48s;
+  --aeonic-radius:      6px;
+}
+
+/* ============================================================
+   GLOBAL POLISH
+   ============================================================ */
+
+/* Text selection */
+::selection {
+  background: rgba(231, 204, 135, 0.22);
+  color: inherit;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(231, 204, 135, 0.35);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(231, 204, 135, 0.65);
+}
+
+/* ============================================================
+   TYPOGRAPHY — Playfair Display for major headings
+   ============================================================ */
+
+h1, h2, h3,
+.h1, .h2, .h3,
+.card__heading,
+.card__information .card__heading,
+.aeonic-about__heading,
+.aeonic-bench__heading,
+.aeonic-condition-explainer__heading,
+.aeonic-pull-quote__text {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+h1, .h1 { letter-spacing: -0.03em; }
+
+.title,
+.section-header .title {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.025em;
+}
+
+/* Gold accent underline on major section titles */
+.featured-collection .title,
+.multicolumn .title,
+.rich-text .title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5em;
+}
+
+.featured-collection .title::after,
+.multicolumn .title::after,
+.rich-text .title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.8rem;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--aeonic-gold), transparent);
+}
+
+.multicolumn[data-alignment="left"] .title::after,
+.featured-collection .title::after {
+  left: 0;
+  transform: none;
+  background: linear-gradient(90deg, var(--aeonic-gold), rgba(231, 204, 135, 0));
+}
+
+/* ============================================================
+   FOCUS RINGS — Gold, refined
+   ============================================================ */
+
+*:focus-visible {
+  outline: 1.5px solid var(--aeonic-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+
+.announcement-bar__message {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header__heading-logo {
+  transition: opacity var(--aeonic-t-fast) var(--aeonic-ease);
+}
+
+.header__heading-logo:hover {
+  opacity: 0.8;
+}
+
+/* ============================================================
+   CARD ENHANCEMENTS — Liquid Glass hover
+   ============================================================ */
+
+.card-wrapper {
+  transition:
+    transform var(--aeonic-t-mid) var(--aeonic-ease-out),
+    box-shadow var(--aeonic-t-mid) var(--aeonic-ease-out);
+  will-change: transform;
+  cursor: pointer;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.16),
+    0 6px 16px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(231, 204, 135, 0.18);
+}
+
+/* Image zoom on card hover */
+.card-wrapper .media img,
+.card-wrapper .media .placeholder-svg {
+  transition: transform var(--aeonic-t-fluid) var(--aeonic-ease);
+}
+
+.card-wrapper:hover .media img {
+  transform: scale(1.05);
+}
+
+/* Card price — bolder, slightly larger */
+.price__regular .price-item--regular,
+.price-item--sale {
+  font-weight: 700;
+  font-size: 1.05em;
+}
+
+/* ============================================================
+   BUTTON ENHANCEMENTS — Fluid with shimmer
+   ============================================================ */
+
+.button,
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    color var(--aeonic-t-mid) var(--aeonic-ease),
+    background-color var(--aeonic-t-mid) var(--aeonic-ease),
+    border-color var(--aeonic-t-mid) var(--aeonic-ease),
+    transform var(--aeonic-t-fast) var(--aeonic-ease),
+    box-shadow var(--aeonic-t-fast) var(--aeonic-ease);
+  cursor: pointer;
+}
+
+/* Shimmer sweep on hover */
+.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.55s var(--aeonic-ease);
+  pointer-events: none;
+}
+
+.button:hover::after {
+  transform: translateX(100%);
+}
+
+.button:not(.button--secondary):hover,
+.button:not(.button--secondary):focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ============================================================
+   CONDITION BADGE: Product Card Overlay
+   ============================================================ */
+
 .card__media {
   position: relative;
 }
@@ -13,34 +232,40 @@
   top: 10px;
   right: 10px;
   z-index: 2;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 6px 13px;
+  padding: 5px 12px;
   border-radius: 3px;
   pointer-events: none;
   line-height: 1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .aeonic-card-condition-badge--excellent {
-  background: #1a5c38;
+  background: rgba(26, 92, 56, 0.82);
   color: #fff;
+  border: 1px solid rgba(46, 160, 77, 0.3);
 }
 
 .aeonic-card-condition-badge--very-good {
-  background: #4a6b1a;
+  background: rgba(74, 107, 26, 0.82);
   color: #fff;
+  border: 1px solid rgba(100, 145, 35, 0.3);
 }
 
 .aeonic-card-condition-badge--good {
-  background: #7a5a1a;
+  background: rgba(122, 90, 26, 0.82);
   color: #fff;
+  border: 1px solid rgba(160, 120, 40, 0.3);
 }
 
 .aeonic-card-condition-badge--fair {
-  background: #5a2a1a;
+  background: rgba(90, 42, 26, 0.82);
   color: #fff;
+  border: 1px solid rgba(140, 70, 40, 0.3);
 }
 
 /* --- Scarcity Signal: Card --- */
@@ -54,7 +279,20 @@
   margin-top: 4px;
 }
 
-/* --- Condition Block: Product Page --- */
+/* --- Card Voice Note --- */
+.aeonic-card-note {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(var(--color-foreground), 0.5);
+  line-height: 1.4;
+  margin: 4px 0 6px;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ============================================================
+   CONDITION BLOCK: Product Page
+   ============================================================ */
+
 .aeonic-condition-block {
   display: flex;
   flex-direction: column;
@@ -72,12 +310,26 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   width: fit-content;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-.aeonic-condition-badge--excellent { background: rgba(26, 92, 56, 0.1); border: 1px solid rgba(26, 92, 56, 0.25); }
-.aeonic-condition-badge--very-good { background: rgba(74, 107, 26, 0.1); border: 1px solid rgba(74, 107, 26, 0.25); }
-.aeonic-condition-badge--good { background: rgba(122, 90, 26, 0.1); border: 1px solid rgba(122, 90, 26, 0.25); }
-.aeonic-condition-badge--fair { background: rgba(90, 42, 26, 0.1); border: 1px solid rgba(90, 42, 26, 0.25); }
+.aeonic-condition-badge--excellent {
+  background: rgba(26, 92, 56, 0.08);
+  border: 1px solid rgba(26, 92, 56, 0.3);
+}
+.aeonic-condition-badge--very-good {
+  background: rgba(74, 107, 26, 0.08);
+  border: 1px solid rgba(74, 107, 26, 0.3);
+}
+.aeonic-condition-badge--good {
+  background: rgba(122, 90, 26, 0.08);
+  border: 1px solid rgba(122, 90, 26, 0.3);
+}
+.aeonic-condition-badge--fair {
+  background: rgba(90, 42, 26, 0.08);
+  border: 1px solid rgba(90, 42, 26, 0.3);
+}
 
 .aeonic-condition-badge__dot {
   width: 8px;
@@ -88,8 +340,8 @@
 
 .aeonic-condition-badge--excellent .aeonic-condition-badge__dot { background: #1a5c38; }
 .aeonic-condition-badge--very-good .aeonic-condition-badge__dot { background: #4a6b1a; }
-.aeonic-condition-badge--good .aeonic-condition-badge__dot { background: #7a5a1a; }
-.aeonic-condition-badge--fair .aeonic-condition-badge__dot { background: #7a2a1a; }
+.aeonic-condition-badge--good      .aeonic-condition-badge__dot { background: #7a5a1a; }
+.aeonic-condition-badge--fair      .aeonic-condition-badge__dot { background: #7a2a1a; }
 
 .aeonic-condition-badge__label {
   color: rgb(var(--color-foreground));
@@ -102,14 +354,17 @@
   font-size: 0.72rem;
 }
 
-/* --- Scarcity Signal: Product Page --- */
+/* ============================================================
+   SCARCITY SIGNAL: Product Page
+   ============================================================ */
+
 .aeonic-scarcity-signal {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(var(--color-foreground), 0.65);
+  color: rgba(var(--color-foreground), 0.7);
   letter-spacing: 0.01em;
 }
 
@@ -124,14 +379,17 @@
 }
 
 @keyframes aeonic-pulse {
-  0%, 100% { box-shadow: 0 0 0 2px rgba(46, 160, 77, 0.2); }
-  50% { box-shadow: 0 0 0 5px rgba(46, 160, 77, 0); }
+  0%, 100% { box-shadow: 0 0 0 2px rgba(46, 160, 77, 0.18); }
+  50%       { box-shadow: 0 0 0 6px rgba(46, 160, 77, 0); }
 }
 
-/* --- Condition Grade Explainer Section --- */
+/* ============================================================
+   CONDITION GRADE EXPLAINER — Liquid Glass cards
+   ============================================================ */
+
 .aeonic-condition-explainer {
-  border-top: 1px solid rgba(var(--color-foreground), 0.08);
-  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  border-top: 1px solid rgba(var(--color-foreground), 0.07);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.07);
 }
 
 .aeonic-condition-explainer__header {
@@ -142,33 +400,41 @@
 
 .aeonic-condition-explainer__heading {
   font-size: clamp(1.8rem, 3vw, 2.6rem);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   margin-bottom: 0.6rem;
 }
 
 .aeonic-condition-explainer__subheading {
-  font-size: 1.1rem;
-  color: rgba(var(--color-foreground), 0.65);
-  line-height: 1.55;
+  font-size: 1.05rem;
+  color: rgba(var(--color-foreground), 0.62);
+  line-height: 1.6;
   margin: 0;
 }
 
 .aeonic-condition-grades {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .aeonic-condition-grade {
   padding: 28px;
-  border: 1px solid rgba(var(--color-foreground), 0.1);
-  border-radius: 6px;
-  background: rgba(var(--color-foreground), 0.02);
-  transition: border-color 0.2s ease;
+  border: 1px solid rgba(var(--color-foreground), 0.09);
+  border-radius: var(--aeonic-radius);
+  background: rgba(var(--color-foreground), 0.025);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color var(--aeonic-t-mid) var(--aeonic-ease),
+    box-shadow var(--aeonic-t-mid) var(--aeonic-ease),
+    transform var(--aeonic-t-mid) var(--aeonic-ease-out);
+  cursor: default;
 }
 
 .aeonic-condition-grade:hover {
-  border-color: rgba(var(--color-foreground), 0.2);
+  border-color: rgba(231, 204, 135, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(231, 204, 135, 0.1);
+  transform: translateY(-2px);
 }
 
 .aeonic-condition-grade__badge {
@@ -185,60 +451,65 @@
   flex-shrink: 0;
 }
 
-.aeonic-condition-grade--excellent .aeonic-condition-grade__dot { background: #1a5c38; }
-.aeonic-condition-grade--very-good .aeonic-condition-grade__dot { background: #4a6b1a; }
-.aeonic-condition-grade--good .aeonic-condition-grade__dot { background: #7a5a1a; }
+.aeonic-condition-grade--excellent .aeonic-condition-grade__dot { background: #1a5c38; box-shadow: 0 0 8px rgba(26, 92, 56, 0.5); }
+.aeonic-condition-grade--very-good .aeonic-condition-grade__dot { background: #4a6b1a; box-shadow: 0 0 8px rgba(74, 107, 26, 0.5); }
+.aeonic-condition-grade--good      .aeonic-condition-grade__dot { background: #7a5a1a; box-shadow: 0 0 8px rgba(122, 90, 26, 0.5); }
 
 .aeonic-condition-grade__name {
-  font-size: 1.05rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgb(var(--color-foreground));
 }
 
 .aeonic-condition-grade__description {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: rgba(var(--color-foreground), 0.7);
+  font-size: 0.95rem;
+  line-height: 1.68;
+  color: rgba(var(--color-foreground), 0.68);
   margin: 0;
 }
 
 .aeonic-condition-explainer__footnote {
   text-align: center;
-  font-size: 0.82rem;
-  color: rgba(var(--color-foreground), 0.5);
+  font-size: 0.8rem;
+  color: rgba(var(--color-foreground), 0.45);
   margin-top: 2rem;
   font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 @media screen and (max-width: 749px) {
   .aeonic-condition-grades {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
-
   .aeonic-condition-grade {
     padding: 20px;
   }
 }
 
-/* --- Mobile Sticky Add-to-Cart Bar --- */
+/* ============================================================
+   MOBILE STICKY ADD-TO-CART BAR — Glass backdrop
+   ============================================================ */
+
 .aeonic-sticky-atc {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgb(var(--color-background));
-  border-top: 1px solid rgba(var(--color-foreground), 0.12);
+  background: rgba(var(--color-background), 0.88);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
   padding: 12px 20px;
   display: flex;
   align-items: center;
   gap: 12px;
   transform: translateY(100%);
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.36s var(--aeonic-ease-out);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .aeonic-sticky-atc.is-visible {
@@ -257,7 +528,7 @@
 }
 
 .aeonic-sticky-atc__price {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: rgb(var(--color-foreground));
   white-space: nowrap;
@@ -268,15 +539,15 @@
   color: rgb(var(--color-button-text));
   border: none;
   padding: 11px 20px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--buttons-radius, 2px);
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--aeonic-t-fast) var(--aeonic-ease);
 }
 
 .aeonic-sticky-atc__button:hover {
@@ -289,124 +560,10 @@
   }
 }
 
-/* --- Typography Refinements --- */
-h1, h2, .h1, .h2,
-.card__heading,
-.card__information .card__heading {
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
+/* ============================================================
+   STATS SECTION — Cinematic numbers with ambient glow
+   ============================================================ */
 
-.title,
-.section-header .title {
-  letter-spacing: -0.025em;
-}
-
-/* Gold accent underline on major section titles */
-.featured-collection .title,
-.multicolumn .title,
-.rich-text .title {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.45em;
-}
-
-.featured-collection .title::after,
-.multicolumn .title::after,
-.rich-text .title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3rem;
-  height: 2px;
-  background: #e7cc87;
-}
-
-/* Left-aligned section titles keep the rule left */
-.multicolumn[data-alignment="left"] .title::after,
-.featured-collection .title::after {
-  left: 0;
-  transform: none;
-}
-
-/* --- Card Enhancements --- */
-.card-wrapper {
-  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
-}
-
-.card-wrapper:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
-}
-
-/* Image zoom on card hover */
-.card-wrapper .media img,
-.card-wrapper .media .placeholder-svg {
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.card-wrapper:hover .media img {
-  transform: scale(1.04);
-}
-
-/* Card price — bolder, slightly larger */
-.price__regular .price-item--regular,
-.price-item--sale {
-  font-weight: 700;
-  font-size: 1.05em;
-}
-
-/* --- Button Enhancements --- */
-.button,
-.btn {
-  position: relative;
-  overflow: hidden;
-  transition: color 0.3s ease,
-              background-color 0.3s ease,
-              border-color 0.3s ease,
-              transform 0.15s ease,
-              box-shadow 0.15s ease;
-}
-
-.button:not(.button--secondary):hover,
-.button:not(.button--secondary):focus-visible {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-}
-
-.button:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-/* --- Announcement Bar --- */
-.announcement-bar__message {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-}
-
-/* --- Header --- */
-.header__heading-logo {
-  transition: opacity 0.2s ease;
-}
-
-.header__heading-logo:hover {
-  opacity: 0.85;
-}
-
-/* --- Section Rhythm --- */
-.color-scheme-4,
-.color-scheme-3 {
-  --section-vertical-padding: 60px;
-}
-
-/* --- Stats Section (aeonic-stats) --- */
 .aeonic-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -430,31 +587,38 @@ h1, h2, .h1, .h2,
   content: '';
   position: absolute;
   left: 0;
-  top: 25%;
-  height: 50%;
+  top: 20%;
+  height: 60%;
   width: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(231, 204, 135, 0.25) 40%,
+    rgba(231, 204, 135, 0.25) 60%,
+    transparent
+  );
 }
 
 .aeonic-stats__number {
   display: block;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
   font-weight: 700;
-  color: #e7cc87;
-  letter-spacing: -0.03em;
+  color: var(--aeonic-gold);
+  letter-spacing: -0.04em;
   line-height: 1;
-  font-family: var(--font-heading-family), var(--font-heading-fallback);
-  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  margin-bottom: 0.55rem;
+  text-shadow: 0 0 40px rgba(231, 204, 135, 0.3);
 }
 
 .aeonic-stats__label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.5;
   max-width: 10rem;
 }
 
@@ -462,11 +626,9 @@ h1, h2, .h1, .h2,
   .aeonic-stats {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .aeonic-stats__item:nth-child(3)::before {
     display: none;
   }
-
   .aeonic-stats__item {
     padding: 2.5rem 1.5rem;
   }
@@ -474,72 +636,49 @@ h1, h2, .h1, .h2,
 
 @media screen and (max-width: 480px) {
   .aeonic-stats__number {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 }
 
-/* --- Multicolumn Feature Cards --- */
+/* ============================================================
+   MULTICOLUMN FEATURE CARDS
+   ============================================================ */
+
 .multicolumn-card {
-  transition: transform 0.2s ease;
+  transition: transform var(--aeonic-t-mid) var(--aeonic-ease);
 }
 
 .multicolumn-card__info h3,
 .multicolumn-card__info .h3 {
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-/* --- Image with Text --- */
+/* ============================================================
+   IMAGE WITH TEXT
+   ============================================================ */
+
 .image-with-text__media-item .media {
   overflow: hidden;
 }
 
 .image-with-text__media-item .media img {
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--aeonic-t-fluid) var(--aeonic-ease);
 }
 
 .image-with-text__media-item:hover .media img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
-/* --- Footer Refinements --- */
-.footer-block__heading {
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  font-weight: 700;
-  opacity: 0.6;
-  margin-bottom: 1.2rem;
-}
+/* ============================================================
+   PULL QUOTE — Cinematic, Playfair Display
+   ============================================================ */
 
-.footer-block__brand-info .footer-block__heading {
-  letter-spacing: -0.01em;
-  text-transform: none;
-  font-size: 1.1rem;
-  font-weight: 700;
-  opacity: 1;
-}
-
-/* --- Review Cards (Judge.me) --- */
-.jdgm-rev-widg {
-  --jdgm-primary-clr: #e7cc87 !important;
-}
-
-/* --- Card Voice Note --- */
-.aeonic-card-note {
-  font-size: 0.78rem;
-  font-style: italic;
-  color: rgba(var(--color-foreground), 0.5);
-  line-height: 1.4;
-  margin: 4px 0 6px;
-}
-
-/* --- Pull Quote Section --- */
 .aeonic-pull-quote-section {
   position: relative;
 }
 
 .aeonic-pull-quote {
-  max-width: 780px;
+  max-width: 760px;
   margin: 0 auto;
   padding: 0 var(--page-width-padding, 20px);
 }
@@ -549,33 +688,42 @@ h1, h2, .h1, .h2,
   position: relative;
 }
 
+/* Animated breathing quote mark */
 .aeonic-pull-quote__mark {
   display: block;
-  font-size: clamp(5rem, 10vw, 9rem);
-  line-height: 0.5;
-  color: #e7cc87;
-  font-family: Georgia, 'Times New Roman', serif;
-  margin-bottom: 1.5rem;
+  font-size: clamp(5rem, 10vw, 10rem);
+  line-height: 0.45;
+  color: var(--aeonic-gold);
+  font-family: 'Playfair Display', Georgia, serif;
+  margin-bottom: 1.8rem;
   user-select: none;
+  animation: aeonic-breathe 5s ease-in-out infinite;
+  display: inline-block;
+  opacity: 0.65;
+}
+
+@keyframes aeonic-breathe {
+  0%, 100% { transform: translateY(0) scale(1);     opacity: 0.65; }
+  50%       { transform: translateY(-4px) scale(1.03); opacity: 0.85; }
 }
 
 .aeonic-pull-quote__text {
-  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
   font-style: italic;
   color: rgb(var(--color-foreground));
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.8rem;
   quotes: none;
 }
 
 .aeonic-pull-quote__attribution {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   font-style: normal;
-  letter-spacing: 0.04em;
-  color: rgba(var(--color-foreground), 0.6);
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.55);
   text-transform: uppercase;
 }
 
@@ -583,9 +731,13 @@ h1, h2, .h1, .h2,
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
+  opacity: 0.75;
 }
 
-/* --- Section Divider --- */
+/* ============================================================
+   SECTION DIVIDER — Ornate
+   ============================================================ */
+
 .aeonic-divider-section {
   /* padding set inline via section.settings */
 }
@@ -599,21 +751,28 @@ h1, h2, .h1, .h2,
 .aeonic-divider__rule-wrap {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.4rem;
 }
 
 .aeonic-divider__line {
   flex: 1;
   height: 1px;
-  background: rgba(var(--color-foreground), 0.15);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--color-foreground), 0.14) 30%,
+    rgba(var(--color-foreground), 0.14) 70%,
+    transparent
+  );
   display: block;
 }
 
 .aeonic-divider__symbol {
-  font-size: 0.6rem;
-  color: #e7cc87;
+  font-size: 0.55rem;
+  color: var(--aeonic-gold);
   flex-shrink: 0;
   line-height: 1;
+  text-shadow: 0 0 12px rgba(231, 204, 135, 0.6);
 }
 
 .aeonic-divider__text {
@@ -621,16 +780,78 @@ h1, h2, .h1, .h2,
   font-size: 0.78rem;
   font-style: italic;
   letter-spacing: 0.04em;
-  color: rgba(var(--color-foreground), 0.45);
+  color: rgba(var(--color-foreground), 0.4);
   margin: 10px 0 0;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
-/* --- Ticker Section --- */
-.aeonic-ticker-section {
-  /* overflow and padding set inline */
+/* ============================================================
+   TICKER — More presence
+   ============================================================ */
+
+.aeonic-ticker__item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(var(--color-foreground));
 }
 
-/* --- About Section --- */
+.aeonic-ticker__sep {
+  color: var(--aeonic-gold);
+  font-size: 0.55rem;
+  margin-left: 2.6rem;
+  flex-shrink: 0;
+  text-shadow: 0 0 8px rgba(231, 204, 135, 0.5);
+}
+
+/* ============================================================
+   THE BENCH — Liquid Glass cards
+   ============================================================ */
+
+/* Bench card styles live in the section file; these are global overrides */
+.aeonic-bench__card {
+  border: 1px solid rgba(var(--color-foreground), 0.09) !important;
+  border-radius: var(--aeonic-radius) !important;
+  background: rgba(var(--color-foreground), 0.025) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color var(--aeonic-t-mid) var(--aeonic-ease),
+    box-shadow var(--aeonic-t-mid) var(--aeonic-ease),
+    transform var(--aeonic-t-mid) var(--aeonic-ease-out) !important;
+  cursor: pointer;
+}
+
+.aeonic-bench__card:hover {
+  border-color: rgba(231, 204, 135, 0.32) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(231, 204, 135, 0.12) !important;
+  transform: translateY(-4px) !important;
+}
+
+.aeonic-bench__eyebrow {
+  letter-spacing: 0.16em;
+}
+
+.aeonic-bench__card-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Notify form input focus */
+.aeonic-bench__notify-input:focus {
+  border-color: var(--aeonic-gold) !important;
+  box-shadow: 0 0 0 3px var(--aeonic-gold-glow) !important;
+}
+
+/* ============================================================
+   ABOUT SECTION — Refined
+   ============================================================ */
+
 .aeonic-about__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -640,33 +861,48 @@ h1, h2, .h1, .h2,
 
 .aeonic-about__image-wrap {
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: var(--aeonic-radius);
+  position: relative;
+}
+
+/* Subtle vignette overlay */
+.aeonic-about__image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  pointer-events: none;
+  border-radius: var(--aeonic-radius);
 }
 
 .aeonic-about__image {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform var(--aeonic-t-fluid) var(--aeonic-ease);
 }
 
 .aeonic-about__image-wrap:hover .aeonic-about__image {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .aeonic-about__eyebrow {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #e7cc87;
+  color: var(--aeonic-gold);
   margin-bottom: 1rem;
 }
 
 .aeonic-about__heading {
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0 0 1.4rem;
   color: rgb(var(--color-foreground));
@@ -674,31 +910,65 @@ h1, h2, .h1, .h2,
 
 .aeonic-about__body {
   font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(var(--color-foreground), 0.75);
+  line-height: 1.75;
+  color: rgba(var(--color-foreground), 0.72);
   margin-bottom: 1.4rem;
 }
 
 .aeonic-about__body p + p {
-  margin-top: 0.8em;
+  margin-top: 0.9em;
 }
 
 .aeonic-about__signature {
   font-size: 1rem;
   font-style: italic;
-  color: rgba(var(--color-foreground), 0.5);
+  color: rgba(var(--color-foreground), 0.45);
   margin: 0 0 2rem;
   letter-spacing: -0.01em;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 @media screen and (max-width: 989px) {
   .aeonic-about__inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 }
 
-/* --- Hero Film Grain Overlay --- */
+/* ============================================================
+   FOOTER REFINEMENTS
+   ============================================================ */
+
+.footer-block__heading {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.55;
+  margin-bottom: 1.2rem;
+}
+
+.footer-block__brand-info .footer-block__heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* ============================================================
+   REVIEW CARDS — Judge.me
+   ============================================================ */
+
+.jdgm-rev-widg {
+  --jdgm-primary-clr: var(--aeonic-gold) !important;
+}
+
+/* ============================================================
+   HERO FILM GRAIN OVERLAY — Fine texture
+   ============================================================ */
+
 .banner__media::after {
   content: '';
   position: absolute;
@@ -709,17 +979,62 @@ h1, h2, .h1, .h2,
   pointer-events: none;
   z-index: 1;
   mix-blend-mode: overlay;
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
-/* --- Scroll Animation Refinement --- */
+/* ============================================================
+   SCROLL ANIMATION REFINEMENTS
+   ============================================================ */
+
 .scroll-trigger.animate--slide-in {
-  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transition-duration: 0.5s;
+  transition-timing-function: var(--aeonic-ease-out);
+  transition-duration: 0.55s;
 }
 
-/* --- Focus Rings --- */
-*:focus-visible {
-  outline: 2px solid #e7cc87;
-  outline-offset: 3px;
+/* Stagger scroll children */
+.scroll-trigger.animate--slide-in:nth-child(2) { transition-delay: 0.06s; }
+.scroll-trigger.animate--slide-in:nth-child(3) { transition-delay: 0.12s; }
+.scroll-trigger.animate--slide-in:nth-child(4) { transition-delay: 0.18s; }
+
+/* ============================================================
+   SECTION RHYTHM
+   ============================================================ */
+
+.color-scheme-4,
+.color-scheme-3 {
+  --section-vertical-padding: 64px;
+}
+
+/* ============================================================
+   REDUCED MOTION — Accessibility compliance
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .aeonic-pull-quote__mark {
+    animation: none;
+  }
+
+  .aeonic-scarcity-signal__dot {
+    animation: none;
+  }
+
+  .card-wrapper:hover {
+    transform: none;
+  }
+
+  .aeonic-condition-grade:hover {
+    transform: none;
+  }
+
+  .aeonic-bench__card:hover {
+    transform: none !important;
+  }
 }
