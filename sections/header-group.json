@@ -53,6 +53,10 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        ".header__menu-item[href=\"/pages/cash-offer\"] {color: #2ecc71 !important; padding: 5px 12px; border-radius: 6px; margin-left: 10px; display: inline-flex; align-items: center; height: 100%;}",
+        ".header__menu-item[href=\"/pages/cash-offer\"]:hover {background: rgba(46, 204, 113, 0.12);}"
+      ],
       "settings": {
         "logo_position": "middle-center",
         "mobile_logo_position": "center",
