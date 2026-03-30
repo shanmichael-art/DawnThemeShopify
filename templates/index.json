@@ -365,6 +365,7 @@
         "text_RDLALw",
         "button_bwranE"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -427,6 +428,49 @@
         "attribution_context": "Verified Reverb buyer",
         "padding_top": 80,
         "padding_bottom": 80
+      }
+    },
+    "rich_text_RmtXB9": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Bbnpt9": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Ready to Let One Go?</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_dGG8cV": {
+          "type": "text",
+          "settings": {
+            "text": "<p><br/>If a guitar’s no longer getting the playtime it deserves, I’ll make you a straightforward, market-based offer—no listings, no back-and-forth, no guesswork.<br/><br/></p>"
+          }
+        },
+        "button_cX6rXA": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get an Offer",
+            "button_link": "shopify://pages/cash-offer",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Bbnpt9",
+        "text_dGG8cV",
+        "button_cX6rXA"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-050f734b-9225-47e5-8dd2-29dbe025e191",
+        "full_width": true,
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "aeonic_divider_2": {
@@ -616,6 +660,7 @@
     "rich_text_WzEPcL",
     "rich_text_EnfczR",
     "aeonic_pull_quote",
+    "rich_text_RmtXB9",
     "aeonic_divider_2",
     "reviews_header",
     "1767502048e647336a",
