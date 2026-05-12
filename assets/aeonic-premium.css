@@ -1017,10 +1017,6 @@ h1, .h1 { letter-spacing: -0.03em; }
    ============================================================ */
 
 @media screen and (max-width: 749px) {
-  .card__badge {
-    margin: 0.6rem !important;
-  }
-
   .badge {
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
