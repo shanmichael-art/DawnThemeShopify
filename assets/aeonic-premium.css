@@ -135,49 +135,46 @@ h1, .h1 { letter-spacing: -0.03em; }
 }
 
 /* ============================================================
-   FEATURED COLLECTION — 2-row desktop slider (Currently In-Stock)
-   Custom flex-column container rendered via Liquid; Dawn's
-   slider-component is hidden on desktop for this section.
-   Mobile still uses Dawn's native slider (unchanged).
+   FEATURED COLLECTION — 2-row scrolling slider (Currently In-Stock)
+   Dawn's slider-component is replaced entirely in Liquid for this
+   section. Products loop into paired flex columns; the outer
+   container scrolls horizontally.
    ============================================================ */
 
+.aeonic-custom-slider {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 1.5rem;
+  gap: 8px;
+  margin-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.aeonic-custom-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile: ~2 columns visible */
+.aeonic-custom-slider__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 calc(50vw - 1.5rem - 4px);
+  scroll-snap-align: start;
+}
+
+/* Desktop: exactly 3 columns visible */
 @media screen and (min-width: 990px) {
-  #collection-featured_collection .slider-component-desktop {
-    display: none !important;
-  }
-
-  .aeonic-two-row-slider {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 8px;
-    padding: 0 1.5rem;
-    scrollbar-width: none;
-  }
-
-  .aeonic-two-row-slider::-webkit-scrollbar {
-    display: none;
-  }
-
-  .aeonic-two-row-slider .aeonic-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .aeonic-custom-slider__col {
     flex: 0 0 calc((100vw - 3rem - 16px) / 3);
-    scroll-snap-align: start;
-  }
-
-  .aeonic-two-row-slider .aeonic-cell {
-    flex: 1;
   }
 }
 
-@media screen and (max-width: 989px) {
-  .aeonic-two-row-slider {
-    display: none !important;
-  }
+.aeonic-custom-slider__item {
+  width: 100%;
 }
 
 /* ============================================================
