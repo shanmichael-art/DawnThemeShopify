@@ -1028,11 +1028,10 @@ h1, .h1 { letter-spacing: -0.03em; }
     flex-direction: column;
   }
 
-  /* Show the outer badge below the image, above the title */
+  /* Show the outer badge below the title */
   .card--standard:not(.card--horizontal) > .card__content .card__badge {
     display: block !important;
-    order: -1;
-    margin: 0.5rem 0 0 !important;
+    margin: 0 0 0.8rem !important;
   }
 
   .badge {
