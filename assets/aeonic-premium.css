@@ -1017,6 +1017,24 @@ h1, .h1 { letter-spacing: -0.03em; }
    ============================================================ */
 
 @media screen and (max-width: 749px) {
+  /* Hide the sale badge overlaid on the guitar image */
+  .card .card__inner .card__content .card__badge {
+    display: none !important;
+  }
+
+  /* Switch outer card content to flex-column so we can reorder the badge */
+  .card--standard:not(.card--horizontal) > .card__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Show the outer badge below the image, above the title */
+  .card--standard:not(.card--horizontal) > .card__content .card__badge {
+    display: block !important;
+    order: -1;
+    margin: 0.5rem 0 0 !important;
+  }
+
   .badge {
     font-size: 0.9rem;
     letter-spacing: 0.05rem;
