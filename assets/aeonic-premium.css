@@ -142,8 +142,13 @@ h1, .h1 { letter-spacing: -0.03em; }
   transition:
     transform var(--aeonic-t-mid) var(--aeonic-ease-out),
     box-shadow var(--aeonic-t-mid) var(--aeonic-ease-out);
-  will-change: transform;
   cursor: pointer;
+}
+
+/* Neutralise Dawn's perspective(0) GPU-layer hack — it causes image
+   rasterisation blur on cards that use the gradient colour scheme. */
+.card__inner.gradient {
+  transform: none;
 }
 
 .card-wrapper:hover {
