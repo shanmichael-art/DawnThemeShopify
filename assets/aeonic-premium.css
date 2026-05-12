@@ -1010,34 +1010,18 @@ h1, .h1 { letter-spacing: -0.03em; }
    ============================================================ */
 
 /* ============================================================
-   SALE BADGE — MOBILE
-   Shrink the badge on small screens so it doesn't obscure
-   the guitar image. Dawn's default badge sits at 1.2rem /
-   1.3rem padding which is too large in tight card columns.
+   SALE PRICE HIGHLIGHT
+   Red live price replaces the "Sale" bubble as the visual cue.
    ============================================================ */
 
+.price--on-sale .price-item--sale {
+  color: #d04040;
+}
+
 @media screen and (max-width: 749px) {
-  /* Hide the sale badge overlaid on the guitar image */
-  .card .card__inner .card__content .card__badge {
+  /* Hide the card badge on mobile — the red price provides the cue */
+  .card__badge {
     display: none !important;
-  }
-
-  /* Switch outer card content to flex-column so we can reorder the badge */
-  .card--standard:not(.card--horizontal) > .card__content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Show the outer badge below the title */
-  .card--standard:not(.card--horizontal) > .card__content .card__badge {
-    display: block !important;
-    margin: 0 0 0.8rem !important;
-  }
-
-  .badge {
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    padding: 0.3rem 0.7rem 0.35rem;
   }
 }
 
