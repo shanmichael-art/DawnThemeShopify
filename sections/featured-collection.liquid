@@ -197,6 +197,30 @@
       {%- endif -%}
     </slider-component>
 
+    {%- if section.id == 'featured_collection' and section.settings.collection.products.size > 0 -%}
+      <div class="aeonic-two-row-slider">
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          {%- assign col_index = forloop.index0 | modulo: 2 -%}
+          {%- if col_index == 0 -%}<div class="aeonic-col">{%- endif -%}
+          <div class="aeonic-cell">
+            {%- render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              image_shape: section.settings.image_shape,
+              lazy_load: true,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              skip_styles: true,
+              section_id: section.id,
+              quick_add: section.settings.quick_add
+            -%}
+          </div>
+          {%- if col_index == 1 or forloop.last -%}</div>{%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
     {%- if section.settings.show_view_all and more_in_collection -%}
       <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <a
