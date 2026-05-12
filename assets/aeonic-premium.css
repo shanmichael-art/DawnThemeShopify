@@ -219,6 +219,22 @@ h1, .h1 { letter-spacing: -0.03em; }
   box-shadow: none;
 }
 
+/* Add to cart / quick-add button */
+.button.quick-add__submit {
+  background-color: #1c1c1c;
+  color: var(--aeonic-gold);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+}
+
+.button.quick-add__submit:hover:not([disabled]),
+.button.quick-add__submit:focus-visible {
+  background-color: #252525;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(231, 204, 135, 0.2);
+}
+
 /* ============================================================
    CONDITION BADGE: Product Card Overlay
    ============================================================ */
