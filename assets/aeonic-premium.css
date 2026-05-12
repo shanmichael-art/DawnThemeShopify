@@ -1009,6 +1009,25 @@ h1, .h1 { letter-spacing: -0.03em; }
    REDUCED MOTION — Accessibility compliance
    ============================================================ */
 
+/* ============================================================
+   SALE BADGE — MOBILE
+   Shrink the badge on small screens so it doesn't obscure
+   the guitar image. Dawn's default badge sits at 1.2rem /
+   1.3rem padding which is too large in tight card columns.
+   ============================================================ */
+
+@media screen and (max-width: 749px) {
+  .card__badge {
+    margin: 0.6rem !important;
+  }
+
+  .badge {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.3rem 0.7rem 0.35rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
