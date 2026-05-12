@@ -159,14 +159,18 @@ h1, .h1 { letter-spacing: -0.03em; }
     0 0 0 1px rgba(231, 204, 135, 0.18);
 }
 
-/* Image zoom on card hover */
+/* Image zoom on card hover.
+   translateZ(0) at rest promotes each image to its own GPU layer so it
+   is rasterised at full resolution — prevents the parent transition from
+   blurring thumbnails before any interaction. */
 .card-wrapper .media img,
 .card-wrapper .media .placeholder-svg {
+  transform: translateZ(0);
   transition: transform var(--aeonic-t-fluid) var(--aeonic-ease);
 }
 
 .card-wrapper:hover .media img {
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
 /* Card price — bolder, slightly larger */
