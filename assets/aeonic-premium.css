@@ -136,19 +136,20 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 /* ============================================================
    FEATURED COLLECTION — 2-row scrolling slider (Currently In-Stock)
-   Dawn's slider-component is replaced entirely in Liquid for this
-   section. Products loop into paired flex columns; the outer
-   container scrolls horizontally.
+   CSS grid with grid-auto-flow: column places items in 2 rows
+   that scroll horizontally. No JS or Dawn slider infrastructure.
    ============================================================ */
 
+/* Mobile: 2 columns visible */
 .aeonic-custom-slider {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(50vw - 1.5rem - 4px);
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 0 1.5rem;
   gap: 8px;
+  padding: 0 1.5rem;
   margin-bottom: 1rem;
   scrollbar-width: none;
 }
@@ -157,24 +158,11 @@ h1, .h1 { letter-spacing: -0.03em; }
   display: none;
 }
 
-/* Mobile: ~2 columns visible */
-.aeonic-custom-slider__col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 0 0 calc(50vw - 1.5rem - 4px);
-  scroll-snap-align: start;
-}
-
-/* Desktop: exactly 3 columns visible */
+/* Desktop: 3 columns visible */
 @media screen and (min-width: 990px) {
-  .aeonic-custom-slider__col {
-    flex: 0 0 calc((100vw - 3rem - 16px) / 3);
+  .aeonic-custom-slider {
+    grid-auto-columns: calc((100vw - 3rem - 16px) / 3);
   }
-}
-
-.aeonic-custom-slider__item {
-  width: 100%;
 }
 
 /* ============================================================

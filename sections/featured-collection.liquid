@@ -92,29 +92,29 @@
       {%- endif -%}
     </div>
 
-    {%- if section.id == 'featured_collection' -%}
-      <div class="aeonic-custom-slider">
-        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          {%- assign col_index = forloop.index0 | modulo: 2 -%}
-          {%- if col_index == 0 -%}<div class="aeonic-custom-slider__col">{%- endif -%}
-          <div class="aeonic-custom-slider__item">
-            {%- render 'card-product',
-              card_product: product,
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: section.settings.image_shape,
-              lazy_load: false,
-              show_secondary_image: section.settings.show_secondary_image,
-              show_vendor: section.settings.show_vendor,
-              show_rating: section.settings.show_rating,
-              skip_styles: false,
-              section_id: section.id,
-              quick_add: section.settings.quick_add
-            -%}
-          </div>
-          {%- if col_index == 1 or forloop.last -%}</div>{%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- else -%}
+    <div class="aeonic-custom-slider">
+      {%- if section.settings.collection.products.size > 0 -%}
+        {%- paginate section.settings.collection.products by section.settings.products_to_show -%}
+          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            <div class="aeonic-custom-slider__item">
+              {%- render 'card-product',
+                card_product: product,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: section.settings.image_shape,
+                lazy_load: false,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                skip_styles: false,
+                section_id: section.id,
+                quick_add: section.settings.quick_add
+              -%}
+            </div>
+          {%- endfor -%}
+        {%- endpaginate -%}
+      {%- endif -%}
+    </div>
+    {%- if false -%}
       <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <ul
           id="Slider-{{ section.id }}"
