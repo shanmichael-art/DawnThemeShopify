@@ -81,7 +81,7 @@
         "item_4": {
           "type": "item",
           "settings": {
-            "text": "No Mass Listings"
+            "text": "Curated Listings"
           }
         },
         "item_5": {
@@ -210,7 +210,7 @@
           "type": "column",
           "settings": {
             "title": "<strong>Personally Inspected</strong>",
-            "text": "<p>Every guitar is cleaned, set up, and tested by hand — no drop-shipping, no warehouse guessing.</p>",
+            "text": "<p>Every guitar is cleaned, dialed in, and tested by hand — no drop-shipping, no warehouse guessing.</p>",
             "link_label": "",
             "link": ""
           }
@@ -297,7 +297,7 @@
         "text_KtTAAV": {
           "type": "text",
           "settings": {
-            "text": "<p>A lot of guitars online are posted exactly how they were found — dusty, untouched, vaguely described, and priced without much thought beyond profit.</p><p>That's not how Aeonic Frets works.</p><p>Every guitar that comes through here is fully cleaned, polished, set up, and played. Not because I have to — but because I love it. I want to know how it feels, how it rings, how it responds before I ever put it in someone else's hands. Sometimes I keep them. Sometimes I let one loose out of my personal collection.</p><p><strong>If it's listed here, it passed my standards first.</strong></p>",
+            "text": "<p>A lot of guitars online are posted exactly how they were found — dusty, untouched, vaguely described, and priced without much thought beyond profit.</p><p>That's not how Aeonic Frets works.</p><p>Every guitar that comes through here is fully cleaned, polished, dialed-in, and played. Not because I have to — but because I love it. I want to know how it feels, how it rings, how it responds before I ever put it in someone else's hands. Sometimes I keep them. Sometimes I let one loose out of my personal collection.</p><p><strong>If it's listed here, it passed my standards first.</strong></p>",
             "text_style": "body"
           }
         },
