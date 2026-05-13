@@ -148,6 +148,7 @@ h1, .h1 { letter-spacing: -0.03em; }
   grid-auto-columns: calc(50vw - 1.5rem - 4px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
   gap: 8px;
   padding: 0 1.5rem;
   margin-bottom: 1rem;
@@ -156,6 +157,11 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-custom-slider::-webkit-scrollbar {
   display: none;
+}
+
+/* Snap at the start of each column (odd items = row 1 = column starts) */
+.aeonic-custom-slider__item:nth-child(odd) {
+  scroll-snap-align: start;
 }
 
 /* Desktop: 3 columns visible */
