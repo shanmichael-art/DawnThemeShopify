@@ -7,6 +7,7 @@
   <title>Aeonic Frets | Links</title>
   <meta name="description" content="Offering premium, high-quality guitars, professionally set up for playability.">
   {% if settings.favicon %}<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">{% endif %}
+  {{ content_for_header }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,9 +28,11 @@
 
     html, body {
       min-height: 100%;
+      background-color: #0b0b0b !important;
     }
 
     body {
+      background-color: #0b0b0b;
       background-color: var(--bg);
       background-image:
         radial-gradient(ellipse 70% 50% at 50% -5%, rgba(231, 204, 135, 0.09) 0%, transparent 65%);
@@ -260,17 +263,20 @@
 
     <!-- Profile -->
     <header class="af-profile">
-      {% if settings.logo %}
+      {%- assign logo_src = settings.logo | image_url: width: 180 -%}
+      {%- if logo_src != blank -%}
         <img
           class="af-avatar"
-          src="{{ settings.logo | image_url: width: 180 }}"
+          src="{{ logo_src }}"
           alt="{{ shop.name }}"
           width="88"
           height="88"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
         >
-      {% else %}
+        <div class="af-avatar-placeholder" style="display:none;">🎸</div>
+      {%- else -%}
         <div class="af-avatar-placeholder">🎸</div>
-      {% endif %}
+      {%- endif -%}
 
       <h1 class="af-name">@aeonicfrets</h1>
       <p class="af-bio">Offering premium, high-quality guitars, professionally set up for playability.</p>
@@ -294,11 +300,11 @@
 
       <a href="{{ shop.url }}" class="af-link" target="_blank" rel="noopener">
         <span class="af-link-icon af-icon-site">
-          {% if settings.logo %}
-            <img src="{{ settings.logo | image_url: width: 88 }}" alt="">
-          {% else %}
+          {%- if logo_src != blank -%}
+            <img src="{{ settings.logo | image_url: width: 88 }}" alt="" onerror="this.style.display='none';this.parentElement.textContent='AF';">
+          {%- else -%}
             AF
-          {% endif %}
+          {%- endif -%}
         </span>
         <span class="af-link-label">Main Site | Best Price Anywhere 🎸</span>
         <svg class="af-link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
