@@ -1,0 +1,337 @@
+{% layout 'none' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aeonic Frets | Links</title>
+  <meta name="description" content="Offering premium, high-quality guitars, professionally set up for playability.">
+  {% if settings.favicon %}<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:          #e7cc87;
+      --gold-glow:     rgba(231, 204, 135, 0.12);
+      --gold-border:   rgba(231, 204, 135, 0.28);
+      --bg:            #0b0b0b;
+      --card:          rgba(255, 255, 255, 0.045);
+      --card-hover:    rgba(255, 255, 255, 0.085);
+      --border:        rgba(255, 255, 255, 0.07);
+      --text:          #efefef;
+      --text-muted:    rgba(239, 239, 239, 0.45);
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 70% 50% at 50% -5%, rgba(231, 204, 135, 0.09) 0%, transparent 65%);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 3.5rem 1.25rem 5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Page container ── */
+    .af-page {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* ── Profile ── */
+    .af-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2.75rem;
+      animation: af-fadeup 0.55s ease both;
+    }
+
+    .af-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold-border);
+      box-shadow: 0 0 0 5px var(--gold-glow);
+      margin-bottom: 1.1rem;
+    }
+
+    .af-avatar-placeholder {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--gold-glow);
+      border: 2px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .af-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.015em;
+      margin-bottom: 0.45rem;
+    }
+
+    .af-bio {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 300px;
+    }
+
+    /* ── Social icons ── */
+    .af-socials {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: center;
+      margin-top: 1.35rem;
+      list-style: none;
+    }
+
+    .af-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .af-social svg { width: 17px; height: 17px; fill: currentColor; }
+
+    .af-social:hover {
+      color: var(--gold);
+      border-color: var(--gold-border);
+      background: var(--gold-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ── Link buttons ── */
+    .af-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .af-link {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.85rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.22s, border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .af-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(231,204,135,0.07) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.22s;
+    }
+
+    .af-link:hover {
+      background: var(--card-hover);
+      border-color: var(--gold-border);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4), 0 0 0 1px var(--gold-border);
+    }
+
+    .af-link:hover::after { opacity: 1; }
+
+    .af-link-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .af-link-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .af-link-label {
+      flex: 1;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.35;
+      position: relative;
+      z-index: 1;
+    }
+
+    .af-link-chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .af-link:hover .af-link-chevron {
+      transform: translateX(3px);
+      color: var(--gold);
+    }
+
+    /* Platform icon colours */
+    .af-icon-site     { background: linear-gradient(135deg, #1a1a1a, #252525); color: var(--gold); font-size: 0.7rem; }
+    .af-icon-reverb   { background: #f05021; color: #fff; font-size: 1.1rem; }
+    .af-icon-sweetwater { background: #003087; color: #fff; font-size: 1rem; }
+    .af-icon-ebay     { background: #f5f5f5; }
+
+    /* eBay coloured letters */
+    .af-ebay-e { color: #e53238; }
+    .af-ebay-b { color: #0064d2; }
+    .af-ebay-a { color: #f5af02; }
+    .af-ebay-y { color: #86b817; }
+
+    /* ── Entrance animations ── */
+    @keyframes af-fadeup {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .af-links .af-link:nth-child(1) { animation: af-fadeup 0.5s 0.08s ease both; }
+    .af-links .af-link:nth-child(2) { animation: af-fadeup 0.5s 0.16s ease both; }
+    .af-links .af-link:nth-child(3) { animation: af-fadeup 0.5s 0.24s ease both; }
+    .af-links .af-link:nth-child(4) { animation: af-fadeup 0.5s 0.32s ease both; }
+
+    /* ── Footer ── */
+    .af-footer {
+      text-align: center;
+      margin-top: 2.75rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .af-footer a {
+      color: rgba(231,204,135,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .af-footer a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="af-page">
+
+    <!-- Profile -->
+    <header class="af-profile">
+      {% if settings.logo %}
+        <img
+          class="af-avatar"
+          src="{{ settings.logo | image_url: width: 180 }}"
+          alt="{{ shop.name }}"
+          width="88"
+          height="88"
+        >
+      {% else %}
+        <div class="af-avatar-placeholder">🎸</div>
+      {% endif %}
+
+      <h1 class="af-name">@aeonicfrets</h1>
+      <p class="af-bio">Offering premium, high-quality guitars, professionally set up for playability.</p>
+
+      <ul class="af-socials">
+        <li>
+          <a href="https://instagram.com/aeonicfrets" class="af-social" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.pinterest.com/aeonicfrets/" class="af-social" target="_blank" rel="noopener" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          </a>
+        </li>
+      </ul>
+    </header>
+
+    <!-- Link buttons -->
+    <nav class="af-links" aria-label="Aeonic Frets links">
+
+      <a href="{{ shop.url }}" class="af-link" target="_blank" rel="noopener">
+        <span class="af-link-icon af-icon-site">
+          {% if settings.logo %}
+            <img src="{{ settings.logo | image_url: width: 88 }}" alt="">
+          {% else %}
+            AF
+          {% endif %}
+        </span>
+        <span class="af-link-label">Main Site | Best Price Anywhere 🎸</span>
+        <svg class="af-link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <a href="https://reverb.com/shop/aeonic-frets" class="af-link" target="_blank" rel="noopener">
+        <span class="af-link-icon af-icon-reverb">R</span>
+        <span class="af-link-label">Aeonic Frets | Reverb</span>
+        <svg class="af-link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <a href="https://www.sweetwater.com/used/storefront/aeonicfrets" class="af-link" target="_blank" rel="noopener">
+        <span class="af-link-icon af-icon-sweetwater">S</span>
+        <span class="af-link-label">Aeonic Frets – Sweetwater Gear Exchange</span>
+        <svg class="af-link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <a href="https://ebay.us/m/sHA5oQ" class="af-link" target="_blank" rel="noopener">
+        <span class="af-link-icon af-icon-ebay">
+          <span style="font-size:1rem;font-weight:800;letter-spacing:-1px;">
+            <span class="af-ebay-e">e</span><span class="af-ebay-b">b</span><span class="af-ebay-a">a</span><span class="af-ebay-y">y</span>
+          </span>
+        </span>
+        <span class="af-link-label">Aeonic Frets on eBay</span>
+        <svg class="af-link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+    </nav>
+
+    <footer class="af-footer">
+      <a href="{{ shop.url }}">aeonicfrets.com</a>
+    </footer>
+
+  </div>
+</body>
+</html>
