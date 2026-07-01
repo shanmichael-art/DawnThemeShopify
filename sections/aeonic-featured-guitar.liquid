@@ -1,0 +1,313 @@
+{%- assign fg_collection = collections[section.settings.collection] -%}
+{%- assign fg_product = fg_collection.products.first -%}
+
+{%- if fg_product != blank -%}
+
+<style>
+  .fg-section {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .fg-section {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .fg-inner {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--page-width-padding, 20px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .fg-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  /* ── Image ── */
+  .fg-media {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.04);
+  }
+
+  .fg-media__img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .fg-media:hover .fg-media__img {
+    transform: scale(1.03);
+  }
+
+  .fg-media__badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(11, 11, 11, 0.72);
+    border: 1px solid rgba(231, 204, 135, 0.5);
+    color: #e7cc87;
+    font-size: 1.0rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .fg-media__badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e7cc87;
+    animation: fg-pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes fg-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ── Content ── */
+  .fg-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fg-eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e7cc87;
+    margin-bottom: 1rem;
+  }
+
+  .fg-vendor {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .fg-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: rgb(var(--color-foreground));
+    margin: 0 0 1.5rem;
+  }
+
+  .fg-note {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: rgba(var(--color-foreground), 0.65);
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .fg-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .fg-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+    letter-spacing: -0.01em;
+  }
+
+  .fg-price--compare {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: rgba(var(--color-foreground), 0.35);
+    text-decoration: line-through;
+  }
+
+  .fg-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 14px 28px;
+    border-radius: var(--buttons-radius, 2px);
+    text-decoration: none;
+    transition: opacity 0.15s ease, gap 0.2s ease;
+    align-self: flex-start;
+  }
+
+  .fg-cta:hover {
+    opacity: 0.88;
+    gap: 0.9rem;
+  }
+
+  .fg-cta svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .fg-cta:hover svg {
+    transform: translateX(3px);
+  }
+</style>
+
+<div class="fg-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="fg-inner">
+
+    <div class="fg-media{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if fg_product.featured_image -%}
+        <img
+          class="fg-media__img"
+          src="{{ fg_product.featured_image | image_url: width: 1000 }}"
+          alt="{{ fg_product.featured_image.alt | default: fg_product.title | escape }}"
+          width="1000"
+          height="750"
+          loading="lazy"
+        >
+      {%- endif -%}
+      <span class="fg-media__badge">{{ section.settings.badge_label }}</span>
+    </div>
+
+    <div class="fg-content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <span class="fg-eyebrow">{{ section.settings.eyebrow }}</span>
+
+      {%- if fg_product.vendor != blank -%}
+        <p class="fg-vendor">{{ fg_product.vendor }}</p>
+      {%- endif -%}
+
+      <h2 class="fg-title">{{ fg_product.title }}</h2>
+
+      {%- if section.settings.note != blank -%}
+        <p class="fg-note">{{ section.settings.note }}</p>
+      {%- endif -%}
+
+      <div class="fg-meta">
+        <span class="fg-price">{{ fg_product.price | money }}</span>
+        {%- if fg_product.compare_at_price > fg_product.price -%}
+          <span class="fg-price--compare">{{ fg_product.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      <a href="{{ fg_product.url }}" class="fg-cta">
+        {{ section.settings.button_label }}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Featured Guitar",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Add one guitar to a collection called 'Featured Guitar'. When you want to swap it, just swap which guitar is in the collection."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Pick of the Week"
+    },
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Image badge",
+      "default": "Featured"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Personal note",
+      "info": "Your take on what makes this guitar special. Update this each time you swap the featured guitar.",
+      "default": "This one caught my attention for a reason. Write a sentence or two about what makes it stand out."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View This Guitar"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Guitar"
+    }
+  ]
+}
+{% endschema %}

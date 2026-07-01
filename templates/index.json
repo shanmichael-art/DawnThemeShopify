@@ -9,6 +9,19 @@
  */
 {
   "sections": {
+    "aeonic_featured_guitar": {
+      "type": "aeonic-featured-guitar",
+      "settings": {
+        "collection": "featured-guitar",
+        "eyebrow": "Pick of the Week",
+        "badge_label": "Featured",
+        "note": "",
+        "button_label": "View This Guitar",
+        "color_scheme": "scheme-2",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -632,7 +645,7 @@
           "type": "column",
           "settings": {
             "title": "<strong>eBay</strong>",
-            "text": "<p><a href=\"https://www.ebay.com/usr/aeonicfrets\" target=\"_blank\" title=\"https://www.ebay.com/usr/aeonicfrets\">Checkout our eBay store →</a></p>",
+            "text": "<p><a href=\"https://www.ebay.com/usr/aeonicfrets\" target=\"_blank\" title=\"https://www.ebay.com/usr/aeonicfrets\">Check out our eBay store →</a></p>",
             "link_label": "",
             "link": "https://www.ebay.com/usr/aeonicfrets"
           }
@@ -641,7 +654,7 @@
           "type": "column",
           "settings": {
             "title": "<strong>Sweetwater Gear Exchange</strong>",
-            "text": "<p><a href=\"https://www.sweetwater.com/used/storefront/aeonicfrets\" target=\"_blank\" title=\"https://www.sweetwater.com/used/storefront/aeonicfrets\">Checkout our growing Sweetwater shop →</a></p>",
+            "text": "<p><a href=\"https://www.sweetwater.com/used/storefront/aeonicfrets\" target=\"_blank\" title=\"https://www.sweetwater.com/used/storefront/aeonicfrets\">Check out our Sweetwater shop →</a></p>",
             "link_label": "",
             "link": "https://www.sweetwater.com/used/storefront/aeonicfrets"
           }
@@ -654,7 +667,7 @@
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "title": "Also Shop On",
+        "title": "Find Us Elsewhere",
         "heading_size": "h2",
         "image_width": "full",
         "image_ratio": "adapt",
@@ -675,6 +688,7 @@
     "image_banner",
     "aeonic_ticker",
     "aeonic_stats",
+    "aeonic_featured_guitar",
     "featured_collection",
     "aeonic_divider_1",
     "aeonic_spoken_for",
