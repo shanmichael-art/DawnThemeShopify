@@ -1,0 +1,401 @@
+{%- assign sf_collection = collections[section.settings.collection] -%}
+{%- assign sf_products = sf_collection.products | default: empty -%}
+{%- assign sf_limit = section.settings.products_to_show -%}
+
+<style>
+  .sf-section {
+    background-color: rgb(var(--color-background));
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* ── Header ── */
+  .sf-header {
+    text-align: center;
+    padding: 0 1.5rem 2.5rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .sf-eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.4);
+    margin-bottom: 0.6rem;
+  }
+
+  .sf-heading {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: rgb(var(--color-foreground));
+    margin: 0 0 0.85rem;
+  }
+
+  .sf-heading em {
+    font-style: normal;
+    color: #e7cc87;
+  }
+
+  .sf-subheading {
+    font-size: 0.925rem;
+    color: rgba(var(--color-foreground), 0.5);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Scroll track ── */
+  .sf-track-outer {
+    position: relative;
+  }
+
+  .sf-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(50vw - 2rem);
+    grid-template-rows: 1fr;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 1.5rem 1.5rem;
+    scrollbar-width: none;
+  }
+
+  .sf-track::-webkit-scrollbar { display: none; }
+
+  @media screen and (min-width: 750px) {
+    .sf-track {
+      grid-auto-columns: calc(33.333% - 1.5rem);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .sf-track {
+      grid-auto-columns: calc(25% - 1.5rem);
+      padding: 0.5rem 3rem 1.5rem;
+    }
+  }
+
+  /* ── Card ── */
+  .sf-card {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.03);
+    border: 1px solid rgba(var(--color-foreground), 0.07);
+    text-decoration: none;
+    color: rgb(var(--color-foreground));
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    position: relative;
+  }
+
+  .sf-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(231, 204, 135, 0.3);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Image ── */
+  .sf-card__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: rgba(var(--color-foreground), 0.04);
+  }
+
+  .sf-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.88) brightness(0.95);
+    transition: filter 0.3s ease, transform 0.4s ease;
+  }
+
+  .sf-card:hover .sf-card__img {
+    filter: saturate(1) brightness(1);
+    transform: scale(1.03);
+  }
+
+  .sf-card__img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: rgba(var(--color-foreground), 0.15);
+  }
+
+  /* ── SOLD badge ── */
+  .sf-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(11, 11, 11, 0.72);
+    border: 1px solid rgba(231, 204, 135, 0.55);
+    color: #e7cc87;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+
+  .sf-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e7cc87;
+    flex-shrink: 0;
+  }
+
+  /* ── Card info ── */
+  .sf-card__info {
+    padding: 0.85rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  .sf-card__vendor {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(var(--color-foreground), 0.38);
+  }
+
+  .sf-card__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: rgb(var(--color-foreground));
+  }
+
+  .sf-card__price {
+    font-size: 0.78rem;
+    color: rgba(231, 204, 135, 0.65);
+    margin-top: 0.15rem;
+    font-weight: 500;
+  }
+
+  /* ── Footer link ── */
+  .sf-footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .sf-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 0.5);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s, gap 0.2s;
+  }
+
+  .sf-view-all:hover {
+    color: #e7cc87;
+    gap: 0.6rem;
+  }
+
+  .sf-view-all svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+  }
+
+  .sf-view-all:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ── Empty state ── */
+  .sf-empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: rgba(var(--color-foreground), 0.3);
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="sf-section color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+
+  <div class="sf-header">
+    <span class="sf-eyebrow">{{ section.settings.eyebrow }}</span>
+    <h2 class="sf-heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="sf-subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if sf_collection != blank and sf_collection.products_count > 0 -%}
+    <div class="sf-track-outer">
+      <div class="sf-track" id="SfTrack-{{ section.id }}">
+        {%- for product in sf_collection.products limit: sf_limit -%}
+          <a href="{{ product.url }}" class="sf-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}style="--animation-order: {{ forloop.index }};"{% endif %}>
+
+            <div class="sf-card__media">
+              {%- if product.featured_image -%}
+                <img
+                  class="sf-card__img"
+                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="sf-card__img-placeholder">🎸</div>
+              {%- endif -%}
+              <span class="sf-badge">Sold</span>
+            </div>
+
+            <div class="sf-card__info">
+              {%- if product.vendor != blank -%}
+                <span class="sf-card__vendor">{{ product.vendor }}</span>
+              {%- endif -%}
+              <span class="sf-card__title">{{ product.title }}</span>
+              {%- if product.price > 0 -%}
+                <span class="sf-card__price">Sold for {{ product.price | money }}</span>
+              {%- endif -%}
+            </div>
+
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if sf_collection.products_count > sf_limit or section.settings.show_view_all -%}
+      <div class="sf-footer">
+        <a href="{{ sf_collection.url }}" class="sf-view-all">
+          See all {{ sf_collection.products_count }} spoken for
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  {%- else -%}
+    <p class="sf-empty">No guitars in this collection yet.</p>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Spoken For",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "label": "Max guitars to show",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Always show "See all" link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "The proof is in the history"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Spoken For"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "These guitars found their home. The good ones don't last — and this is the record."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spoken For"
+    }
+  ]
+}
+{% endschema %}

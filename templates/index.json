@@ -173,6 +173,30 @@
         "padding_bottom": 0
       }
     },
+    "aeonic_spoken_for": {
+      "type": "aeonic-spoken-for",
+      "settings": {
+        "collection": "spoken-for",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "eyebrow": "The proof is in the history",
+        "heading": "Spoken For",
+        "subheading": "These guitars found their home. The good ones don't last — and this is the record.",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "aeonic_divider_spoken": {
+      "type": "aeonic-divider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "symbol": "◆",
+        "text": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "aeonic_bench": {
       "type": "aeonic-bench",
       "blocks": {
@@ -653,6 +677,8 @@
     "aeonic_stats",
     "featured_collection",
     "aeonic_divider_1",
+    "aeonic_spoken_for",
+    "aeonic_divider_spoken",
     "aeonic_bench",
     "multicolumn_gr3x7T",
     "aeonic_condition_explainer",
