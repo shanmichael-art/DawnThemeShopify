@@ -10,6 +10,36 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Remove Dawn's default blockquote border-left */
+  .aeonic-pull-quote__inner blockquote {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 0 2rem !important;
+  }
+
+  /* Fix quote text size — clamp min was 12px due to 10px root */
+  .aeonic-pull-quote__text {
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem) !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Fix attribution size — was 8px */
+  .aeonic-pull-quote__attribution {
+    font-size: 1.2rem !important;
+    letter-spacing: 0.1em !important;
+    color: rgba(var(--color-foreground), 0.5) !important;
+  }
+
+  /* Gold hairline before attribution */
+  .aeonic-pull-quote__attribution::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: rgba(231, 204, 135, 0.5);
+    margin: 0 auto 1.2rem;
+  }
 </style>
 
 <div class="aeonic-pull-quote-section color-{{ section.settings.color_scheme }} gradient">

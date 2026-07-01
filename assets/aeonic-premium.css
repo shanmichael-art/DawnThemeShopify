@@ -770,22 +770,22 @@ h1, .h1 { letter-spacing: -0.03em; }
 }
 
 .aeonic-pull-quote__text {
-  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
-  line-height: 1.55;
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  line-height: 1.5;
   letter-spacing: -0.015em;
   font-style: italic;
   color: rgb(var(--color-foreground));
-  margin: 0 0 1.8rem;
+  margin: 0 0 2rem;
   quotes: none;
 }
 
 .aeonic-pull-quote__attribution {
   display: block;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 600;
   font-style: normal;
-  letter-spacing: 0.08em;
-  color: rgba(var(--color-foreground), 0.55);
+  letter-spacing: 0.1em;
+  color: rgba(var(--color-foreground), 0.5);
   text-transform: uppercase;
 }
 
