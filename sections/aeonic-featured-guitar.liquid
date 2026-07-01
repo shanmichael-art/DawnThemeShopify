@@ -33,24 +33,72 @@
     }
   }
 
-  /* ── Image ── */
-  .fg-media {
+  /* ── Gallery ── */
+  .fg-gallery {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .fg-gallery__thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    width: 68px;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .fg-gallery__thumbs::-webkit-scrollbar { display: none; }
+
+  .fg-thumb {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    background: rgba(var(--color-foreground), 0.04);
+    transition: border-color 0.18s ease;
+  }
+
+  .fg-thumb:hover {
+    border-color: rgba(231, 204, 135, 0.5);
+  }
+
+  .fg-thumb--active {
+    border-color: #e7cc87;
+  }
+
+  .fg-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .fg-gallery__main {
     position: relative;
-    border-radius: 12px;
+    flex: 1;
+    border-radius: 10px;
     overflow: hidden;
     background: rgba(var(--color-foreground), 0.04);
   }
 
-  .fg-media__img {
+  .fg-gallery__img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: opacity 0.2s ease;
   }
 
-  .fg-media:hover .fg-media__img {
-    transform: scale(1.03);
+  .fg-gallery__img.is-loading {
+    opacity: 0;
   }
 
   .fg-media__badge {
@@ -71,6 +119,7 @@
     border-radius: 100px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    z-index: 2;
   }
 
   .fg-media__badge::before {
@@ -189,19 +238,58 @@
 <div class="fg-section color-{{ section.settings.color_scheme }} gradient">
   <div class="fg-inner">
 
-    <div class="fg-media{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      {%- if fg_product.featured_image -%}
+    <div class="fg-gallery{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" id="FgGallery-{{ section.id }}">
+
+      {%- if fg_product.images.size > 1 -%}
+        <div class="fg-gallery__thumbs">
+          {%- for image in fg_product.images -%}
+            <button class="fg-thumb{% if forloop.first %} fg-thumb--active{% endif %}"
+              data-src="{{ image | image_url: width: 1000 }}"
+              data-alt="{{ image.alt | default: fg_product.title | escape }}"
+              aria-label="View image {{ forloop.index }}">
+              <img src="{{ image | image_url: width: 140 }}" alt="" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="fg-gallery__main">
         <img
-          class="fg-media__img"
+          class="fg-gallery__img"
+          id="FgMainImg-{{ section.id }}"
           src="{{ fg_product.featured_image | image_url: width: 1000 }}"
           alt="{{ fg_product.featured_image.alt | default: fg_product.title | escape }}"
           width="1000"
-          height="750"
+          height="1000"
           loading="lazy"
         >
-      {%- endif -%}
-      <span class="fg-media__badge">{{ section.settings.badge_label }}</span>
+        <span class="fg-media__badge">{{ section.settings.badge_label }}</span>
+      </div>
+
     </div>
+
+    <script>
+      (function() {
+        var gallery = document.getElementById('FgGallery-{{ section.id }}');
+        if (!gallery) return;
+        var mainImg = document.getElementById('FgMainImg-{{ section.id }}');
+        gallery.querySelectorAll('.fg-thumb').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            gallery.querySelectorAll('.fg-thumb').forEach(function(b) { b.classList.remove('fg-thumb--active'); });
+            btn.classList.add('fg-thumb--active');
+            mainImg.classList.add('is-loading');
+            var newSrc = btn.dataset.src;
+            var tmp = new Image();
+            tmp.onload = function() {
+              mainImg.src = newSrc;
+              mainImg.alt = btn.dataset.alt;
+              mainImg.classList.remove('is-loading');
+            };
+            tmp.src = newSrc;
+          });
+        });
+      })();
+    </script>
 
     <div class="fg-content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <span class="fg-eyebrow">{{ section.settings.eyebrow }}</span>
