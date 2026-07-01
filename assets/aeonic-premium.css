@@ -534,8 +534,8 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-condition-explainer__footnote {
   text-align: center;
-  font-size: 0.8rem;
-  color: rgba(var(--color-foreground), 0.45);
+  font-size: 1.35rem;
+  color: rgba(var(--color-foreground), 0.55);
   margin-top: 2rem;
   font-style: italic;
   font-family: 'Playfair Display', Georgia, serif;
