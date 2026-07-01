@@ -839,7 +839,7 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-divider__text {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: 1.3rem;
   font-style: italic;
   letter-spacing: 0.04em;
   color: rgba(var(--color-foreground), 0.4);
@@ -954,7 +954,7 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-about__eyebrow {
   display: block;
-  font-size: 0.7rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
