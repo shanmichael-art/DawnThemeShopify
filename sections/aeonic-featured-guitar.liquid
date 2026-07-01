@@ -169,13 +169,14 @@
 
   .fg-cta:hover svg { transform: translateX(3px); }
 
-  /* Force single-image mobile slider — base.css sets .grid--peek .grid__item to ~47% wide
-     (showing two images at once). Override to 100% so the slider shows one at a time. */
+  /* On mobile, base.css makes .grid--peek items ~50% wide (two images visible at once).
+     Hide non-active items the same way desktop does — thumbnail taps still switch via JS. */
   @media screen and (max-width: 749px) {
-    .fg-media-wrap .product__media-list .product__media-item {
-      width: 100% !important;
-      min-width: 0 !important;
-      box-sizing: border-box !important;
+    .fg-media-wrap .product__media-item {
+      display: none !important;
+    }
+    .fg-media-wrap .product__media-item.is-active {
+      display: block !important;
     }
   }
 </style>
