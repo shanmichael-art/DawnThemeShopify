@@ -70,6 +70,15 @@
             "page": ""
           }
         },
+        "returns_tab": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Returns",
+            "icon": "return",
+            "content": "<p><strong>Not as described or damaged?</strong> Contact me within 3 days of delivery for a full refund including return shipping — no questions asked.</p><p><strong>Changed your mind?</strong> Returns accepted within 3 days in original condition. A 15% restocking fee applies and return shipping is the buyer's responsibility.</p><p>Start all returns through the <a href=\"/pages/return-policy\">return policy page</a> or <a href=\"/pages/contact\">contact me directly</a> before shipping anything back.</p>",
+            "page": ""
+          }
+        },
         "judge_me_reviews_preview_badge_nWrXUc": {
           "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
@@ -85,6 +94,7 @@
         "description",
         "inspection_notes",
         "shipping_tab",
+        "returns_tab",
         "judge_me_reviews_preview_badge_nWrXUc"
       ],
       "settings": {

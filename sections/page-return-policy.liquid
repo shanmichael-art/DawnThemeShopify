@@ -1,0 +1,212 @@
+<style>
+  .return-policy-section {
+    padding-top: 80px;
+    padding-bottom: 100px;
+  }
+
+  .return-policy {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--page-width-padding, 20px);
+  }
+
+  .return-policy__eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e7cc87;
+    margin-bottom: 1rem;
+  }
+
+  .return-policy__heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.8rem, 4vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: rgb(var(--color-foreground));
+    margin: 0 0 2rem;
+  }
+
+  .return-policy__lead {
+    font-size: 1.6rem;
+    line-height: 1.65;
+    color: rgba(var(--color-foreground), 0.7);
+    margin: 0 0 3.5rem;
+  }
+
+  .return-policy__block {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .return-policy__block:last-of-type {
+    border-bottom: none;
+  }
+
+  .return-policy__block-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: rgb(var(--color-foreground));
+    margin: 0 0 1.2rem;
+  }
+
+  .return-policy__block-heading .tag {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 0.6rem;
+    position: relative;
+    top: -2px;
+  }
+
+  .return-policy__block-heading .tag--free {
+    background: rgba(46, 160, 77, 0.12);
+    color: #2ea04d;
+    border: 1px solid rgba(46, 160, 77, 0.3);
+  }
+
+  .return-policy__block-heading .tag--fee {
+    background: rgba(231, 204, 135, 0.12);
+    color: #e7cc87;
+    border: 1px solid rgba(231, 204, 135, 0.3);
+  }
+
+  .return-policy p {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: rgba(var(--color-foreground), 0.75);
+    margin: 0 0 1.2rem;
+  }
+
+  .return-policy ul {
+    margin: 0.8rem 0 1.4rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .return-policy ul li {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.75);
+    padding: 0.4rem 0 0.4rem 1.8rem;
+    position: relative;
+  }
+
+  .return-policy ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #e7cc87;
+    font-weight: 600;
+  }
+
+  .return-policy__note {
+    background: rgba(var(--color-foreground), 0.03);
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    border-radius: 8px;
+    padding: 1.8rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .return-policy__note p {
+    margin: 0;
+    font-size: 1.4rem;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .return-policy__cta {
+    margin-top: 3.5rem;
+    text-align: center;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .return-policy__cta p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: rgba(var(--color-foreground), 0.65);
+  }
+</style>
+
+<div class="return-policy-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="return-policy">
+
+    <span class="return-policy__eyebrow">Buyer Protection</span>
+    <h1 class="return-policy__heading">Return Policy</h1>
+    <p class="return-policy__lead">I stand behind every guitar I sell. Here's exactly how returns work — no fine print, no runaround.</p>
+
+    <div class="return-policy__block">
+      <h2 class="return-policy__block-heading">
+        Not as described or damaged in shipping
+        <span class="tag tag--free">Free</span>
+      </h2>
+      <p>If what shows up doesn't match the listing — condition, specifications, or anything else I documented — I'll make it right. No argument, no hassle.</p>
+      <p>Contact me within <strong>3 days of delivery</strong> and I'll arrange a full refund including return shipping. Once the guitar is back and confirmed in its original condition, you'll receive a complete refund to your original payment method.</p>
+      <p>This is the kind of seller I want to buy from, so it's the kind of seller I'm going to be.</p>
+    </div>
+
+    <div class="return-policy__block">
+      <h2 class="return-policy__block-heading">
+        Changed your mind
+        <span class="tag tag--fee">15% restocking fee</span>
+      </h2>
+      <p>I understand it happens. If you'd like to return a guitar because it's not the right fit, I'll work with you — under these conditions:</p>
+      <ul>
+        <li>Contact me within <strong>3 days of delivery</strong></li>
+        <li>Guitar must be returned in the exact same condition it shipped — no new wear, damage, or missing components</li>
+        <li>A <strong>15% restocking fee</strong> applies to cover my time, relisting costs, and original shipping</li>
+        <li>Return shipping is the buyer's responsibility</li>
+      </ul>
+      <p>Once the guitar arrives and I've confirmed its condition, I'll issue a refund of the purchase price minus the restocking fee.</p>
+    </div>
+
+    <div class="return-policy__block">
+      <h2 class="return-policy__block-heading">How to start a return</h2>
+      <p>Reach out through the <a href="/pages/contact" style="color: #e7cc87;">contact page</a> before shipping anything back. Include your order number and a brief description of the issue and I'll get back to you quickly with next steps.</p>
+      <p>Returns sent without prior authorization may not be accepted.</p>
+
+      <div class="return-policy__note">
+        <p>If you have questions about a guitar before buying — condition, playability, specs, what's included — just ask. I'd rather answer ten questions upfront than deal with a return after.</p>
+      </div>
+    </div>
+
+    <div class="return-policy__cta">
+      <p>Questions about an order or a return?</p>
+      <a href="/pages/contact" class="button">Contact Me</a>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Return Policy",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Return Policy"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "return_policy": {
+      "type": "page-return-policy",
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": ["return_policy"]
+}
