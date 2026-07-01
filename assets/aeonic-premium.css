@@ -518,7 +518,7 @@ h1, .h1 { letter-spacing: -0.03em; }
 .aeonic-condition-grade--good      .aeonic-condition-grade__dot { background: #7a5a1a; box-shadow: 0 0 8px rgba(122, 90, 26, 0.5); }
 
 .aeonic-condition-grade__name {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -526,8 +526,8 @@ h1, .h1 { letter-spacing: -0.03em; }
 }
 
 .aeonic-condition-grade__description {
-  font-size: 0.95rem;
-  line-height: 1.68;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: rgba(var(--color-foreground), 0.68);
   margin: 0;
 }
