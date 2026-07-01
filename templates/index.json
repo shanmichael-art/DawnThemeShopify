@@ -22,7 +22,7 @@
         "subtext": {
           "type": "text",
           "settings": {
-            "text": "Hand-selected guitars, set up and played before they’re ever listed.",
+            "text": "Hand-selected guitars, dialed in and played before they’re ever listed.",
             "text_style": "body"
           }
         },
@@ -205,7 +205,7 @@
           "settings": {
             "guitar_name": "Coming Soon — Watch This Space",
             "status": "coming_soon",
-            "work_description": "Currently being cleaned, set up, and played. Details will be added before it lists.",
+            "work_description": "Currently being cleaned, dialed in, and played. Details added before it lists.",
             "eta": "Est. listing: soon"
           }
         }
@@ -218,7 +218,7 @@
         "color_scheme": "scheme-1",
         "eyebrow": "What I’m Working On",
         "heading": "The Bench",
-        "subheading": "These guitars aren’t listed yet. Setup is in progress — check back soon, or get notified when they drop.",
+        "subheading": "These guitars aren’t listed yet. Being dialed in — check back soon, or get notified when they drop.",
         "show_notify": true,
         "notify_label": "Want a heads-up when something drops? Leave your email.",
         "notify_placeholder": "your@email.com",
@@ -298,11 +298,11 @@
         "heading": "How We Grade Our Guitars",
         "subheading": "Every listing includes an honest condition grade and full notes. No surprises when the case opens.",
         "grade_1_name": "Excellent",
-        "grade_1_desc": "Looks and plays like new. May have been barely played — cosmetically near-flawless with no structural issues. Full setup done, intonation dialed, action set to preference.",
+        "grade_1_desc": "Looks and plays like new. May have been barely played — cosmetically near-flawless with no structural issues. Buzz-free, intonation verified — plays cleanly right out of the case.",
         "grade_2_name": "Very Good",
-        "grade_2_desc": "Shows light play wear — minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Fully playable and set up. All cosmetic notes are documented in the listing.",
+        "grade_2_desc": "Shows light play wear — minor pick marks, light buckle rash, or small finish scuffs. Nothing structural. Plays cleanly — buzz-free, intonation checked. All cosmetic notes are documented in the listing.",
         "grade_3_name": "Good",
-        "grade_3_desc": "Has visible character from real use. Nothing hidden — every mark is photographed and noted. Still fully functional with a proper setup. Priced to reflect its honest condition.",
+        "grade_3_desc": "Has visible character from real use. Nothing hidden — every mark is photographed and noted. Plays cleanly despite the wear — intonation checked, buzz-free. Priced to reflect its honest condition.",
         "footnote": "All guitars ship fully insured. Condition notes and photos are included in every listing — no guessing.",
         "padding_top": 60,
         "padding_bottom": 60
@@ -369,7 +369,7 @@
         "text_RDLALw": {
           "type": "text",
           "settings": {
-            "text": "<p>Hand-selected guitars, professionally cleaned, set up, and played — not flipped blindly, not rushed, not treated like inventory.</p>"
+            "text": "<p>Hand-selected guitars, professionally cleaned, dialed in, and played — not flipped blindly, not rushed, not treated like inventory.</p>"
           }
         },
         "button_bwranE": {
