@@ -13,16 +13,20 @@
       "type": "aeonic-about",
       "settings": {
         "color_scheme": "scheme-2",
+        "image": "shopify://shop_images/IMG_3078.jpg",
+        "image_position": "left",
         "eyebrow": "About Aeonic Frets",
-        "heading": "I\u2019m Shan, the founder of Aeonic Frets.",
-        "body": "<p>Like a lot of guitar players, my obsession started with picking up an instrument and never really putting it down. What began as a love for playing quickly grew into a fascination with the craftsmanship, history, and personality that every guitar carries. Over the years I\u2019ve owned, played, restored, photographed, and studied hundreds of instruments\u2014from everyday workhorses to rare collector pieces\u2014and I still get excited every time I open a guitar case.</p><p>Aeonic Frets was built from that passion.</p><p>My goal has never been to become the biggest guitar store. Instead, I want to build a place where musicians and collectors can buy with confidence, knowing every instrument has been carefully inspected, accurately represented, and honestly described.</p><p>Every guitar that comes through Aeonic Frets is personally evaluated by me. I document its condition in detail, verify its specifications, photograph it professionally, and spend the time to write descriptions that tell you what the guitar is actually like to own and play\u2014not just what\u2019s on a spec sheet. If there are imperfections, I\u2019ll point them out. If there\u2019s something truly special about the instrument, I\u2019ll tell you why I think it stands out.</p><p>When I\u2019m not working with guitars, I\u2019m a software engineer by profession. That background has shaped how I run Aeonic Frets. I believe in systems, transparency, organization, and constant improvement. Behind the scenes I\u2019ve built much of the technology that powers my inventory management and listing process, allowing me to focus more time on finding exceptional guitars and providing an experience I\u2019d want as a buyer myself.</p><p>At the end of the day, I\u2019m simply a guitarist who never lost the excitement of discovering a great instrument. Whether you\u2019re searching for your first serious guitar, replacing an old favorite, or adding something special to your collection, I genuinely appreciate you trusting Aeonic Frets to be part of that journey.</p><p>Thanks for stopping by, and I hope you find a guitar that inspires you every time you pick it up.</p>",
-        "signature": "\u2014 Shan, Founder of Aeonic Frets",
-        "cta_label": "See What\u2019s In Stock",
+        "heading": "I’m Shan, the founder of Aeonic Frets.",
+        "body": "<p>Like a lot of guitar players, my obsession started with picking up an instrument and never really putting it down. What began as a love for playing quickly grew into a fascination with the craftsmanship, history, and personality that every guitar carries. Over the years I’ve owned, played, restored, photographed, and studied hundreds of instruments—from everyday workhorses to rare collector pieces—and I still get excited every time I open a guitar case.</p><p>Aeonic Frets was built from that passion.</p><p>My goal has never been to become the biggest guitar store. Instead, I want to build a place where musicians and collectors can buy with confidence, knowing every instrument has been carefully inspected, accurately represented, and honestly described.</p><p>Every guitar that comes through Aeonic Frets is personally evaluated by me. I document its condition in detail, verify its specifications, photograph it professionally, and spend the time to write descriptions that tell you what the guitar is actually like to own and play—not just what’s on a spec sheet. If there are imperfections, I’ll point them out. If there’s something truly special about the instrument, I’ll tell you why I think it stands out.</p><p>When I’m not working with guitars, I’m a software engineer by profession. That background has shaped how I run Aeonic Frets. I believe in systems, transparency, organization, and constant improvement. Behind the scenes I’ve built much of the technology that powers my inventory management and listing process, allowing me to focus more time on finding exceptional guitars and providing an experience I’d want as a buyer myself.</p><p>At the end of the day, I’m simply a guitarist who never lost the excitement of discovering a great instrument. Whether you’re searching for your first serious guitar, replacing an old favorite, or adding something special to your collection, I genuinely appreciate you trusting Aeonic Frets to be part of that journey.</p><p>Thanks for stopping by, and I hope you find a guitar that inspires you every time you pick it up.</p>",
+        "signature": "— Shan, Founder of Aeonic Frets",
+        "cta_label": "See What’s In Stock",
         "cta_link": "shopify://collections/guitars-in-stock",
         "padding_top": 80,
         "padding_bottom": 80
       }
     }
   },
-  "order": ["about"]
+  "order": [
+    "about"
+  ]
 }
