@@ -169,14 +169,22 @@
 
   .fg-cta:hover svg { transform: translateX(3px); }
 
-  /* On mobile, base.css makes .grid--peek items ~50% wide (two images visible at once).
-     Hide non-active items the same way desktop does — thumbnail taps still switch via JS. */
+  /* On mobile, base.css sets .grid--peek .grid__item to ~50% wide (two images at once).
+     Force the list to full width and show only the active item at 100% width. */
   @media screen and (max-width: 749px) {
+    .fg-media-wrap .product__media-list {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
     .fg-media-wrap .product__media-item {
       display: none !important;
     }
     .fg-media-wrap .product__media-item.is-active {
       display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
     }
   }
 </style>
