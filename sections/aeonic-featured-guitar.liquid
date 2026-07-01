@@ -3,6 +3,9 @@
 
 {%- if fg_product != blank -%}
 
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
 <style>
   .fg-section {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -23,7 +26,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: start;
   }
 
   @media screen and (min-width: 750px) {
@@ -33,72 +36,9 @@
     }
   }
 
-  /* ── Gallery ── */
-  .fg-gallery {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .fg-gallery__thumbs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
-    width: 68px;
-    max-height: 500px;
-    overflow-y: auto;
-    scrollbar-width: none;
-  }
-
-  .fg-gallery__thumbs::-webkit-scrollbar { display: none; }
-
-  .fg-thumb {
-    width: 68px;
-    height: 68px;
-    flex-shrink: 0;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    padding: 0;
-    background: rgba(var(--color-foreground), 0.04);
-    transition: border-color 0.18s ease;
-  }
-
-  .fg-thumb:hover {
-    border-color: rgba(231, 204, 135, 0.5);
-  }
-
-  .fg-thumb--active {
-    border-color: #e7cc87;
-  }
-
-  .fg-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .fg-gallery__main {
+  /* ── Gallery wrap ── */
+  .fg-media-wrap {
     position: relative;
-    flex: 1;
-    border-radius: 10px;
-    overflow: hidden;
-    background: rgba(var(--color-foreground), 0.04);
-  }
-
-  .fg-gallery__img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.2s ease;
-  }
-
-  .fg-gallery__img.is-loading {
-    opacity: 0;
   }
 
   .fg-media__badge {
@@ -119,7 +59,7 @@
     border-radius: 100px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    z-index: 2;
+    z-index: 10;
   }
 
   .fg-media__badge::before {
@@ -134,14 +74,13 @@
 
   @keyframes fg-pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
   }
 
   /* ── Content ── */
   .fg-content {
     display: flex;
     flex-direction: column;
-    gap: 0;
   }
 
   .fg-eyebrow {
@@ -219,10 +158,7 @@
     align-self: flex-start;
   }
 
-  .fg-cta:hover {
-    opacity: 0.88;
-    gap: 0.9rem;
-  }
+  .fg-cta:hover { opacity: 0.88; gap: 0.9rem; }
 
   .fg-cta svg {
     width: 16px;
@@ -230,66 +166,19 @@
     transition: transform 0.2s ease;
   }
 
-  .fg-cta:hover svg {
-    transform: translateX(3px);
-  }
+  .fg-cta:hover svg { transform: translateX(3px); }
 </style>
 
 <div class="fg-section color-{{ section.settings.color_scheme }} gradient">
   <div class="fg-inner">
 
-    <div class="fg-gallery{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" id="FgGallery-{{ section.id }}">
-
-      {%- if fg_product.images.size > 1 -%}
-        <div class="fg-gallery__thumbs">
-          {%- for image in fg_product.images -%}
-            <button class="fg-thumb{% if forloop.first %} fg-thumb--active{% endif %}"
-              data-src="{{ image | image_url: width: 1000 }}"
-              data-alt="{{ image.alt | default: fg_product.title | escape }}"
-              aria-label="View image {{ forloop.index }}">
-              <img src="{{ image | image_url: width: 140 }}" alt="" loading="lazy">
-            </button>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      <div class="fg-gallery__main">
-        <img
-          class="fg-gallery__img"
-          id="FgMainImg-{{ section.id }}"
-          src="{{ fg_product.featured_image | image_url: width: 1000 }}"
-          alt="{{ fg_product.featured_image.alt | default: fg_product.title | escape }}"
-          width="1000"
-          height="1000"
-          loading="lazy"
-        >
-        <span class="fg-media__badge">{{ section.settings.badge_label }}</span>
+    <div class="fg-media-wrap{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <span class="fg-media__badge">{{ section.settings.badge_label }}</span>
+      <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}">
+        {%- assign fg_variant_images = blank -%}
+        {%- render 'product-media-gallery', product: fg_product, variant_images: fg_variant_images -%}
       </div>
-
     </div>
-
-    <script>
-      (function() {
-        var gallery = document.getElementById('FgGallery-{{ section.id }}');
-        if (!gallery) return;
-        var mainImg = document.getElementById('FgMainImg-{{ section.id }}');
-        gallery.querySelectorAll('.fg-thumb').forEach(function(btn) {
-          btn.addEventListener('click', function() {
-            gallery.querySelectorAll('.fg-thumb').forEach(function(b) { b.classList.remove('fg-thumb--active'); });
-            btn.classList.add('fg-thumb--active');
-            mainImg.classList.add('is-loading');
-            var newSrc = btn.dataset.src;
-            var tmp = new Image();
-            tmp.onload = function() {
-              mainImg.src = newSrc;
-              mainImg.alt = btn.dataset.alt;
-              mainImg.classList.remove('is-loading');
-            };
-            tmp.src = newSrc;
-          });
-        });
-      })();
-    </script>
 
     <div class="fg-content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <span class="fg-eyebrow">{{ section.settings.eyebrow }}</span>
@@ -334,7 +223,7 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection",
-      "info": "Add one guitar to a collection called 'Featured Guitar'. When you want to swap it, just swap which guitar is in the collection."
+      "info": "Add one guitar to a collection called 'Featured Guitar'. Swap the guitar in the collection to update this section."
     },
     {
       "type": "text",
@@ -352,7 +241,7 @@
       "type": "textarea",
       "id": "note",
       "label": "Personal note",
-      "info": "Your take on what makes this guitar special. Update this each time you swap the featured guitar.",
+      "info": "Your take on what makes this guitar special. Update each time you swap the featured guitar.",
       "default": "This one caught my attention for a reason. Write a sentence or two about what makes it stand out."
     },
     {
@@ -360,6 +249,81 @@
       "id": "button_label",
       "label": "Button label",
       "default": "View This Guitar"
+    },
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Thumbnail position",
+      "options": [
+        { "value": "thumbnail", "label": "Below (row)" },
+        { "value": "thumbnail_slider", "label": "Below (slider)" }
+      ],
+      "default": "thumbnail"
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "label": "Image size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "label": "Thumbnails on mobile",
+      "options": [
+        { "value": "show", "label": "Show" },
+        { "value": "hide", "label": "Hide" }
+      ],
+      "default": "show"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "label": "Hide variant images",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "contain", "label": "Contain" },
+        { "value": "cover", "label": "Cover" }
+      ],
+      "default": "contain"
+    },
+    {
+      "type": "checkbox",
+      "id": "constrain_to_viewport",
+      "label": "Constrain media to viewport height",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Enable sticky content",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "label": "Image zoom",
+      "options": [
+        { "value": "lightbox", "label": "Lightbox" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "lightbox"
     },
     {
       "type": "color_scheme",
