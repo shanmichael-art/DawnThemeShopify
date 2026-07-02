@@ -209,8 +209,10 @@
 
       <h2 class="fg-title">{{ fg_product.title }}</h2>
 
-      {%- if section.settings.note != blank -%}
-        <p class="fg-note">{{ section.settings.note }}</p>
+      {%- assign fg_note = shop.metafields.featured_guitar.note.value -%}
+      {%- unless fg_note != blank -%}{%- assign fg_note = section.settings.note -%}{%- endunless -%}
+      {%- if fg_note != blank -%}
+        <p class="fg-note">{{ fg_note }}</p>
       {%- endif -%}
 
       <div class="fg-meta">
