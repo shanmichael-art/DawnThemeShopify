@@ -9,28 +9,6 @@
  */
 {
   "sections": {
-    "aeonic_featured_guitar": {
-      "type": "aeonic-featured-guitar",
-      "settings": {
-        "collection": "featured-guitar",
-        "eyebrow": "Pick of the Week",
-        "badge_label": "Featured",
-        "note": "A 1981 ES-335 in this condition doesn't show up very often — I'll say that upfront. The Natural finish has aged into something you genuinely can't manufacture: warm, golden, and quietly stunning in person. Original pickups still intact, phenomenal fret condition for its age, and that unmistakable semi-hollow resonance that newer guitars spend decades trying to recreate. I played this one for a long time before I thought about listing it. That's usually the sign.",
-        "button_label": "View This Guitar",
-        "gallery_layout": "thumbnail",
-        "media_size": "large",
-        "mobile_thumbnails": "show",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "media_fit": "contain",
-        "constrain_to_viewport": false,
-        "enable_sticky_info": false,
-        "image_zoom": "lightbox",
-        "color_scheme": "scheme-2",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -155,6 +133,28 @@
         "stat_4_label": "Avg. Ship Time",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "aeonic_featured_guitar": {
+      "type": "aeonic-featured-guitar",
+      "settings": {
+        "collection": "featured-guitar",
+        "eyebrow": "Pick of the Week",
+        "badge_label": "Featured",
+        "note": "A 1982 ES-335 in this condition doesn't show up very often — I'll say that upfront. The Natural finish has aged into something you genuinely can't manufacture: warm, golden, and quietly stunning in person. Original pickups still intact, phenomenal fret condition for its age, and that unmistakable semi-hollow resonance that newer guitars spend decades trying to recreate. I played this one for a long time before I thought about listing it. That's usually the sign.",
+        "button_label": "View This Guitar",
+        "gallery_layout": "thumbnail",
+        "media_size": "large",
+        "mobile_thumbnails": "show",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "media_fit": "contain",
+        "constrain_to_viewport": false,
+        "enable_sticky_info": false,
+        "image_zoom": "lightbox",
+        "color_scheme": "scheme-2",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "featured_collection": {
@@ -584,7 +584,8 @@
             "arrows_color": "#000000",
             "transition_speed": 5,
             "header_text": "Recent Reviews",
-            "show_average_rating": true
+            "show_average_rating": true,
+            "rating_display": "default"
           }
         }
       },
