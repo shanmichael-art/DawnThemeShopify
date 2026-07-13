@@ -99,7 +99,7 @@
         "item_8": {
           "type": "item",
           "settings": {
-            "text": "Gone When It’s Gone"
+            "text": "Rare Gear"
           }
         }
       },
@@ -123,12 +123,12 @@
       "type": "aeonic-stats",
       "settings": {
         "color_scheme": "scheme-4",
-        "stat_1_number": "1000+",
+        "stat_1_number": "2000+",
         "stat_1_label": "Guitars Sold",
         "stat_2_number": "100%",
         "stat_2_label": "Hand-Inspected",
         "stat_3_number": "★★★★★",
-        "stat_3_label": "Rated on Reverb",
+        "stat_3_label": "Rated on all 5 Platforms",
         "stat_4_number": "<24hrs",
         "stat_4_label": "Avg. Ship Time",
         "padding_top": 0,
