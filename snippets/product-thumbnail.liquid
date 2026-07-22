@@ -25,6 +25,8 @@
   %}
 {% endcomment %}
 
+{%- capture image_alt %}{% render 'aeonic-image-alt', alt_source: media.alt, product_title: product_title, position: position, total: media_count %}{% endcapture -%}
+
 {%- liquid
   unless lazy_load == false
     assign lazy = 'lazy'
@@ -85,7 +87,8 @@
           class: image_class,
           loading: lazy,
           sizes: sizes,
-          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+          alt: image_alt
       }}
     </div>
     <button
@@ -126,7 +129,8 @@
         | image_tag:
           loading: lazy,
           sizes: sizes,
-          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+          alt: image_alt
       }}
     </button>
     <template>

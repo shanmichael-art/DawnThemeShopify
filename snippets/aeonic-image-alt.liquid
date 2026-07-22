@@ -1,0 +1,39 @@
+{%- comment -%}
+  Builds alt text for a product image, generating a fallback when the image has
+  none of its own.
+
+  Inventory syncs in from marketplaces with empty alt text, so a one-time
+  backfill in the admin would go stale with every new listing. Generating at
+  render time keeps every image covered, including products that don't exist yet.
+
+  Accepts:
+  - alt_source:    {String} Existing alt text, used as-is when present
+  - product_title: {String} Product title, used to build the fallback
+  - position:      {Number} (optional) This image's index
+  - total:         {Number} (optional) Total image count
+  - suffix:        {String} (optional) Used instead of "photo X of Y"
+
+  Outputs UNESCAPED text. Escape at the call site for raw alt="" attributes;
+  pass it straight to image_tag, which escapes its own attribute values.
+
+  Usage:
+  {%- capture image_alt %}{% render 'aeonic-image-alt',
+    alt_source: media.alt, product_title: product.title,
+    position: position, total: media_count %}{% endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign aeonic_alt = alt_source | default: '' | strip
+
+  if aeonic_alt == blank
+    assign aeonic_alt = product_title | default: '' | strip | truncate: 100
+
+    if aeonic_alt != blank
+      if suffix != blank
+        assign aeonic_alt = aeonic_alt | append: ' — ' | append: suffix
+      elsif position != blank and total != blank and total > 1
+        assign aeonic_alt = aeonic_alt | append: ' — photo ' | append: position | append: ' of ' | append: total
+      endif
+    endif
+  endif
+-%}
+{{- aeonic_alt -}}
