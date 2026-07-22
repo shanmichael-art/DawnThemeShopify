@@ -76,6 +76,12 @@
             "custom_liquid": "<style>.aeonic-trust-row{display:flex;flex-wrap:wrap;gap:0.6rem 1.4rem;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(var(--color-foreground),0.08)}.aeonic-trust-item{display:flex;align-items:center;gap:0.5rem;font-size:1.25rem;color:rgba(var(--color-foreground),0.55);line-height:1}.aeonic-trust-item svg{width:14px;height:14px;flex-shrink:0;color:#2ea04d}.aeonic-trust-item--returns svg{color:#2ea04d}.aeonic-trust-item--shipping svg{color:#e7cc87}.aeonic-trust-item--secure svg{color:rgba(var(--color-foreground),0.4)}</style><div class=\"aeonic-trust-row\"><span class=\"aeonic-trust-item aeonic-trust-item--returns\"><svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"1 4 1 10 7 10\"/><path d=\"M3.51 15a9 9 0 1 0 .49-8.56\"/></svg>3-day returns</span><span class=\"aeonic-trust-item aeonic-trust-item--shipping\"><svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"1\" y=\"3\" width=\"10\" height=\"9\" rx=\"1\"/><path d=\"M11 6h2l2 3v3h-4V6z\"/><circle cx=\"4\" cy=\"13.5\" r=\"1.5\"/><circle cx=\"13\" cy=\"13.5\" r=\"1.5\"/></svg>Fully insured shipping</span><span class=\"aeonic-trust-item aeonic-trust-item--secure\"><svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 1L2 4v4c0 3.5 2.5 6.8 6 7.7 3.5-.9 6-4.2 6-7.7V4L8 1z\"/></svg>Secure checkout</span></div>"
           }
         },
+        "delivery_estimate": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>.aeonic-delivery{display:flex;align-items:center;gap:0.7rem;margin-top:1.4rem;padding:1.1rem 1.4rem;background:rgba(46,160,77,0.06);border:1px solid rgba(46,160,77,0.18);border-radius:8px;font-size:1.4rem;line-height:1.35;color:rgba(var(--color-foreground),0.75)}.aeonic-delivery svg{width:18px;height:18px;flex-shrink:0;color:#2ea04d}.aeonic-delivery strong{color:rgb(var(--color-foreground));font-weight:700;white-space:nowrap}</style><div class=\"aeonic-delivery\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"1\" y=\"5\" width=\"14\" height=\"12\" rx=\"1\"/><path d=\"M15 8h4l3 4v5h-6V8z\"/><circle cx=\"6\" cy=\"18\" r=\"2\"/><circle cx=\"18\" cy=\"18\" r=\"2\"/></svg><span>Arrives as early as <strong data-aeonic-delivery-date>&mdash;</strong></span></div><script>(function(){function addBiz(d,n){var r=new Date(d),c=0;while(c<n){r.setDate(r.getDate()+1);var g=r.getDay();if(g!==0&&g!==6)c++;}return r;}var els=document.querySelectorAll('[data-aeonic-delivery-date]');if(els.length){var d=addBiz(new Date(),3),t=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});els.forEach(function(e){e.textContent=t;});}})();</script>"
+          }
+        },
         "returns_tab": {
           "type": "collapsible_tab",
           "settings": {
@@ -98,6 +104,7 @@
         "variant_picker",
         "trust_badges",
         "buy_buttons",
+        "delivery_estimate",
         "description",
         "inspection_notes",
         "shipping_tab",
