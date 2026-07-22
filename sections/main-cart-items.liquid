@@ -150,14 +150,16 @@
                             stack, so a buyer who saw a figure there sees a consistent one here.
                           endcomment
                           assign tax_base = item.variant.compare_at_price | times: item.quantity
+                          assign rate_low = section.settings.tax_rate_low | default: 6
+                          assign rate_high = section.settings.tax_rate_high | default: 9
                           assign tax_low = tax_base
-                            | times: section.settings.tax_rate_low
+                            | times: rate_low
                             | divided_by: 100
                             | plus: 500
                             | divided_by: 1000
                             | times: 1000
                           assign tax_high = tax_base
-                            | times: section.settings.tax_rate_high
+                            | times: rate_high
                             | divided_by: 100
                             | plus: 500
                             | divided_by: 1000
