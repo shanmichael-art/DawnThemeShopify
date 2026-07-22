@@ -359,7 +359,9 @@ h1, .h1 { letter-spacing: -0.03em; }
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 4px;
+  /* Sits between the product title and the price — needs room on both sides
+     so the badge reads as its own tier, not as part of the price block. */
+  margin-bottom: 1.4rem;
 }
 
 .aeonic-condition-badge {
