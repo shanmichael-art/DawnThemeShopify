@@ -70,15 +70,6 @@
           "type": "description",
           "settings": {}
         },
-        "inspection_notes": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Inspection Notes",
-            "icon": "clipboard",
-            "content": "<p>Inspection notes will be added per listing. Each guitar is personally played, cleaned, and dialed in before listing.</p>",
-            "page": ""
-          }
-        },
         "shipping_tab": {
           "type": "collapsible_tab",
           "settings": {
@@ -125,7 +116,6 @@
         "buy_buttons",
         "delivery_estimate",
         "description",
-        "inspection_notes",
         "shipping_tab",
         "returns_tab",
         "judge_me_reviews_preview_badge_nWrXUc"
