@@ -140,15 +140,40 @@
                       {%- if section.settings.show_savings
                         and item.variant.compare_at_price > item.variant.price
                       -%}
-                        {%- assign line_savings = item.variant.compare_at_price
-                          | minus: item.variant.price
-                          | times: item.quantity
+                        {%- liquid
+                          assign line_savings = item.variant.compare_at_price
+                            | minus: item.variant.price
+                            | times: item.quantity
+
+                          comment
+                            Same rates and nearest-$10 rounding as the product page value
+                            stack, so a buyer who saw a figure there sees a consistent one here.
+                          endcomment
+                          assign tax_base = item.variant.compare_at_price | times: item.quantity
+                          assign tax_low = tax_base
+                            | times: section.settings.tax_rate_low
+                            | divided_by: 100
+                            | plus: 500
+                            | divided_by: 1000
+                            | times: 1000
+                          assign tax_high = tax_base
+                            | times: section.settings.tax_rate_high
+                            | divided_by: 100
+                            | plus: 500
+                            | divided_by: 1000
+                            | times: 1000
+                          assign save_low = line_savings | plus: tax_low
+                          assign save_high = line_savings | plus: tax_high
                         -%}
                         <p class="aeonic-cart-savings">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="2 8.5 6 12.5 14 4"/>
                           </svg>
-                          <span><strong>{{ line_savings | money }} below</strong> the {{ section.settings.marketplace_name }} price</span>
+                          {%- if section.settings.show_tax_estimate -%}
+                            <span><strong>{{ save_low | money_without_trailing_zeros }}&ndash;{{ save_high | money_without_trailing_zeros }} below {{ section.settings.marketplace_name }}</strong>, tax included</span>
+                          {%- else -%}
+                            <span><strong>{{ line_savings | money }} below</strong> the {{ section.settings.marketplace_name }} price</span>
+                          {%- endif -%}
                         </p>
                       {%- endif -%}
 
@@ -500,6 +525,25 @@
       "id": "marketplace_name",
       "label": "Marketplace name",
       "default": "Reverb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_estimate",
+      "label": "Include estimated sales tax in the saving",
+      "info": "Keep these rates matched to the product page value stack so the two figures agree.",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "tax_rate_low",
+      "label": "Low end of typical sales tax (%)",
+      "default": 6
+    },
+    {
+      "type": "number",
+      "id": "tax_rate_high",
+      "label": "High end of typical sales tax (%)",
+      "default": 9
     },
     {
       "type": "header",
