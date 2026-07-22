@@ -87,6 +87,7 @@
                     {% endif %}
                   >
                     <td class="cart-item__media">
+                      {%- capture cart_item_alt %}{% render 'aeonic-image-alt', alt_source: item.image.alt, product_title: item.product.title %}{% endcapture -%}
                       {% if item.image %}
                         {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
                         <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
@@ -94,7 +95,7 @@
                           <img
                             src="{{ item.image | image_url: width: 300 }}"
                             class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
-                            alt="{{ item.image.alt | escape }}"
+                            alt="{{ cart_item_alt | escape }}"
                             loading="lazy"
                             width="150"
                             height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
@@ -129,6 +130,26 @@
                         <div class="product-option">
                           {{ item.original_price | money }}
                         </div>
+                      {%- endif -%}
+
+                      {%- comment -%}
+                        Per-line saving is the price delta only. Shipping is charged once per
+                        order, not per item, so folding it in here would overstate a multi-item
+                        cart. Shipping and tax are stated once in the cart footer instead.
+                      {%- endcomment -%}
+                      {%- if section.settings.show_savings
+                        and item.variant.compare_at_price > item.variant.price
+                      -%}
+                        {%- assign line_savings = item.variant.compare_at_price
+                          | minus: item.variant.price
+                          | times: item.quantity
+                        -%}
+                        <p class="aeonic-cart-savings">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="2 8.5 6 12.5 14 4"/>
+                          </svg>
+                          <span><strong>{{ line_savings | money }} below</strong> the {{ section.settings.marketplace_name }} price</span>
+                        </p>
                       {%- endif -%}
 
                       {%- if item.product.has_only_default_variant == false
@@ -466,6 +487,19 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_savings",
+      "label": "Show direct-buy saving on each line",
+      "info": "Shows how far below the marketplace price each item is. Only appears when the product has a higher compare-at price.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "marketplace_name",
+      "label": "Marketplace name",
+      "default": "Reverb"
     },
     {
       "type": "header",
