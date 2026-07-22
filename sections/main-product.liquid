@@ -2235,6 +2235,19 @@
           "default": "Florida"
         },
         {
+          "type": "checkbox",
+          "id": "show_delivery",
+          "label": "Show live delivery estimate",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "delivery_days",
+          "label": "Business days to delivery",
+          "info": "Counted from today, skipping weekends. Calculated live in the browser.",
+          "default": 3
+        },
+        {
           "type": "header",
           "content": "Marketplace comparison"
         },
@@ -2277,8 +2290,8 @@
         {
           "type": "checkbox",
           "id": "show_tax_estimate",
-          "label": "Show estimated sales tax range",
-          "info": "Shows an approximate dollar range a buyer would pay in sales tax on a marketplace. Turn off to state the no-tax fact without a dollar figure.",
+          "label": "Include estimated sales tax in the savings",
+          "info": "Adds the sales tax a marketplace would collect into the headline savings figure, marked with an asterisk. Turn off to show only the price and shipping savings as an exact number.",
           "default": true
         },
         {
@@ -2296,8 +2309,9 @@
         {
           "type": "textarea",
           "id": "footnote",
-          "label": "Footnote",
-          "default": "Sales tax is collected only where required by law. Most buyers outside Florida pay none."
+          "label": "Asterisk footnote",
+          "info": "Explains the estimated tax included in the savings figure. Only shown when the tax estimate is on.",
+          "default": "* Includes the sales tax a marketplace is required to collect, estimated at 6–9% depending on your state. I collect sales tax only where legally required — for most buyers outside Florida, that's none."
         }
       ]
     }

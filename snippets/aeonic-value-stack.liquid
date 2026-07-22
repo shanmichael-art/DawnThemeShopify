@@ -1,5 +1,6 @@
 {% comment %}
-  Renders the "buy direct" value stack — total cost here vs. the marketplace.
+  Renders the "buy direct" value stack — total cost here vs. the marketplace,
+  plus the live delivery estimate.
 
   Accepts:
   - product: {Object} Product liquid object
@@ -43,17 +44,24 @@
   assign savings = mkt_total | minus: direct_total
 
   comment
-    Tax estimate is deliberately based on the item price only, not the
-    marketplace total — it understates slightly, which is the safe direction.
-    Falls back to our own price when there is no compare-at price, otherwise
-    the estimate would render as $0.00.
+    Tax estimate is based on the item price only, not the marketplace total —
+    it understates slightly, which is the safe direction. Falls back to our own
+    price when there is no compare-at price, otherwise it would render as $0.
   endcomment
   assign tax_base = mkt_price
   if tax_base == blank or tax_base < price
     assign tax_base = price
   endif
-  assign tax_low = tax_base | times: s.tax_rate_low | divided_by: 100
-  assign tax_high = tax_base | times: s.tax_rate_high | divided_by: 100
+
+  comment
+    Rounded to the nearest $10 so the range reads as an estimate rather than
+    false precision. (+500 before the integer divide rounds instead of floors.)
+  endcomment
+  assign tax_low = tax_base | times: s.tax_rate_low | divided_by: 100 | plus: 500 | divided_by: 1000 | times: 1000
+  assign tax_high = tax_base | times: s.tax_rate_high | divided_by: 100 | plus: 500 | divided_by: 1000 | times: 1000
+
+  assign save_low = savings | plus: tax_low
+  assign save_high = savings | plus: tax_high
 -%}
 
 <div class="aeonic-vs" {{ block.shopify_attributes }}>
@@ -76,6 +84,12 @@
       <dt>Your total</dt>
       <dd>{{ direct_total | money }}</dd>
     </div>
+    {%- if s.show_delivery -%}
+      <div class="aeonic-vs__line aeonic-vs__line--delivery" data-aeonic-delivery hidden>
+        <dt>Arrives as early as</dt>
+        <dd data-aeonic-delivery-date></dd>
+      </div>
+    {%- endif -%}
   </dl>
 
   {%- if has_comparison -%}
@@ -85,7 +99,7 @@
         <span class="aeonic-vs__compare-price">{{ mkt_total | money }}</span>
       </p>
       <p class="aeonic-vs__compare-note">
-        {{ mkt_price | money }} + {{ mkt_ship | money }} shipping{% if s.show_tax_estimate %}, plus roughly {{ tax_low | money }}–{{ tax_high | money }} sales tax in most states{% endif %}
+        {{ mkt_price | money }} + {{ mkt_ship | money }} shipping{% if s.show_tax_estimate %}, plus {{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }} sales tax in most states{% endif %}
       </p>
     </div>
 
@@ -94,29 +108,59 @@
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="2 8.5 6 12.5 14 4"/>
         </svg>
-        <span>
-          You save <strong>{{ savings | money }}</strong> buying direct{% if s.show_tax_estimate %} — plus the sales tax{% endif %}.
-        </span>
+        {%- if s.show_tax_estimate -%}
+          <span>
+            You save <strong>{{ save_low | money_without_trailing_zeros }}–{{ save_high | money_without_trailing_zeros }}</strong> buying direct.<sup>*</sup>
+          </span>
+        {%- else -%}
+          <span>
+            You save <strong>{{ savings | money }}</strong> buying direct.
+          </span>
+        {%- endif -%}
       </p>
     {%- endif -%}
-  {%- else -%}
-    {%- if s.show_tax_estimate -%}
-      <p class="aeonic-vs__savings">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="2 8.5 6 12.5 14 4"/>
-        </svg>
-        <span>
-          Buying here skips the sales tax the marketplaces collect — roughly
-          <strong>{{ tax_low | money }}–{{ tax_high | money }}</strong> on a guitar at this price.
-        </span>
-      </p>
-    {%- endif -%}
+  {%- elsif s.show_tax_estimate -%}
+    <p class="aeonic-vs__savings">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="2 8.5 6 12.5 14 4"/>
+      </svg>
+      <span>
+        Buying here skips the sales tax the marketplaces collect — roughly
+        <strong>{{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }}</strong> on a guitar at this price.<sup>*</sup>
+      </span>
+    </p>
   {%- endif -%}
 
-  {%- if s.footnote != blank -%}
+  {%- if s.show_tax_estimate and s.footnote != blank -%}
     <p class="aeonic-vs__footnote">{{ s.footnote }}</p>
   {%- endif -%}
 </div>
+
+{%- if s.show_delivery -%}
+  <script>
+    (function () {
+      var rows = document.querySelectorAll('[data-aeonic-delivery]');
+      if (!rows.length) return;
+
+      var days = {{ s.delivery_days | default: 3 }};
+      var d = new Date();
+      var added = 0;
+      while (added < days) {
+        d.setDate(d.getDate() + 1);
+        var wd = d.getDay();
+        if (wd !== 0 && wd !== 6) added++;
+      }
+      var label = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+      rows.forEach(function (row) {
+        var target = row.querySelector('[data-aeonic-delivery-date]');
+        if (!target) return;
+        target.textContent = label;
+        row.removeAttribute('hidden');
+      });
+    })();
+  </script>
+{%- endif -%}
 
 {%- style -%}
   .aeonic-vs {
@@ -148,6 +192,10 @@
     justify-content: space-between;
     gap: 1.2rem;
     padding: 0.45rem 0;
+  }
+
+  .aeonic-vs__line[hidden] {
+    display: none;
   }
 
   .aeonic-vs__line dt,
@@ -184,6 +232,21 @@
     font-size: 1.6rem;
     font-weight: 700;
     color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-vs__line--delivery {
+    padding-top: 0.7rem;
+  }
+
+  .aeonic-vs__line--delivery dt,
+  .aeonic-vs__line--delivery dd {
+    font-size: 1.3rem;
+    color: rgba(var(--color-foreground), 0.55);
+  }
+
+  .aeonic-vs__line--delivery dd {
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 0.75);
   }
 
   .aeonic-vs__compare {
@@ -234,6 +297,11 @@
     color: rgb(var(--color-foreground));
   }
 
+  .aeonic-vs__savings sup {
+    font-size: 0.7em;
+    line-height: 1;
+  }
+
   .aeonic-vs__savings svg {
     width: 15px;
     height: 15px;
@@ -243,8 +311,8 @@
   }
 
   .aeonic-vs__footnote {
-    margin: 1rem 0 0;
-    font-size: 1.2rem;
+    margin: 0.9rem 0 0;
+    font-size: 1.15rem;
     line-height: 1.5;
     color: rgba(var(--color-foreground), 0.45);
   }

@@ -586,7 +586,7 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-sticky-atc__title {
   flex: 1;
-  font-size: 0.88rem;
+  font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -596,7 +596,7 @@ h1, .h1 { letter-spacing: -0.03em; }
 }
 
 .aeonic-sticky-atc__price {
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: rgb(var(--color-foreground));
   white-space: nowrap;
@@ -606,8 +606,8 @@ h1, .h1 { letter-spacing: -0.03em; }
   background: rgb(var(--color-button));
   color: rgb(var(--color-button-text));
   border: none;
-  padding: 11px 20px;
-  font-size: 0.8rem;
+  padding: 12px 22px;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
