@@ -255,8 +255,8 @@
         "column_XmzFKU": {
           "type": "column",
           "settings": {
-            "title": "<strong>Personally Inspected</strong>",
-            "text": "<p>Every guitar is cleaned, dialed in, and tested by hand — no drop-shipping, no warehouse guessing.</p>",
+            "title": "<strong>A Lower Price Than My Own Listings</strong>",
+            "text": "<p>The same guitar costs less here than it does on the marketplaces I sell it on. There's no platform fee built into the price, so I hand that back to you instead.</p>",
             "link_label": "",
             "link": ""
           }
@@ -264,8 +264,8 @@
         "column_tBGmEX": {
           "type": "column",
           "settings": {
-            "title": "<strong>Enthusiast-Owned</strong>",
-            "text": "<p>This isn't a shop — it's a collection curated by a guitarist who plays what he sells.</p>",
+            "title": "<strong>No Sales Tax for Most Buyers</strong>",
+            "text": "<p>Marketplace platforms are required to collect sales tax in nearly every state. I only collect where I'm legally required to — for most buyers outside Florida, that's nothing at all.</p>",
             "link_label": "",
             "link": ""
           }
@@ -273,8 +273,8 @@
         "column_d9t9Lb": {
           "type": "column",
           "settings": {
-            "title": "<strong>Honest Condition Notes</strong>",
-            "text": "<p>If there's a flaw, it's documented clearly. No surprises when the case opens.</p>",
+            "title": "<strong>$75 Flat Insured Shipping</strong>",
+            "text": "<p>One rate anywhere in the US, whether the guitar is $500 or $5,000. Fully insured, signature required, and it doesn't climb with the price the way marketplace shipping does.</p>",
             "link_label": "",
             "link": ""
           }
@@ -282,8 +282,8 @@
         "column_PwVA6z": {
           "type": "column",
           "settings": {
-            "title": "<strong>Fast, Insured Shipping</strong>",
-            "text": "<p>Ships quickly, packed properly, and fully insured — always.</p>",
+            "title": "<strong>You're Talking to Me</strong>",
+            "text": "<p>Not a support queue. The person who inspected, photographed, packed, and shipped your guitar is the same person who answers when you ask a question.</p>",
             "link_label": "",
             "link": ""
           }
@@ -297,7 +297,7 @@
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "title": "<strong>Why Aeonic Frets Is Different</strong>",
+        "title": "<strong>Why Buy Direct Instead of the Marketplace</strong>",
         "heading_size": "h1",
         "image_width": "full",
         "image_ratio": "adapt",
@@ -435,14 +435,14 @@
         "text_nhdFp9": {
           "type": "text",
           "settings": {
-            "text": "<p>Aeonic Frets started as a passion project and grew through word-of-mouth, repeat buyers, and players who appreciate transparency.</p><p>Most customers don't just buy one guitar — they come back.</p>"
+            "text": "<p>Aeonic Frets started as a passion project and grew through word-of-mouth, repeat buyers, and players who appreciate transparency.</p><p>Most customers don't just buy one guitar — they come back.</p><p><em>Same guitar, same packing, same insurance, same person on the other end. Buying here just costs less, because there's no platform fee in the price.</em></p>"
           }
         },
         "button_yVARXi": {
           "type": "button",
           "settings": {
             "button_label": "Read Buyer Feedback",
-            "button_link": "https://reverb.com/shop/aeonic-frets/feedback#",
+            "button_link": "#shopify-section-1767502048e647336a",
             "button_style_secondary": true,
             "button_label_2": "",
             "button_link_2": "",
@@ -615,8 +615,8 @@
         "button_6ibawJ": {
           "type": "button",
           "settings": {
-            "button_label": "See All Reviews",
-            "button_link": "https://reverb.com/shop/aeonic-frets/feedback#",
+            "button_label": "See What's In Stock",
+            "button_link": "shopify://collections/guitars-in-stock",
             "button_style_secondary": false,
             "button_label_2": "",
             "button_link_2": "",
@@ -646,27 +646,27 @@
           "type": "column",
           "settings": {
             "title": "<strong>Reverb</strong>",
-            "text": "<p><a href=\"https://reverb.com/shop/aeonic-frets/\" target=\"_blank\" title=\"https://reverb.com/shop/aeonic-frets/\">Check us out where inventory lands <strong>first</strong> →</a></p>",
+            "text": "<p>Public seller feedback going back to my first sale. Read it before you buy — that's what it's there for.</p><p><a href=\"https://reverb.com/shop/aeonic-frets/feedback\" target=\"_blank\" rel=\"noopener\" title=\"Aeonic Frets feedback on Reverb\">Verify my feedback →</a></p>",
             "link_label": "",
-            "link": "https://reverb.com/shop/aeonic-frets/"
+            "link": ""
           }
         },
         "column_gP4Fkq": {
           "type": "column",
           "settings": {
             "title": "<strong>eBay</strong>",
-            "text": "<p><a href=\"https://www.ebay.com/usr/aeonicfrets\" target=\"_blank\" title=\"https://www.ebay.com/usr/aeonicfrets\">Check out our eBay store →</a></p>",
+            "text": "<p>An established storefront with a public transaction record stretching back years.</p>",
             "link_label": "",
-            "link": "https://www.ebay.com/usr/aeonicfrets"
+            "link": ""
           }
         },
         "column_MNKG9K": {
           "type": "column",
           "settings": {
             "title": "<strong>Sweetwater Gear Exchange</strong>",
-            "text": "<p><a href=\"https://www.sweetwater.com/used/storefront/aeonicfrets\" target=\"_blank\" title=\"https://www.sweetwater.com/used/storefront/aeonicfrets\">Check out our Sweetwater shop →</a></p>",
+            "text": "<p>Listed on Sweetwater's vetted used-gear marketplace — not a platform that lets just anyone sell.</p>",
             "link_label": "",
-            "link": "https://www.sweetwater.com/used/storefront/aeonicfrets"
+            "link": ""
           }
         }
       },
@@ -677,7 +677,7 @@
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
-        "title": "Find Us Elsewhere",
+        "title": "<strong>Where I've Built My Reputation</strong>",
         "heading_size": "h2",
         "image_width": "full",
         "image_ratio": "adapt",
