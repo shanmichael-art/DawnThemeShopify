@@ -526,10 +526,25 @@
                     </div>
                   {%- endif -%}
                   {%- if block.settings.show_scarcity and product.available -%}
-                    <div class="aeonic-scarcity-signal">
-                      <span class="aeonic-scarcity-signal__dot"></span>
-                      <span>One of a kind — when it's gone, it's gone.</span>
-                    </div>
+                    <ul class="aeonic-assurance">
+                      {%- if block.settings.scarcity_text != blank -%}
+                        <li class="aeonic-assurance__item">
+                          <svg class="aeonic-assurance__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M8 1.4 14.6 8 8 14.6 1.4 8z"/>
+                          </svg>
+                          <span>{{ block.settings.scarcity_text }}</span>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.photo_note != blank -%}
+                        <li class="aeonic-assurance__item">
+                          <svg class="aeonic-assurance__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M1.6 5.9a1 1 0 0 1 1-1h2L5.9 3h4.2l1.3 1.9h2a1 1 0 0 1 1 1v6.6a1 1 0 0 1-1 1H2.6a1 1 0 0 1-1-1z"/>
+                            <circle cx="8" cy="9.1" r="2.4"/>
+                          </svg>
+                          <span>{{ block.settings.photo_note }}</span>
+                        </li>
+                      {%- endif -%}
+                    </ul>
                   {%- endif -%}
                 </div>
               {%- when 'value_stack' -%}
@@ -2166,8 +2181,22 @@
         {
           "type": "checkbox",
           "id": "show_scarcity",
-          "label": "Show 'one of a kind' availability signal",
+          "label": "Show assurance lines below the condition badge",
           "default": true
+        },
+        {
+          "type": "text",
+          "id": "scarcity_text",
+          "label": "Scarcity line",
+          "info": "Leave blank to hide.",
+          "default": "One of a kind — when it's gone, it's gone."
+        },
+        {
+          "type": "text",
+          "id": "photo_note",
+          "label": "Photo authenticity line",
+          "info": "Leave blank to hide.",
+          "default": "These are photos of the actual guitar for sale."
         }
       ]
     },
