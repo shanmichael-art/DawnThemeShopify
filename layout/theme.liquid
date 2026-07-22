@@ -376,6 +376,16 @@
 
     {%- if template == 'product' -%}
       <div class="aeonic-sticky-atc" id="AeonicStickyATC" aria-hidden="true">
+        {%- if product.featured_image -%}
+          <img
+            class="aeonic-sticky-atc__thumb"
+            src="{{ product.featured_image | image_url: width: 120 }}"
+            alt=""
+            width="42"
+            height="42"
+            loading="lazy"
+          >
+        {%- endif -%}
         <span class="aeonic-sticky-atc__title">{{ product.title | escape }}</span>
         <span class="aeonic-sticky-atc__price">{{ product.selected_or_first_available_variant.price | money }}</span>
         {%- if product.available -%}

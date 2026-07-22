@@ -584,8 +584,18 @@ h1, .h1 { letter-spacing: -0.03em; }
   transform: translateY(0);
 }
 
+.aeonic-sticky-atc__thumb {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
 .aeonic-sticky-atc__title {
   flex: 1;
+  min-width: 0;
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -620,6 +630,67 @@ h1, .h1 { letter-spacing: -0.03em; }
 
 .aeonic-sticky-atc__button:hover {
   opacity: 0.85;
+}
+
+/* ============================================================
+   CART ASSURANCE — concrete costs below the checkout button
+   ============================================================ */
+
+.aeonic-cart-assurance {
+  margin-top: 1.8rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  text-align: left;
+}
+
+.aeonic-cart-assurance__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.aeonic-cart-assurance__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: rgba(var(--color-foreground), 0.62);
+}
+
+.aeonic-cart-assurance__list strong {
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.aeonic-cart-assurance__list svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: #e7cc87;
+}
+
+.aeonic-cart-assurance__contact {
+  margin: 1.4rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.aeonic-cart-assurance__contact a {
+  color: #e7cc87;
+}
+
+/* On narrow phones the thumbnail, price and button need the room more than a
+   title truncated to a few characters — the image carries the recognition. */
+@media screen and (max-width: 400px) {
+  .aeonic-sticky-atc__title {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 990px) {
