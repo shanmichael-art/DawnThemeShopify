@@ -24,7 +24,7 @@
         "announcement-bar-1": {
           "type": "announcement",
           "settings": {
-            "text": "Same day shipping",
+            "text": "Ships Within 1 Business Day",
             "link": ""
           }
         },

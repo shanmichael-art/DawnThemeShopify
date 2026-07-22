@@ -1,0 +1,251 @@
+{% comment %}
+  Renders the "buy direct" value stack — total cost here vs. the marketplace.
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - block:   {Object} The value_stack block (settings drive all rates)
+
+  All money math is done in cents, the way Shopify stores prices.
+
+  The marketplace comparison only renders when compare_at_price is set AND
+  higher than price. Set compare_at_price to the marketplace list price for
+  the comparison to be accurate.
+{% endcomment %}
+
+{%- liquid
+  assign s = block.settings
+
+  assign direct_ship = s.direct_shipping | times: 100
+  assign tier = s.marketplace_tier | times: 100
+  assign mkt_ship_under = s.marketplace_ship_under | times: 100
+  assign mkt_ship_over = s.marketplace_ship_over | times: 100
+
+  assign variant = product.selected_or_first_available_variant
+  assign price = variant.price | default: product.price
+  assign mkt_price = variant.compare_at_price
+  if mkt_price == blank
+    assign mkt_price = product.compare_at_price
+  endif
+
+  assign has_comparison = false
+  if s.show_comparison and mkt_price != blank and mkt_price > price
+    assign has_comparison = true
+  endif
+
+  if mkt_price > tier
+    assign mkt_ship = mkt_ship_over
+  else
+    assign mkt_ship = mkt_ship_under
+  endif
+
+  assign direct_total = price | plus: direct_ship
+  assign mkt_total = mkt_price | plus: mkt_ship
+  assign savings = mkt_total | minus: direct_total
+
+  comment
+    Tax estimate is deliberately based on the item price only, not the
+    marketplace total — it understates slightly, which is the safe direction.
+    Falls back to our own price when there is no compare-at price, otherwise
+    the estimate would render as $0.00.
+  endcomment
+  assign tax_base = mkt_price
+  if tax_base == blank or tax_base < price
+    assign tax_base = price
+  endif
+  assign tax_low = tax_base | times: s.tax_rate_low | divided_by: 100
+  assign tax_high = tax_base | times: s.tax_rate_high | divided_by: 100
+-%}
+
+<div class="aeonic-vs" {{ block.shopify_attributes }}>
+  <span class="aeonic-vs__eyebrow">{{ s.heading }}</span>
+
+  <dl class="aeonic-vs__lines">
+    <div class="aeonic-vs__line">
+      <dt>This guitar</dt>
+      <dd>{{ price | money }}</dd>
+    </div>
+    <div class="aeonic-vs__line">
+      <dt>Insured shipping{% if s.shipping_note != blank %} <span class="aeonic-vs__hint">{{ s.shipping_note }}</span>{% endif %}</dt>
+      <dd>{{ direct_ship | money }}</dd>
+    </div>
+    <div class="aeonic-vs__line">
+      <dt>Sales tax <span class="aeonic-vs__hint">outside {{ s.home_state }}</span></dt>
+      <dd class="aeonic-vs__free">None</dd>
+    </div>
+    <div class="aeonic-vs__line aeonic-vs__line--total">
+      <dt>Your total</dt>
+      <dd>{{ direct_total | money }}</dd>
+    </div>
+  </dl>
+
+  {%- if has_comparison -%}
+    <div class="aeonic-vs__compare">
+      <p class="aeonic-vs__compare-row">
+        <span>Same guitar on {{ s.marketplace_name }}</span>
+        <span class="aeonic-vs__compare-price">{{ mkt_total | money }}</span>
+      </p>
+      <p class="aeonic-vs__compare-note">
+        {{ mkt_price | money }} + {{ mkt_ship | money }} shipping{% if s.show_tax_estimate %}, plus roughly {{ tax_low | money }}–{{ tax_high | money }} sales tax in most states{% endif %}
+      </p>
+    </div>
+
+    {%- if savings > 0 -%}
+      <p class="aeonic-vs__savings">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="2 8.5 6 12.5 14 4"/>
+        </svg>
+        <span>
+          You save <strong>{{ savings | money }}</strong> buying direct{% if s.show_tax_estimate %} — plus the sales tax{% endif %}.
+        </span>
+      </p>
+    {%- endif -%}
+  {%- else -%}
+    {%- if s.show_tax_estimate -%}
+      <p class="aeonic-vs__savings">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="2 8.5 6 12.5 14 4"/>
+        </svg>
+        <span>
+          Buying here skips the sales tax the marketplaces collect — roughly
+          <strong>{{ tax_low | money }}–{{ tax_high | money }}</strong> on a guitar at this price.
+        </span>
+      </p>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if s.footnote != blank -%}
+    <p class="aeonic-vs__footnote">{{ s.footnote }}</p>
+  {%- endif -%}
+</div>
+
+{%- style -%}
+  .aeonic-vs {
+    margin: 1.6rem 0;
+    padding: 1.6rem 1.8rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 8px;
+    background: rgba(var(--color-foreground), 0.02);
+  }
+
+  .aeonic-vs__eyebrow {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e7cc87;
+    margin-bottom: 1.2rem;
+  }
+
+  .aeonic-vs__lines {
+    margin: 0;
+    padding: 0;
+  }
+
+  .aeonic-vs__line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 0.45rem 0;
+  }
+
+  .aeonic-vs__line dt,
+  .aeonic-vs__line dd {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: rgba(var(--color-foreground), 0.72);
+  }
+
+  .aeonic-vs__line dd {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .aeonic-vs__hint {
+    font-size: 1.15rem;
+    color: rgba(var(--color-foreground), 0.45);
+  }
+
+  .aeonic-vs__free {
+    color: #2ea04d !important;
+    font-weight: 600;
+  }
+
+  .aeonic-vs__line--total {
+    margin-top: 0.6rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.12);
+  }
+
+  .aeonic-vs__line--total dt,
+  .aeonic-vs__line--total dd {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-vs__compare {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px dashed rgba(var(--color-foreground), 0.14);
+  }
+
+  .aeonic-vs__compare-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.2rem;
+    margin: 0;
+    font-size: 1.4rem;
+    color: rgba(var(--color-foreground), 0.55);
+  }
+
+  .aeonic-vs__compare-price {
+    font-variant-numeric: tabular-nums;
+    text-decoration: line-through;
+    white-space: nowrap;
+  }
+
+  .aeonic-vs__compare-note {
+    margin: 0.3rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.42);
+  }
+
+  .aeonic-vs__savings {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin: 1.3rem 0 0;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    background: rgba(46, 160, 77, 0.08);
+    border: 1px solid rgba(46, 160, 77, 0.2);
+    font-size: 1.4rem;
+    line-height: 1.45;
+    color: rgba(var(--color-foreground), 0.85);
+  }
+
+  .aeonic-vs__savings strong {
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-vs__savings svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    color: #2ea04d;
+  }
+
+  .aeonic-vs__footnote {
+    margin: 1rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.45);
+  }
+{%- endstyle -%}

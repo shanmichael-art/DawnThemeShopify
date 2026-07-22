@@ -27,6 +27,24 @@
           "type": "price",
           "settings": {}
         },
+        "value_stack": {
+          "type": "value_stack",
+          "settings": {
+            "heading": "Your price, buying direct",
+            "direct_shipping": 75,
+            "shipping_note": "flat rate, signature required",
+            "home_state": "Florida",
+            "show_comparison": true,
+            "marketplace_name": "Reverb",
+            "marketplace_tier": 1500,
+            "marketplace_ship_under": 95,
+            "marketplace_ship_over": 125,
+            "show_tax_estimate": true,
+            "tax_rate_low": 6,
+            "tax_rate_high": 9,
+            "footnote": "Sales tax is collected only where required by law. Most buyers outside Florida pay none."
+          }
+        },
         "condition_block": {
           "type": "condition_block",
           "settings": {
@@ -66,7 +84,7 @@
           "settings": {
             "heading": "Shipping & Insurance",
             "icon": "truck",
-            "content": "<p>Ships within 1-2 business days via UPS or FedEx Ground. Every guitar is fully insured for its full purchase price. Packed properly — hard cases shipped in a double box with foam padding.</p>",
+            "content": "<p>Ships within <strong>1 business day</strong> via UPS or FedEx Ground — typically 3-5 business days in transit. Every guitar is fully insured for its full purchase price, with signature required on delivery. Packed properly — hard cases shipped in a double box with foam padding, strings detuned, neck and headstock supported.</p><p>Flat $75 shipping anywhere in the US, no matter the price of the guitar. Full details in the <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>",
             "page": ""
           }
         },
@@ -100,6 +118,7 @@
         "vendor",
         "title",
         "price",
+        "value_stack",
         "condition_block",
         "variant_picker",
         "trust_badges",

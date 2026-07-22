@@ -530,6 +530,8 @@
                     </div>
                   {%- endif -%}
                 </div>
+              {%- when 'value_stack' -%}
+                {%- render 'aeonic-value-stack', product: product, block: block -%}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -2164,6 +2166,107 @@
           "id": "show_scarcity",
           "label": "Show 'one of a kind' availability signal",
           "default": true
+        }
+      ]
+    },
+    {
+      "type": "value_stack",
+      "name": "Buy Direct Value Stack",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Your price, buying direct"
+        },
+        {
+          "type": "header",
+          "content": "Your rates"
+        },
+        {
+          "type": "number",
+          "id": "direct_shipping",
+          "label": "Your flat shipping rate ($)",
+          "default": 75
+        },
+        {
+          "type": "text",
+          "id": "shipping_note",
+          "label": "Shipping note",
+          "info": "Small grey text beside the shipping line. Leave blank to hide.",
+          "default": "flat rate, signature required"
+        },
+        {
+          "type": "text",
+          "id": "home_state",
+          "label": "State where you collect sales tax",
+          "default": "Florida"
+        },
+        {
+          "type": "header",
+          "content": "Marketplace comparison"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_comparison",
+          "label": "Show marketplace comparison",
+          "info": "Only renders when the product has a compare-at price higher than its price. IMPORTANT: set compare-at price to the actual marketplace list price, or this comparison will be inaccurate.",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "marketplace_name",
+          "label": "Marketplace name",
+          "default": "Reverb"
+        },
+        {
+          "type": "number",
+          "id": "marketplace_tier",
+          "label": "Marketplace shipping tier threshold ($)",
+          "info": "Above this price the marketplace charges the higher shipping rate.",
+          "default": 1500
+        },
+        {
+          "type": "number",
+          "id": "marketplace_ship_under",
+          "label": "Marketplace shipping at or below threshold ($)",
+          "default": 95
+        },
+        {
+          "type": "number",
+          "id": "marketplace_ship_over",
+          "label": "Marketplace shipping above threshold ($)",
+          "default": 125
+        },
+        {
+          "type": "header",
+          "content": "Sales tax estimate"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tax_estimate",
+          "label": "Show estimated sales tax range",
+          "info": "Shows an approximate dollar range a buyer would pay in sales tax on a marketplace. Turn off to state the no-tax fact without a dollar figure.",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "tax_rate_low",
+          "label": "Low end of typical sales tax (%)",
+          "default": 6
+        },
+        {
+          "type": "number",
+          "id": "tax_rate_high",
+          "label": "High end of typical sales tax (%)",
+          "default": 9
+        },
+        {
+          "type": "textarea",
+          "id": "footnote",
+          "label": "Footnote",
+          "default": "Sales tax is collected only where required by law. Most buyers outside Florida pay none."
         }
       ]
     }
