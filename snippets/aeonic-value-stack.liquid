@@ -85,9 +85,13 @@
       <dd>{{ direct_total | money }}</dd>
     </div>
     {%- if s.show_delivery -%}
-      <div class="aeonic-vs__line aeonic-vs__line--delivery" data-aeonic-delivery hidden>
+      {%- assign delivery_days = s.delivery_days | default: 3 -%}
+      <div class="aeonic-vs__line aeonic-vs__line--delivery">
         <dt>Arrives as early as</dt>
-        <dd data-aeonic-delivery-date></dd>
+        <dd
+          data-aeonic-delivery-date
+          data-aeonic-delivery-days="{{ delivery_days }}"
+        >{{ delivery_days }} business days</dd>
       </div>
     {%- endif -%}
   </dl>
@@ -139,25 +143,42 @@
 {%- if s.show_delivery -%}
   <script>
     (function () {
-      var rows = document.querySelectorAll('[data-aeonic-delivery]');
-      if (!rows.length) return;
+      // The markup ships with a readable fallback ("3 business days") already in
+      // place, so this only ever upgrades it to a real date. Dawn re-renders the
+      // product-info container via innerHTML on variant change, which both wipes
+      // this script's work and prevents it re-running — hence the repaint hooks.
+      function paint() {
+        var els = document.querySelectorAll('[data-aeonic-delivery-date]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el.getAttribute('data-aeonic-delivery-painted')) continue;
 
-      var days = {{ s.delivery_days | default: 3 }};
-      var d = new Date();
-      var added = 0;
-      while (added < days) {
-        d.setDate(d.getDate() + 1);
-        var wd = d.getDay();
-        if (wd !== 0 && wd !== 6) added++;
+          var days = parseInt(el.getAttribute('data-aeonic-delivery-days'), 10);
+          if (!days || days < 0) days = 3;
+
+          var d = new Date();
+          var added = 0;
+          while (added < days) {
+            d.setDate(d.getDate() + 1);
+            var wd = d.getDay();
+            if (wd !== 0 && wd !== 6) added++;
+          }
+
+          el.textContent = d.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+          });
+          el.setAttribute('data-aeonic-delivery-painted', '1');
+        }
       }
-      var label = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
-      rows.forEach(function (row) {
-        var target = row.querySelector('[data-aeonic-delivery-date]');
-        if (!target) return;
-        target.textContent = label;
-        row.removeAttribute('hidden');
-      });
+      paint();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', paint);
+      }
+      document.addEventListener('shopify:section:load', paint);
+      setTimeout(paint, 400);
     })();
   </script>
 {%- endif -%}
@@ -192,10 +213,6 @@
     justify-content: space-between;
     gap: 1.2rem;
     padding: 0.45rem 0;
-  }
-
-  .aeonic-vs__line[hidden] {
-    display: none;
   }
 
   .aeonic-vs__line dt,
