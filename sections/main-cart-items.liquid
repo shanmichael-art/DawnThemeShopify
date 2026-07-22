@@ -141,29 +141,12 @@
                         and item.variant.compare_at_price > item.variant.price
                       -%}
                         {%- liquid
-                          assign line_savings = item.variant.compare_at_price
-                            | minus: item.variant.price
-                            | times: item.quantity
-
-                          comment
-                            Same rates and nearest-$10 rounding as the product page value
-                            stack, so a buyer who saw a figure there sees a consistent one here.
-                          endcomment
+                          assign line_savings = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity
                           assign tax_base = item.variant.compare_at_price | times: item.quantity
                           assign rate_low = section.settings.tax_rate_low | default: 6
                           assign rate_high = section.settings.tax_rate_high | default: 9
-                          assign tax_low = tax_base
-                            | times: rate_low
-                            | divided_by: 100
-                            | plus: 500
-                            | divided_by: 1000
-                            | times: 1000
-                          assign tax_high = tax_base
-                            | times: rate_high
-                            | divided_by: 100
-                            | plus: 500
-                            | divided_by: 1000
-                            | times: 1000
+                          assign tax_low = tax_base | times: rate_low | divided_by: 100 | plus: 500 | divided_by: 1000 | times: 1000
+                          assign tax_high = tax_base | times: rate_high | divided_by: 100 | plus: 500 | divided_by: 1000 | times: 1000
                           assign save_low = line_savings | plus: tax_low
                           assign save_high = line_savings | plus: tax_high
                         -%}
