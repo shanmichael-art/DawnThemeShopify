@@ -1,0 +1,316 @@
+{% comment %}
+  Renders the "Watch this guitar" capture.
+
+  Most Meta visitors are not ready to buy today, and right now the page gives
+  them exactly two options: buy or leave. This is the third option.
+
+  WHY THE COPY SAYS "AND ONES LIKE IT"
+  On a one-of-one instrument, a watch list's most common outcome is an email
+  saying the thing you wanted is gone — which is a worse experience than never
+  subscribing. Framing the capture around the *kind* of guitar means a sale
+  turns into "here is the next one" instead of a eulogy.
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - block:   {Object} The watch_block block
+
+  TRANSPORT
+  Shopify's native customer form is the transport, because it needs no API key,
+  works with JavaScript disabled, and puts a real tagged customer in the admin
+  today. Tags carry which guitar was being watched.
+
+  The form is deliberately left WITHOUT novalidate so the browser blocks an
+  invalid address before the submit event fires — the JS below only takes over
+  submissions that are already valid.
+
+  JS upgrades it to a fetch so the buyer is not bounced off the product page
+  mid-consideration, and additionally fires Omnisend's client-side
+  identifyContact when (and only when) the Omnisend snippet is present on the
+  page. Nothing here holds an API key — the Omnisend REST key must never reach
+  the browser.
+
+  NOTE: as of this writing the Omnisend app is NOT installed on this store, so
+  the Omnisend path is dormant and the Shopify path is doing the work.
+{% endcomment %}
+
+{%- liquid
+  assign s = block.settings
+  assign watch_tags = 'guitar-watchlist, watching-' | append: product.handle
+-%}
+
+{%- if product.available -%}
+  <div
+    class="aeonic-watch"
+    data-aeonic-watch
+    data-product-handle="{{ product.handle | escape }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-vendor="{{ product.vendor | escape }}"
+    data-product-type="{{ product.type | escape }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- form 'customer', class: 'aeonic-watch__form' -%}
+      <input type="hidden" name="contact[tags]" value="{{ watch_tags }}">
+      <input
+        type="hidden"
+        name="contact[note]"
+        value="Watching: {{ product.title | escape }} ({{ product.handle }})"
+      >
+
+      <div class="aeonic-watch__head">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M1.2 8S3.7 3.4 8 3.4 14.8 8 14.8 8 12.3 12.6 8 12.6 1.2 8 1.2 8z"/>
+          <circle cx="8" cy="8" r="2.1"/>
+        </svg>
+        <div>
+          <span class="aeonic-watch__title">{{ s.heading }}</span>
+          {%- if s.subtext != blank -%}
+            <p class="aeonic-watch__sub">{{ s.subtext }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- if form.posted_successfully? -%}
+        <p class="aeonic-watch__msg aeonic-watch__msg--ok" role="status">
+          {{ s.success_text }}
+        </p>
+      {%- else -%}
+        <div class="aeonic-watch__row">
+          <label class="visually-hidden" for="AeonicWatch-{{ block.id }}">
+            {{ s.placeholder | default: 'Email address' }}
+          </label>
+          <input
+            id="AeonicWatch-{{ block.id }}"
+            type="email"
+            name="contact[email]"
+            class="aeonic-watch__input"
+            value="{{ form.email }}"
+            placeholder="{{ s.placeholder | default: 'Email address' | escape }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            aria-required="true"
+            required
+          >
+          <button type="submit" class="aeonic-watch__submit">
+            {{ s.button_label }}
+          </button>
+        </div>
+
+        {%- if form.errors -%}
+          <p class="aeonic-watch__msg aeonic-watch__msg--err" role="alert">
+            {{ form.errors.messages.email }}
+          </p>
+        {%- endif -%}
+
+        <p class="aeonic-watch__msg" data-aeonic-watch-msg hidden role="status"></p>
+      {%- endif -%}
+
+      {%- if s.fine_print != blank -%}
+        <p class="aeonic-watch__fine">{{ s.fine_print }}</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+  <script>
+    (function () {
+      if (window.__aeonicWatchBound) return;
+      window.__aeonicWatchBound = true;
+
+      // Delegated so it survives Dawn's innerHTML re-render on variant change.
+      document.addEventListener('submit', function (event) {
+        var root = event.target.closest('[data-aeonic-watch]');
+        if (!root) return;
+
+        var form = event.target;
+        var emailField = form.querySelector('input[type="email"]');
+        if (!emailField || !emailField.value || !emailField.checkValidity()) return;
+
+        // Only take over the submit once we are sure we can complete it.
+        // If fetch is unavailable we let the native POST happen instead of
+        // swallowing the buyer's submission.
+        if (typeof window.fetch !== 'function') return;
+        event.preventDefault();
+
+        var msg = form.querySelector('[data-aeonic-watch-msg]');
+        var submit = form.querySelector('button[type="submit"]');
+        var email = emailField.value.trim();
+
+        if (submit) {
+          submit.disabled = true;
+          submit.dataset.label = submit.textContent;
+          submit.textContent = '…';
+        }
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'text/html' }
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            pushToOmnisend(root, email);
+            show(msg, root.getAttribute('data-success') || SUCCESS, true);
+            form.querySelector('.aeonic-watch__row').hidden = true;
+          })
+          .catch(function () {
+            show(msg, FAILURE, false);
+            if (submit) {
+              submit.disabled = false;
+              submit.textContent = submit.dataset.label || 'Watch';
+            }
+          });
+      });
+
+      var SUCCESS = "You're on the list — I'll email you about this one and others like it.";
+      var FAILURE = "That didn't go through. Email me directly and I'll add you myself.";
+
+      function show(el, text, ok) {
+        if (!el) return;
+        el.textContent = text;
+        el.hidden = false;
+        el.classList.toggle('aeonic-watch__msg--ok', !!ok);
+        el.classList.toggle('aeonic-watch__msg--err', !ok);
+      }
+
+      // Fires only if the Omnisend snippet is actually on the page. No API key
+      // is involved — identifyContact is the public browser-side call.
+      function pushToOmnisend(root, email) {
+        if (!window.omnisend || typeof window.omnisend.push !== 'function') return;
+        try {
+          window.omnisend.push([
+            'identifyContact',
+            {
+              email: email,
+              tags: ['guitar-watchlist', 'watching-' + root.getAttribute('data-product-handle')],
+              customProperties: {
+                watching_title: root.getAttribute('data-product-title'),
+                watching_handle: root.getAttribute('data-product-handle'),
+                watching_brand: root.getAttribute('data-product-vendor')
+              }
+            }
+          ]);
+        } catch (e) {}
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{%- style -%}
+  .aeonic-watch {
+    margin: 1.6rem 0;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 8px;
+    background: rgba(var(--color-foreground), 0.02);
+  }
+
+  .aeonic-watch__form {
+    margin: 0;
+  }
+
+  .aeonic-watch__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .aeonic-watch__head > svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    color: #e7cc87;
+  }
+
+  .aeonic-watch__title {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-watch__sub {
+    margin: 0.3rem 0 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.55);
+  }
+
+  .aeonic-watch__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .aeonic-watch__row[hidden] {
+    display: none;
+  }
+
+  .aeonic-watch__input {
+    flex: 1 1 16rem;
+    min-width: 0;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 6px;
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+
+  .aeonic-watch__input:focus {
+    outline: none;
+    border-color: #e7cc87;
+    box-shadow: 0 0 0 1px #e7cc87;
+  }
+
+  .aeonic-watch__submit {
+    flex: 0 0 auto;
+    padding: 1rem 1.8rem;
+    border: 1px solid #e7cc87;
+    border-radius: 6px;
+    background: rgba(231, 204, 135, 0.12);
+    color: rgb(var(--color-foreground));
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .aeonic-watch__submit:hover:not(:disabled) {
+    background: rgba(231, 204, 135, 0.24);
+  }
+
+  .aeonic-watch__submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .aeonic-watch__msg {
+    margin: 0.9rem 0 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+
+  .aeonic-watch__msg[hidden] {
+    display: none;
+  }
+
+  .aeonic-watch__msg--ok {
+    color: #2ea04d;
+  }
+
+  .aeonic-watch__msg--err {
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .aeonic-watch__fine {
+    margin: 0.8rem 0 0;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.42);
+  }
+{%- endstyle -%}

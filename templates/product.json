@@ -92,13 +92,54 @@
           "settings": {
             "heading": "Returns",
             "icon": "return",
-            "content": "<p><strong>Not as described or damaged?</strong> Contact me within 3 days of delivery for a full refund including return shipping — no questions asked.</p><p><strong>Changed your mind?</strong> Returns accepted within 3 days in original condition. A 15% restocking fee applies and return shipping is the buyer's responsibility.</p><p>Start all returns through the <a href=\"/pages/return-policy\">return policy page</a> or <a href=\"/pages/contact\">contact me directly</a> before shipping anything back.</p>",
+            "content": "<p><strong>Not as described or damaged?</strong> Contact me within 3 days of delivery for a full refund including return shipping — no questions asked.</p><p><strong>Changed your mind?</strong> Treat the first 3 days as your at-home inspection. Return it in the same condition and a flat $150 fee applies — the same whether the guitar was $900 or $9,000, not a percentage. Return shipping is the buyer's responsibility.</p><p>Start all returns through the <a href=\"/pages/return-policy\">return policy page</a> or <a href=\"/pages/contact\">contact me directly</a> before shipping anything back.</p>",
             "page": ""
           }
         },
-        "judge_me_reviews_preview_badge_nWrXUc": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+        "trust_strip": {
+          "type": "trust_strip",
+          "settings": {
+            "rating_value": "4.96",
+            "rating_count": "259",
+            "rating_link": "",
+            "sold_count": "2,000+",
+            "ship_time": "Ships within 1 business day",
+            "insured_text": "Fully insured, signature required"
+          }
+        },
+        "ask_block": {
+          "type": "ask_block",
+          "settings": {
+            "heading": "Questions about this guitar?",
+            "chat_label": "Ask me now",
+            "email_label": "Email me about it",
+            "contact_email": "shanmcquown@hotmail.com",
+            "video_text": "Want to see it live? Ask me for a video walkthrough."
+          }
+        },
+        "trade_in": {
+          "type": "trade_in",
+          "settings": {
+            "heading": "Have something to trade toward this guitar?",
+            "body": "Most people aren't deciding whether to spend this much — they're deciding whether to move a guitar they already own. Tell me what's in your case and I'll give you a real number.",
+            "trade_url": "/pages/cash-offer",
+            "button_label": "Get a trade value",
+            "show_calculator": true,
+            "calc_label": "What's yours worth?",
+            "calc_empty": "See what this actually costs you.",
+            "fine_print": "An estimate, not an offer — I'll give you a real number once I see what you've got."
+          }
+        },
+        "watch_block": {
+          "type": "watch_block",
+          "settings": {
+            "heading": "Not ready today?",
+            "subtext": "I'll email you if the price moves on this one, if an offer comes in — and when I get another like it.",
+            "placeholder": "Email address",
+            "button_label": "Watch it",
+            "success_text": "You're on the list — I'll email you about this one and others like it.",
+            "fine_print": "Just this guitar and ones like it. No coupon spam, unsubscribe anytime."
+          }
         }
       },
       "block_order": [
@@ -106,14 +147,17 @@
         "title",
         "condition_block",
         "price",
+        "trust_strip",
         "value_stack",
         "variant_picker",
         "buy_buttons",
+        "ask_block",
+        "trade_in",
+        "watch_block",
         "description",
         "why_direct",
         "shipping_tab",
-        "returns_tab",
-        "judge_me_reviews_preview_badge_nWrXUc"
+        "returns_tab"
       ],
       "settings": {
         "enable_sticky_info": true,

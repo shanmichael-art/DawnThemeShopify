@@ -1,0 +1,285 @@
+{% comment %}
+  Renders the trade-in prompt.
+
+  The money objection on an expensive guitar is rarely "I cannot afford this".
+  It is usually "I already have too much money tied up in guitars" — a different
+  problem, with a different answer. Turning a closet guitar into credit reframes
+  a $3,200 purchase as a $1,300 swap, and unlike a discount it hands an asset
+  back to the business.
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - block:   {Object} The trade_in block
+
+  The optional calculator does the arithmetic the buyer would otherwise do in
+  their head, on the page, before they leave it. The figure it shows is an
+  estimate — the fine print says so, and the number is never presented as an
+  offer.
+
+  Price comes from the selected variant as a data attribute in cents (the unit
+  Shopify stores) and is formatted client-side. Dawn re-renders this container
+  on variant change, which resets the input and refreshes the price together —
+  so the two can never drift out of sync.
+{% endcomment %}
+
+{%- liquid
+  assign s = block.settings
+  assign variant = product.selected_or_first_available_variant
+  assign price = variant.price | default: product.price
+
+  assign trade_url = s.trade_url | default: '/pages/cash-offer'
+  assign trade_href = trade_url | append: '?toward=' | append: product.handle
+-%}
+
+{%- if product.available -%}
+  <div
+    class="aeonic-trade"
+    data-aeonic-trade
+    data-price-cents="{{ price }}"
+    {{ block.shopify_attributes }}
+  >
+    <div class="aeonic-trade__head">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 5.2h9.4M9 2.8l2.4 2.4L9 7.6"/>
+        <path d="M14 10.8H4.6M7 8.4l-2.4 2.4L7 13.2"/>
+      </svg>
+      <span class="aeonic-trade__title">{{ s.heading }}</span>
+    </div>
+
+    {%- if s.body != blank -%}
+      <p class="aeonic-trade__body">{{ s.body }}</p>
+    {%- endif -%}
+
+    {%- if s.show_calculator -%}
+      <div class="aeonic-trade__calc">
+        <label class="aeonic-trade__calc-label" for="AeonicTrade-{{ block.id }}">
+          {{ s.calc_label }}
+        </label>
+        <div class="aeonic-trade__calc-row">
+          <div class="aeonic-trade__input-wrap">
+            <span class="aeonic-trade__currency" aria-hidden="true">$</span>
+            <input
+              id="AeonicTrade-{{ block.id }}"
+              class="aeonic-trade__input"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              step="50"
+              placeholder="0"
+              data-aeonic-trade-input
+              aria-describedby="AeonicTradeOut-{{ block.id }}"
+            >
+          </div>
+          <p class="aeonic-trade__out" id="AeonicTradeOut-{{ block.id }}" data-aeonic-trade-out role="status">
+            {{ s.calc_empty }}
+          </p>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <a class="aeonic-trade__cta" href="{{ trade_href }}">
+      <span>{{ s.button_label }}</span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3.5 8h9M9 4.5 12.5 8 9 11.5"/>
+      </svg>
+    </a>
+
+    {%- if s.fine_print != blank -%}
+      <p class="aeonic-trade__fine">{{ s.fine_print }}</p>
+    {%- endif -%}
+  </div>
+
+  <script>
+    (function () {
+      if (window.__aeonicTradeBound) return;
+      window.__aeonicTradeBound = true;
+
+      var EMPTY = '';
+      var money = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: '{{ cart.currency.iso_code | default: "USD" }}',
+        maximumFractionDigits: 0
+      });
+
+      // Delegated so it survives Dawn's innerHTML re-render on variant change.
+      document.addEventListener('input', function (event) {
+        var input = event.target.closest('[data-aeonic-trade-input]');
+        if (!input) return;
+
+        var root = input.closest('[data-aeonic-trade]');
+        var out = root && root.querySelector('[data-aeonic-trade-out]');
+        if (!root || !out) return;
+
+        if (!EMPTY) EMPTY = out.textContent.trim();
+
+        var priceCents = parseInt(root.getAttribute('data-price-cents'), 10);
+        var trade = parseFloat(input.value);
+
+        if (!priceCents || !isFinite(trade) || trade <= 0) {
+          out.textContent = EMPTY;
+          out.classList.remove('aeonic-trade__out--active', 'aeonic-trade__out--covered');
+          return;
+        }
+
+        var priceDollars = priceCents / 100;
+        var net = priceDollars - trade;
+
+        if (net <= 0) {
+          // Trade exceeds the guitar. Never render a negative price as if it
+          // were a refund — the difference is a conversation, not an offer.
+          out.textContent =
+            'That covers it, with ' + money.format(Math.abs(net)) + ' left over to talk about.';
+          out.classList.add('aeonic-trade__out--active', 'aeonic-trade__out--covered');
+        } else {
+          out.textContent = 'Your cost to swap: ' + money.format(net);
+          out.classList.add('aeonic-trade__out--active');
+          out.classList.remove('aeonic-trade__out--covered');
+        }
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{%- style -%}
+  .aeonic-trade {
+    margin: 1.6rem 0;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid rgba(231, 204, 135, 0.3);
+    border-radius: 8px;
+    background: rgba(231, 204, 135, 0.05);
+  }
+
+  .aeonic-trade__head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .aeonic-trade__head svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #e7cc87;
+  }
+
+  .aeonic-trade__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-trade__body {
+    margin: 0 0 1.2rem;
+    font-size: 1.32rem;
+    line-height: 1.55;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .aeonic-trade__calc {
+    margin: 0 0 1.2rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 6px;
+    background: rgba(var(--color-foreground), 0.03);
+  }
+
+  .aeonic-trade__calc-label {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: rgba(var(--color-foreground), 0.55);
+    margin-bottom: 0.7rem;
+  }
+
+  .aeonic-trade__calc-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.2rem;
+  }
+
+  .aeonic-trade__input-wrap {
+    position: relative;
+    flex: 0 0 auto;
+  }
+
+  .aeonic-trade__currency {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.35rem;
+    color: rgba(var(--color-foreground), 0.45);
+    pointer-events: none;
+  }
+
+  .aeonic-trade__input {
+    width: 11rem;
+    padding: 0.85rem 1rem 0.85rem 2.3rem;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 6px;
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    font-size: 1.35rem;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aeonic-trade__input:focus {
+    outline: none;
+    border-color: #e7cc87;
+    box-shadow: 0 0 0 1px #e7cc87;
+  }
+
+  .aeonic-trade__out {
+    margin: 0;
+    flex: 1 1 14rem;
+    font-size: 1.3rem;
+    line-height: 1.45;
+    color: rgba(var(--color-foreground), 0.5);
+  }
+
+  .aeonic-trade__out--active {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-trade__out--covered {
+    color: #2ea04d;
+  }
+
+  .aeonic-trade__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 1rem 1.6rem;
+    border: 1px solid #e7cc87;
+    border-radius: 6px;
+    background: rgba(231, 204, 135, 0.14);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(var(--color-foreground));
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  .aeonic-trade__cta:hover {
+    background: rgba(231, 204, 135, 0.26);
+  }
+
+  .aeonic-trade__cta svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .aeonic-trade__fine {
+    margin: 0.9rem 0 0;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.42);
+  }
+{%- endstyle -%}

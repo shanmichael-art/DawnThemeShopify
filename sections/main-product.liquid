@@ -516,6 +516,29 @@
                     when 'fair'
                       assign condition_label = 'Fair'
                   endcase
+
+                  comment
+                    Days on the site, from published_at. Shopify may serve this
+                    from cache, so treat it as day-granular only — which is all
+                    the copy claims. Past listed_max_days the line hides itself:
+                    "Listed 400 days ago" argues against the guitar.
+                  endcomment
+                  assign listed_line = ''
+                  if block.settings.show_listed and product.published_at != blank
+                    assign now_seconds = 'now' | date: '%s' | plus: 0
+                    assign published_seconds = product.published_at | date: '%s' | plus: 0
+                    assign days_listed = now_seconds | minus: published_seconds | divided_by: 86400
+                    assign max_days = block.settings.listed_max_days | default: 60
+                    if days_listed <= max_days
+                      if days_listed <= 0
+                        assign listed_line = 'Listed today.'
+                      elsif days_listed == 1
+                        assign listed_line = 'Listed yesterday.'
+                      else
+                        assign listed_line = 'Listed ' | append: days_listed | append: ' days ago.'
+                      endif
+                    endif
+                  endif
                 -%}
                 <div class="aeonic-condition-block" {{ block.shopify_attributes }}>
                   {%- if condition_label != '' -%}
@@ -535,6 +558,15 @@
                           <span>{{ block.settings.scarcity_text }}</span>
                         </li>
                       {%- endif -%}
+                      {%- if listed_line != blank -%}
+                        <li class="aeonic-assurance__item">
+                          <svg class="aeonic-assurance__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="8" cy="8" r="6.3"/>
+                            <path d="M8 4.4V8l2.4 1.5"/>
+                          </svg>
+                          <span>{{ listed_line }}</span>
+                        </li>
+                      {%- endif -%}
                       {%- if block.settings.photo_note != blank -%}
                         <li class="aeonic-assurance__item">
                           <svg class="aeonic-assurance__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -549,6 +581,14 @@
                 </div>
               {%- when 'value_stack' -%}
                 {%- render 'aeonic-value-stack', product: product, block: block -%}
+              {%- when 'trust_strip' -%}
+                {%- render 'aeonic-trust-strip', block: block -%}
+              {%- when 'ask_block' -%}
+                {%- render 'aeonic-ask', product: product, block: block -%}
+              {%- when 'watch_block' -%}
+                {%- render 'aeonic-watch', product: product, block: block -%}
+              {%- when 'trade_in' -%}
+                {%- render 'aeonic-trade-in', product: product, block: block -%}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -2197,6 +2237,20 @@
           "label": "Photo authenticity line",
           "info": "Leave blank to hide.",
           "default": "These are photos of the actual guitar for sale."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_listed",
+          "label": "Show how long the guitar has been listed",
+          "info": "A real, checkable date beats a countdown clock. Sophisticated buyers can smell manufactured urgency.",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "listed_max_days",
+          "label": "Hide the listing date after this many days",
+          "info": "Past this age the line disappears rather than advertising that a guitar has sat.",
+          "default": 60
         }
       ]
     },
@@ -2314,7 +2368,215 @@
           "default": "* Includes the sales tax a marketplace is required to collect, estimated at 6–9% depending on your state. I collect sales tax only where legally required — for most buyers outside Florida, that's none."
         }
       ]
+    },
+    {
+      "type": "trust_strip",
+      "name": "Reputation Strip",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shop-level reputation, shown under the price. Every guitar here is one-of-one, so a per-product review count can only ever read 0 or 1 — which hurts at the exact moment someone decides to trust you. Keep the full review widget further down the page."
+        },
+        {
+          "type": "text",
+          "id": "rating_value",
+          "label": "Star rating",
+          "default": "4.96"
+        },
+        {
+          "type": "text",
+          "id": "rating_count",
+          "label": "Number of reviews",
+          "default": "259"
+        },
+        {
+          "type": "url",
+          "id": "rating_link",
+          "label": "Link the rating to",
+          "info": "Where the star rating should link. Leave blank for no link."
+        },
+        {
+          "type": "text",
+          "id": "sold_count",
+          "label": "Guitars sold",
+          "info": "Leave blank to hide this item.",
+          "default": "2,000+"
+        },
+        {
+          "type": "text",
+          "id": "ship_time",
+          "label": "Ship time line",
+          "info": "Leave blank to hide this item.",
+          "default": "Ships within 1 business day"
+        },
+        {
+          "type": "text",
+          "id": "insured_text",
+          "label": "Insurance line",
+          "info": "Leave blank to hide this item.",
+          "default": "Fully insured, signature required"
+        }
+      ]
+    },
+            {
+      "type": "ask_block",
+      "name": "Ask Me About This Guitar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "The chat button opens Shopify Inbox and only appears when the Inbox app embed is active. Shopify's chat has no prefill API, so the email button is the one that carries the guitar's title, SKU and URL."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Questions about this guitar?"
+        },
+        {
+          "type": "text",
+          "id": "chat_label",
+          "label": "Chat button label",
+          "default": "Ask me now"
+        },
+        {
+          "type": "text",
+          "id": "email_label",
+          "label": "Email button label",
+          "default": "Email me about it"
+        },
+        {
+          "type": "text",
+          "id": "contact_email",
+          "label": "Your email address",
+          "info": "Required — the block hides entirely without it.",
+          "default": "shanmcquown@hotmail.com"
+        },
+        {
+          "type": "text",
+          "id": "video_text",
+          "label": "Video walkthrough line",
+          "info": "Leave blank to hide. Almost nobody takes you up on it; being willing is the signal.",
+          "default": "Want to see it live? Ask me for a video walkthrough."
+        }
+      ]
+    },
+    {
+      "type": "watch_block",
+      "name": "Watch This Guitar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Creates a tagged Shopify customer (guitar-watchlist plus watching-<handle>), so you can see who is circling which guitar. If the Omnisend app is ever installed on this store, the same submit also identifies the contact in Omnisend."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Not ready today?"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "info": "Mention guitars *like* this one — on a one-of-one item, a watch list that only covers this guitar mostly delivers bad news.",
+          "default": "I'll email you if the price moves on this one, if an offer comes in — and when I get another like it."
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Input placeholder",
+          "default": "Email address"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Watch it"
+        },
+        {
+          "type": "textarea",
+          "id": "success_text",
+          "label": "Success message",
+          "default": "You're on the list — I'll email you about this one and others like it."
+        },
+        {
+          "type": "textarea",
+          "id": "fine_print",
+          "label": "Fine print",
+          "info": "Leave blank to hide.",
+          "default": "Just this guitar and ones like it. No coupon spam, unsubscribe anytime."
+        }
+      ]
+    },
+    {
+      "type": "trade_in",
+      "name": "Trade Toward This Guitar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Reframes the price as a swap rather than a purchase. Unlike a discount, this hands an asset back to you and feeds the inventory pipeline."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Have something to trade toward this guitar?"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body copy",
+          "default": "Most people aren't deciding whether to spend this much — they're deciding whether to move a guitar they already own. Tell me what's in your case and I'll give you a real number."
+        },
+        {
+          "type": "url",
+          "id": "trade_url",
+          "label": "Trade / cash offer page",
+          "info": "Defaults to /pages/cash-offer when left blank."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Get a trade value"
+        },
+        {
+          "type": "header",
+          "content": "Swap calculator"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_calculator",
+          "label": "Show the swap calculator",
+          "info": "Does the buyer's mental arithmetic for them, on the page, before they leave it.",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "calc_label",
+          "label": "Calculator label",
+          "default": "What's yours worth?"
+        },
+        {
+          "type": "text",
+          "id": "calc_empty",
+          "label": "Empty state text",
+          "default": "See what this actually costs you."
+        },
+        {
+          "type": "textarea",
+          "id": "fine_print",
+          "label": "Fine print",
+          "info": "Keep this honest — the calculator shows an estimate, never an offer.",
+          "default": "An estimate, not an offer — I'll give you a real number once I see what you've got."
+        }
+      ]
     }
+
   ],
   "settings": [
     {

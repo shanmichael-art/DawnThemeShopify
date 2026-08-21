@@ -1,0 +1,288 @@
+{% comment %}
+  Renders the "talk to a human" escape hatch that sits beside the buy button.
+
+  At $3,000+ the willingness to get on the phone or on camera is itself the
+  trust signal — almost nobody actually uses it. That is the point.
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - block:   {Object} The ask_block block
+
+  CHAT BUTTON
+  Shopify's chat is the <shopify-chat> custom element. Its entire public surface
+  is `open` (a settable boolean property, NOT a method), `show()`, `close()` and
+  `refreshTheme()`, with observed attributes open/mode/mode-switch/data-identity-fp.
+  There is no prefill API — the conversation UI lives in a separate iframe — so
+  this can open the chat but cannot compose the message. That is why the email
+  path exists alongside it: email is the route that can actually carry the
+  guitar's title, SKU and URL.
+
+  The chat button starts hidden and is revealed only once <shopify-chat> is
+  confirmed on the page, so disabling the Inbox app embed can never leave a
+  dead button behind.
+
+  Both hrefs are built in JS with encodeURIComponent at click time rather than
+  url_encode in Liquid, because Liquid's url_encode emits `+` for spaces, which
+  several mail clients render as a literal plus inside a mailto body. The
+  no-JS href is a plain mailto to the same address, so the link still works.
+{% endcomment %}
+
+{%- liquid
+  assign s = block.settings
+  assign variant = product.selected_or_first_available_variant
+  assign sku = variant.sku
+-%}
+
+{%- if s.contact_email != blank -%}
+  <div
+    class="aeonic-ask"
+    data-aeonic-ask
+    data-product-title="{{ product.title | escape }}"
+    data-product-url="{{ product.url | prepend: request.origin | escape }}"
+    data-product-sku="{{ sku | escape }}"
+    data-email="{{ s.contact_email | escape }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- if s.heading != blank -%}
+      <p class="aeonic-ask__heading">{{ s.heading }}</p>
+    {%- endif -%}
+
+    <div class="aeonic-ask__actions">
+      <button
+        type="button"
+        class="aeonic-ask__btn aeonic-ask__btn--chat"
+        data-aeonic-chat
+        hidden
+      >
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 9.5a2 2 0 0 1-2 2H5.5L2 14V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>{{ s.chat_label }}</span>
+      </button>
+
+      <a
+        class="aeonic-ask__btn aeonic-ask__btn--email"
+        href="mailto:{{ s.contact_email }}"
+        data-aeonic-mail="question"
+      >
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1.5" y="3" width="13" height="10" rx="1.5"/>
+          <path d="m2 4.2 6 4.3 6-4.3"/>
+        </svg>
+        <span>{{ s.email_label }}</span>
+      </a>
+    </div>
+
+    {%- if s.video_text != blank -%}
+      <p class="aeonic-ask__video">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1.5" y="4" width="9" height="8" rx="1.5"/>
+          <path d="m10.5 7.5 4-2.2v5.4l-4-2.2z"/>
+        </svg>
+        <span>
+          <a href="mailto:{{ s.contact_email }}" data-aeonic-mail="video">{{ s.video_text }}</a>
+        </span>
+      </p>
+    {%- endif -%}
+  </div>
+
+  <script>
+    (function () {
+      if (window.__aeonicAskBound) return;
+      window.__aeonicAskBound = true;
+
+      // Dawn re-renders the product-info container via innerHTML on variant
+      // change, which would drop any per-element listener. Delegating from
+      // document survives that with no repaint hook needed.
+      document.addEventListener('click', function (event) {
+        var chatBtn = event.target.closest('[data-aeonic-chat]');
+        if (chatBtn) {
+          event.preventDefault();
+          openShopifyChat();
+          return;
+        }
+
+        var mailLink = event.target.closest('[data-aeonic-mail]');
+        if (mailLink) {
+          var root = mailLink.closest('[data-aeonic-ask]');
+          if (root) mailLink.href = buildMailto(root, mailLink.getAttribute('data-aeonic-mail'));
+          // Not prevented — let the browser follow the href we just set.
+        }
+      });
+
+      function buildMailto(root, kind) {
+        var title = root.getAttribute('data-product-title') || 'your guitar';
+        var url = root.getAttribute('data-product-url') || '';
+        var sku = root.getAttribute('data-product-sku') || '';
+        var email = root.getAttribute('data-email') || '';
+
+        var subject =
+          kind === 'video'
+            ? 'Video walkthrough request: ' + title
+            : 'Question about the ' + title;
+
+        var opening =
+          kind === 'video'
+            ? "Could you show me this one live? I'd like a video walkthrough before I buy."
+            : 'I have a question about this guitar:';
+
+        var lines = ['Hi Shan,', '', opening, '', title];
+        if (sku) lines.push('SKU: ' + sku);
+        if (url) lines.push(url);
+        lines.push('', '');
+
+        return (
+          'mailto:' + email +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(lines.join('\n'))
+        );
+      }
+
+      function getChat() {
+        return document.querySelector('shopify-chat');
+      }
+
+      function openShopifyChat() {
+        var chat = getChat();
+        if (!chat) return;
+
+        // `open` is an accessor property, not a method. show() is the
+        // documented sibling; the shadow-root activator is the last resort and
+        // is exactly what a click on the bubble does.
+        try {
+          if (typeof chat.show === 'function') {
+            chat.show();
+            return;
+          }
+        } catch (e) {}
+
+        try {
+          chat.open = true;
+          if (chat.open) return;
+        } catch (e) {}
+
+        try {
+          var activator =
+            chat.shadowRoot &&
+            chat.shadowRoot.querySelector('button[part="activator"], .activator');
+          if (activator) activator.click();
+        } catch (e) {}
+      }
+
+      // Only reveal the chat button once the widget is actually present, so a
+      // disabled Inbox embed never leaves a button that does nothing.
+      function revealChatButtons() {
+        if (!getChat()) return false;
+        var btns = document.querySelectorAll('[data-aeonic-chat][hidden]');
+        for (var i = 0; i < btns.length; i++) btns[i].hidden = false;
+        return true;
+      }
+
+      // The chat script is deferred and defines its element well after DOMContentLoaded.
+      if (!revealChatButtons()) {
+        if (window.customElements && customElements.whenDefined) {
+          customElements.whenDefined('shopify-chat').then(revealChatButtons);
+        }
+        var tries = 0;
+        var poll = setInterval(function () {
+          if (revealChatButtons() || ++tries > 20) clearInterval(poll);
+        }, 500);
+      }
+
+      // Variant change re-renders the block, which re-hides the button.
+      document.addEventListener('shopify:section:load', revealChatButtons);
+      new MutationObserver(revealChatButtons).observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{%- style -%}
+  .aeonic-ask {
+    margin: 1.6rem 0;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 8px;
+    background: rgba(var(--color-foreground), 0.02);
+  }
+
+  .aeonic-ask__heading {
+    margin: 0 0 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-ask__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .aeonic-ask__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex: 1 1 auto;
+    min-width: 14rem;
+    padding: 1rem 1.4rem;
+    border: 1px solid rgba(var(--color-foreground), 0.28);
+    border-radius: 6px;
+    background: transparent;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(var(--color-foreground));
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .aeonic-ask__btn:hover {
+    border-color: #e7cc87;
+    background: rgba(231, 204, 135, 0.08);
+  }
+
+  .aeonic-ask__btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: #e7cc87;
+  }
+
+  .aeonic-ask__btn[hidden] {
+    display: none;
+  }
+
+  .aeonic-ask__video {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 1.1rem 0 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .aeonic-ask__video svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    color: rgba(var(--color-foreground), 0.45);
+  }
+
+  .aeonic-ask__video a {
+    color: rgb(var(--color-foreground));
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .aeonic-ask__video a:hover {
+    color: #e7cc87;
+  }
+{%- endstyle -%}
