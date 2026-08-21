@@ -1,8 +1,12 @@
 {% comment %}
   Renders the "talk to a human" escape hatch that sits beside the buy button.
 
-  At $3,000+ the willingness to get on the phone or on camera is itself the
-  trust signal — almost nobody actually uses it. That is the point.
+  At $3,000+ the willingness to answer a stranger directly is itself the trust
+  signal — almost nobody actually uses it. That is the point.
+
+  Deliberately does NOT offer a live video walkthrough. Only promise what you
+  can reliably deliver here: an offer that goes unanswered does more damage at
+  this price point than never making it.
 
   Accepts:
   - product: {Object} Product liquid object
@@ -73,17 +77,6 @@
       </a>
     </div>
 
-    {%- if s.video_text != blank -%}
-      <p class="aeonic-ask__video">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1.5" y="4" width="9" height="8" rx="1.5"/>
-          <path d="m10.5 7.5 4-2.2v5.4l-4-2.2z"/>
-        </svg>
-        <span>
-          <a href="mailto:{{ s.contact_email }}" data-aeonic-mail="video">{{ s.video_text }}</a>
-        </span>
-      </p>
-    {%- endif -%}
   </div>
 
   <script>
@@ -105,28 +98,20 @@
         var mailLink = event.target.closest('[data-aeonic-mail]');
         if (mailLink) {
           var root = mailLink.closest('[data-aeonic-ask]');
-          if (root) mailLink.href = buildMailto(root, mailLink.getAttribute('data-aeonic-mail'));
+          if (root) mailLink.href = buildMailto(root);
           // Not prevented — let the browser follow the href we just set.
         }
       });
 
-      function buildMailto(root, kind) {
+      function buildMailto(root) {
         var title = root.getAttribute('data-product-title') || 'your guitar';
         var url = root.getAttribute('data-product-url') || '';
         var sku = root.getAttribute('data-product-sku') || '';
         var email = root.getAttribute('data-email') || '';
 
-        var subject =
-          kind === 'video'
-            ? 'Video walkthrough request: ' + title
-            : 'Question about the ' + title;
+        var subject = 'Question about the ' + title;
 
-        var opening =
-          kind === 'video'
-            ? "Could you show me this one live? I'd like a video walkthrough before I buy."
-            : 'I have a question about this guitar:';
-
-        var lines = ['Hi Shan,', '', opening, '', title];
+        var lines = ['Hi Shan,', '', 'I have a question about this guitar:', '', title];
         if (sku) lines.push('SKU: ' + sku);
         if (url) lines.push(url);
         lines.push('', '');
@@ -256,33 +241,5 @@
 
   .aeonic-ask__btn[hidden] {
     display: none;
-  }
-
-  .aeonic-ask__video {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    margin: 1.1rem 0 0;
-    font-size: 1.3rem;
-    line-height: 1.5;
-    color: rgba(var(--color-foreground), 0.6);
-  }
-
-  .aeonic-ask__video svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    margin-top: 0.25rem;
-    color: rgba(var(--color-foreground), 0.45);
-  }
-
-  .aeonic-ask__video a {
-    color: rgb(var(--color-foreground));
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-  }
-
-  .aeonic-ask__video a:hover {
-    color: #e7cc87;
   }
 {%- endstyle -%}
