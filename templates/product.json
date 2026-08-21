@@ -117,6 +117,7 @@
         "trade_in": {
           "type": "trade_in",
           "settings": {
+            "summary_label": "Have something to trade?",
             "heading": "Have something to trade toward this guitar?",
             "body": "Most people aren't deciding whether to spend this much — they're deciding whether to move a guitar they already own. Tell me what's in your case and I'll give you a real number.",
             "trade_url": "/pages/cash-offer",

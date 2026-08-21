@@ -38,55 +38,66 @@
     data-price-cents="{{ price }}"
     {{ block.shopify_attributes }}
   >
-    <div class="aeonic-trade__head">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M2 5.2h9.4M9 2.8l2.4 2.4L9 7.6"/>
-        <path d="M14 10.8H4.6M7 8.4l-2.4 2.4L7 13.2"/>
-      </svg>
-      <span class="aeonic-trade__title">{{ s.heading }}</span>
-    </div>
+    <details class="aeonic-trade__disclosure">
+      <summary class="aeonic-trade__summary">
+        <svg class="aeonic-trade__swap" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 5.2h9.4M9 2.8l2.4 2.4L9 7.6"/>
+          <path d="M14 10.8H4.6M7 8.4l-2.4 2.4L7 13.2"/>
+        </svg>
+        <span class="aeonic-trade__summary-label">{{ s.summary_label | default: 'Have something to trade?' }}</span>
+        <svg class="aeonic-trade__chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m4 6.2 4 4 4-4"/>
+        </svg>
+      </summary>
 
-    {%- if s.body != blank -%}
-      <p class="aeonic-trade__body">{{ s.body }}</p>
-    {%- endif -%}
+      <div class="aeonic-trade__panel">
+        {%- if s.heading != blank -%}
+          <span class="aeonic-trade__title">{{ s.heading }}</span>
+        {%- endif -%}
 
-    {%- if s.show_calculator -%}
-      <div class="aeonic-trade__calc">
-        <label class="aeonic-trade__calc-label" for="AeonicTrade-{{ block.id }}">
-          {{ s.calc_label }}
-        </label>
-        <div class="aeonic-trade__calc-row">
-          <div class="aeonic-trade__input-wrap">
-            <span class="aeonic-trade__currency" aria-hidden="true">$</span>
-            <input
-              id="AeonicTrade-{{ block.id }}"
-              class="aeonic-trade__input"
-              type="number"
-              inputmode="numeric"
-              min="0"
-              step="50"
-              placeholder="0"
-              data-aeonic-trade-input
-              aria-describedby="AeonicTradeOut-{{ block.id }}"
-            >
+        {%- if s.body != blank -%}
+          <p class="aeonic-trade__body">{{ s.body }}</p>
+        {%- endif -%}
+
+        {%- if s.show_calculator -%}
+          <div class="aeonic-trade__calc">
+            <label class="aeonic-trade__calc-label" for="AeonicTrade-{{ block.id }}">
+              {{ s.calc_label }}
+            </label>
+            <div class="aeonic-trade__calc-row">
+              <div class="aeonic-trade__input-wrap">
+                <span class="aeonic-trade__currency" aria-hidden="true">$</span>
+                <input
+                  id="AeonicTrade-{{ block.id }}"
+                  class="aeonic-trade__input"
+                  type="number"
+                  inputmode="numeric"
+                  min="0"
+                  step="50"
+                  placeholder="0"
+                  data-aeonic-trade-input
+                  aria-describedby="AeonicTradeOut-{{ block.id }}"
+                >
+              </div>
+              <p class="aeonic-trade__out" id="AeonicTradeOut-{{ block.id }}" data-aeonic-trade-out role="status">
+                {{ s.calc_empty }}
+              </p>
+            </div>
           </div>
-          <p class="aeonic-trade__out" id="AeonicTradeOut-{{ block.id }}" data-aeonic-trade-out role="status">
-            {{ s.calc_empty }}
-          </p>
-        </div>
+        {%- endif -%}
+
+        <a class="aeonic-trade__cta" href="{{ trade_href }}">
+          <span>{{ s.button_label }}</span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3.5 8h9M9 4.5 12.5 8 9 11.5"/>
+          </svg>
+        </a>
+
+        {%- if s.fine_print != blank -%}
+          <p class="aeonic-trade__fine">{{ s.fine_print }}</p>
+        {%- endif -%}
       </div>
-    {%- endif -%}
-
-    <a class="aeonic-trade__cta" href="{{ trade_href }}">
-      <span>{{ s.button_label }}</span>
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3.5 8h9M9 4.5 12.5 8 9 11.5"/>
-      </svg>
-    </a>
-
-    {%- if s.fine_print != blank -%}
-      <p class="aeonic-trade__fine">{{ s.fine_print }}</p>
-    {%- endif -%}
+    </details>
   </div>
 
   <script>
@@ -143,27 +154,76 @@
 {%- style -%}
   .aeonic-trade {
     margin: 1.6rem 0;
-    padding: 1.4rem 1.6rem;
+  }
+
+  /* Keeps the warm tint the expanded card had. Trade-in is the higher-intent
+     of the two collapsed rows — it hands an asset back to the business — so it
+     stays slightly warmer than the watch row while matching its shape. */
+  .aeonic-trade__disclosure {
     border: 1px solid rgba(231, 204, 135, 0.3);
     border-radius: 8px;
     background: rgba(231, 204, 135, 0.05);
   }
 
-  .aeonic-trade__head {
+  .aeonic-trade__summary {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 0.8rem;
+    gap: 0.65rem;
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(var(--color-foreground));
+    list-style: none;
   }
 
-  .aeonic-trade__head svg {
+  .aeonic-trade__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .aeonic-trade__summary::marker {
+    content: '';
+  }
+
+  .aeonic-trade__summary:hover .aeonic-trade__summary-label {
+    color: #e7cc87;
+  }
+
+  .aeonic-trade__summary:focus-visible {
+    outline: 2px solid #e7cc87;
+    outline-offset: -2px;
+    border-radius: 8px;
+  }
+
+  .aeonic-trade__swap {
     width: 16px;
     height: 16px;
     flex-shrink: 0;
     color: #e7cc87;
   }
 
+  .aeonic-trade__chev {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-left: auto;
+    color: rgba(var(--color-foreground), 0.4);
+    transition: transform 0.18s ease;
+  }
+
+  .aeonic-trade__disclosure[open] .aeonic-trade__chev {
+    transform: rotate(180deg);
+  }
+
+  .aeonic-trade__panel {
+    padding: 1.2rem 1.4rem 1.4rem;
+    border-top: 1px solid rgba(231, 204, 135, 0.28);
+  }
+
   .aeonic-trade__title {
+    display: block;
+    margin-bottom: 0.8rem;
     font-size: 1.4rem;
     font-weight: 600;
     line-height: 1.35;
