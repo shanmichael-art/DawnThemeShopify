@@ -9,10 +9,16 @@
   of guitars) lives at the shop level, so that is what belongs beside the price.
   The full per-product review widget still renders further down the page.
 
+  Deliberately carries only reputation — rating and guitars sold. Shipping
+  speed and insurance are stated by the value stack immediately below this
+  (its "Insured shipping / flat rate, signature required" line and the live
+  delivery estimate), and repeating them two rows apart reads as padding
+  rather than proof.
+
   Accepts:
   - block: {Object} The trust_strip block
 
-  Every item is independently blank-safe — clear a setting and that item
+  Both items are independently blank-safe — clear a setting and that item
   disappears rather than leaving an empty separator.
 {% endcomment %}
 
@@ -25,7 +31,7 @@
   endif
 -%}
 
-{%- if has_rating or s.sold_count != blank or s.ship_time != blank or s.insured_text != blank -%}
+{%- if has_rating or s.sold_count != blank -%}
   <ul class="aeonic-trust" {{ block.shopify_attributes }}>
     {%- if has_rating -%}
       {%- capture rating_content -%}
@@ -62,27 +68,6 @@
       </li>
     {%- endif -%}
 
-    {%- if s.ship_time != blank -%}
-      <li class="aeonic-trust__item">
-        <svg class="aeonic-trust__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1" y="3" width="10" height="9" rx="1"/>
-          <path d="M11 6h2l2 3v3h-4V6z"/>
-          <circle cx="4" cy="13.5" r="1.5"/>
-          <circle cx="13" cy="13.5" r="1.5"/>
-        </svg>
-        <span class="aeonic-trust__muted">{{ s.ship_time }}</span>
-      </li>
-    {%- endif -%}
-
-    {%- if s.insured_text != blank -%}
-      <li class="aeonic-trust__item">
-        <svg class="aeonic-trust__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 1.5 13.5 3.6v4.1c0 3.2-2.2 5.9-5.5 6.8-3.3-.9-5.5-3.6-5.5-6.8V3.6z"/>
-          <polyline points="5.7 7.8 7.3 9.4 10.4 6.3"/>
-        </svg>
-        <span class="aeonic-trust__muted">{{ s.insured_text }}</span>
-      </li>
-    {%- endif -%}
   </ul>
 
   <script>
@@ -208,12 +193,5 @@
     width: 14px;
     height: 14px;
     color: #e7cc87;
-  }
-
-  .aeonic-trust__icon {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-    color: rgba(var(--color-foreground), 0.45);
   }
 {%- endstyle -%}
