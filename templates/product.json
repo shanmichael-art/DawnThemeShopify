@@ -130,6 +130,7 @@
         "watch_block": {
           "type": "watch_block",
           "settings": {
+            "summary_label": "Watch this guitar",
             "heading": "Not ready today?",
             "subtext": "I'll email you if the price moves on this one, if an offer comes in — and when I get another like it.",
             "placeholder": "Email address",
