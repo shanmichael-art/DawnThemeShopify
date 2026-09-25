@@ -161,13 +161,31 @@
         "settings": {
           "greeting_message": "",
           "button_color": "#000000",
-          "secondary_color": "#FFFFFF",
-          "ternary_color": "#6A6A6A",
           "button_icon": "chat_bubble",
           "button_text": "chat_with_us",
           "button_horizontal_position": "bottom_right",
           "button_vertical_position": "lowest"
         }
+      },
+      "5057006142565981955": {
+        "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/cart-drawer-embed-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+        "disabled": false,
+        "settings": {
+          "logo_align_drawer": "left",
+          "font_size_drawer": 16,
+          "logo_color_drawer": "blue",
+          "logo_type_drawer": "logo",
+          "public_api_key_drawer": "",
+          "cart_drawer_selector": "",
+          "cart_drawer_total_selector": "",
+          "add_to_cart_selector": "",
+          "adjacent_element_selector": ""
+        }
+      },
+      "3979034072534932226": {
+        "type": "shopify://apps/metashop-instagram-facebook/blocks/app-embed/a2ba3b6f-1992-4528-a81d-226ccc4d2a86",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
