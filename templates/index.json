@@ -15,14 +15,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Curated. Dialed In. Ready to Be Played.",
+            "heading": "&nbsp;<strong>Guitars I'd be proud to keep.</strong>&nbsp;",
             "heading_size": "h0"
           }
         },
         "subtext": {
           "type": "text",
           "settings": {
-            "text": "Hand-selected guitars, dialed in and played before they’re ever listed.",
+            "text": "&nbsp;<em>Interesting guitars, personally selected, played, inspected and photographed by an every-day enthusiast.</em>&nbsp;",
             "text_style": "body"
           }
         },
