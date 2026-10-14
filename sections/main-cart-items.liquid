@@ -136,9 +136,14 @@
                         Per-line saving is the price delta only. Shipping is charged once per
                         order, not per item, so folding it in here would overstate a multi-item
                         cart. Shipping and tax are stated once in the cart footer instead.
+
+                        US visitors only, like the product page's price card: the tax estimate
+                        is US sales tax, and the marketplace comparison is written for US
+                        buyers. Overseas prices are converted and already include duties.
                       {%- endcomment -%}
                       {%- if section.settings.show_savings
                         and item.variant.compare_at_price > item.variant.price
+                        and localization.country.iso_code == 'US'
                       -%}
                         {%- liquid
                           assign line_savings = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity
