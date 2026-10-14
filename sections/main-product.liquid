@@ -224,7 +224,17 @@
                       {{- 'icon-caret.svg' | inline_asset_content -}}
                     </summary>
                     <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-                      {{ block.settings.content }}
+                      {%- comment -%}
+                        Optional overseas version. The shipping tab's own content is written
+                        for US buyers ($75 flat, UPS/FedEx Ground, 3-5 days).
+                      {%- endcomment -%}
+                      {%- if block.settings.international_content != blank
+                        and localization.country.iso_code != 'US'
+                      -%}
+                        {{ block.settings.international_content }}
+                      {%- else -%}
+                        {{ block.settings.content }}
+                      {%- endif -%}
                       {{ block.settings.page.content }}
                     </div>
                   </details>
@@ -1268,6 +1278,12 @@
           "type": "richtext",
           "id": "content",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.content.label"
+        },
+        {
+          "type": "richtext",
+          "id": "international_content",
+          "label": "Content for visitors outside the US",
+          "info": "Optional. Replaces the content above for shoppers browsing from any other country. Leave empty to show everyone the same content."
         },
         {
           "type": "page",
