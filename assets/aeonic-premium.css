@@ -693,6 +693,16 @@ html.aeonic-sticky-on shopify-chat:not([open]) {
   display: none;
 }
 
+/* Same treatment, site-wide, while any Dawn drawer or pop-up is open. Every
+   one of them — the phone filter drawer, the phone menu, search, image zoom —
+   locks page scroll with an overflow-hidden* class on <body>, and while open
+   the bubble sat on top of their bottom buttons: on phones it covered the
+   filter drawer's Apply completely, so tapping Apply opened the chat instead
+   of showing the filtered guitars. It comes back the moment the drawer closes. */
+body[class*='overflow-hidden'] shopify-chat:not([open]) {
+  display: none;
+}
+
 /* ---- Already in the cart --------------------------------------------------
    Every guitar is one of one, so once it is in the cart a second Add to cart
    can only fail. `.is-in-cart` (server-rendered, kept live by
