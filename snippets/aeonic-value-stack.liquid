@@ -11,6 +11,16 @@
   The marketplace comparison only renders when compare_at_price is set AND
   higher than price. Set compare_at_price to the marketplace list price for
   the comparison to be accurate.
+
+  US VISITORS ONLY
+  Everything under the guitar's price is written for US buyers: flat $75
+  shipping, no sales tax outside the home state, a delivery date a few
+  business days out, and the US marketplace comparison. The dollar settings
+  are plain US-dollar amounts too — the money filter would print the $75 as
+  £75 to a UK visitor. Everyone else buys through Shopify Managed Markets,
+  where the price shown already includes duties and, in most countries,
+  taxes (Shopify says which right under the price) and shipping is quoted
+  at checkout — so their card says exactly that and nothing more.
 {% endcomment %}
 
 {%- liquid
@@ -62,94 +72,142 @@
 
   assign save_low = savings | plus: tax_low
   assign save_high = savings | plus: tax_high
+
+  assign is_us = false
+  if localization.country.iso_code == 'US'
+    assign is_us = true
+  endif
+
+  comment
+    Formatted the way the price block above formats it, so a Canadian sees
+    "$1,950 CAD" rather than a bare "$" that reads as US dollars.
+  endcomment
+  assign intl_price = price | money_without_trailing_zeros
+  if settings.currency_code_enabled
+    assign intl_price = intl_price | append: ' ' | append: cart.currency.iso_code
+  endif
 -%}
 
 <div class="aeonic-vs" {{ block.shopify_attributes }}>
   <span class="aeonic-vs__eyebrow">{{ s.heading }}</span>
 
-  <dl class="aeonic-vs__lines">
-    <div class="aeonic-vs__line">
-      <dt>This guitar</dt>
-      <dd>{{ price | money }}</dd>
-    </div>
-    <div class="aeonic-vs__line">
-      <dt>Insured shipping{% if s.shipping_note != blank %} <span class="aeonic-vs__hint">{{ s.shipping_note }}</span>{% endif %}</dt>
-      <dd>{{ direct_ship | money }}</dd>
-    </div>
-    <div class="aeonic-vs__line">
-      <dt>Sales tax <span class="aeonic-vs__hint">outside {{ s.home_state }}</span></dt>
-      <dd class="aeonic-vs__free">None</dd>
-    </div>
-    <div class="aeonic-vs__line aeonic-vs__line--total">
-      <dt>Your total</dt>
-      <dd>{{ direct_total | money }}</dd>
-    </div>
-  </dl>
+  {%- if is_us -%}
+    <dl class="aeonic-vs__lines">
+      <div class="aeonic-vs__line">
+        <dt>This guitar</dt>
+        <dd>{{ price | money }}</dd>
+      </div>
+      <div class="aeonic-vs__line">
+        <dt>Insured shipping{% if s.shipping_note != blank %} <span class="aeonic-vs__hint">{{ s.shipping_note }}</span>{% endif %}</dt>
+        <dd>{{ direct_ship | money }}</dd>
+      </div>
+      <div class="aeonic-vs__line">
+        <dt>Sales tax <span class="aeonic-vs__hint">outside {{ s.home_state }}</span></dt>
+        <dd class="aeonic-vs__free">None</dd>
+      </div>
+      <div class="aeonic-vs__line aeonic-vs__line--total">
+        <dt>Your total</dt>
+        <dd>{{ direct_total | money }}</dd>
+      </div>
+    </dl>
 
-  {%- if s.show_delivery -%}
-    {%- assign delivery_days = s.delivery_days | default: 3 -%}
-    <p class="aeonic-vs__delivery">
-      <svg class="aeonic-vs__delivery-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="1" y="3" width="10" height="9" rx="1"/>
-        <path d="M11 6h2l2 3v3h-4V6z"/>
-        <circle cx="4" cy="13.5" r="1.5"/>
-        <circle cx="13" cy="13.5" r="1.5"/>
-      </svg>
-      <span>
-        Arrives as early as
-        <strong
-          data-aeonic-delivery-date
-          data-aeonic-delivery-days="{{ delivery_days }}"
-        >{{ delivery_days }} business days</strong>
-      </span>
-    </p>
-  {%- endif -%}
-
-  {%- if has_comparison -%}
-    <div class="aeonic-vs__compare">
-      <p class="aeonic-vs__compare-row">
-        <span>Same guitar on {{ s.marketplace_name }}</span>
-        <span class="aeonic-vs__compare-price">{{ mkt_total | money }}</span>
+    {%- if s.show_delivery -%}
+      {%- assign delivery_days = s.delivery_days | default: 3 -%}
+      <p class="aeonic-vs__delivery">
+        <svg class="aeonic-vs__delivery-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="3" width="10" height="9" rx="1"/>
+          <path d="M11 6h2l2 3v3h-4V6z"/>
+          <circle cx="4" cy="13.5" r="1.5"/>
+          <circle cx="13" cy="13.5" r="1.5"/>
+        </svg>
+        <span>
+          Arrives as early as
+          <strong
+            data-aeonic-delivery-date
+            data-aeonic-delivery-days="{{ delivery_days }}"
+          >{{ delivery_days }} business days</strong>
+        </span>
       </p>
-      <p class="aeonic-vs__compare-note">
-        {{ mkt_price | money }} + {{ mkt_ship | money }} shipping{% if s.show_tax_estimate %}, plus {{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }} sales tax in most states{% endif %}
-      </p>
-    </div>
+    {%- endif -%}
 
-    {%- if savings > 0 -%}
+    {%- if has_comparison -%}
+      <div class="aeonic-vs__compare">
+        <p class="aeonic-vs__compare-row">
+          <span>Same guitar on {{ s.marketplace_name }}</span>
+          <span class="aeonic-vs__compare-price">{{ mkt_total | money }}</span>
+        </p>
+        <p class="aeonic-vs__compare-note">
+          {{ mkt_price | money }} + {{ mkt_ship | money }} shipping{% if s.show_tax_estimate %}, plus {{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }} sales tax in most states{% endif %}
+        </p>
+      </div>
+
+      {%- if savings > 0 -%}
+        <p class="aeonic-vs__savings">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="2 8.5 6 12.5 14 4"/>
+          </svg>
+          {%- if s.show_tax_estimate -%}
+            <span>
+              You save <strong>{{ save_low | money_without_trailing_zeros }}–{{ save_high | money_without_trailing_zeros }}</strong> buying direct.<sup>*</sup>
+            </span>
+          {%- else -%}
+            <span>
+              You save <strong>{{ savings | money }}</strong> buying direct.
+            </span>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    {%- elsif s.show_tax_estimate -%}
       <p class="aeonic-vs__savings">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="2 8.5 6 12.5 14 4"/>
         </svg>
-        {%- if s.show_tax_estimate -%}
-          <span>
-            You save <strong>{{ save_low | money_without_trailing_zeros }}–{{ save_high | money_without_trailing_zeros }}</strong> buying direct.<sup>*</sup>
-          </span>
-        {%- else -%}
-          <span>
-            You save <strong>{{ savings | money }}</strong> buying direct.
-          </span>
-        {%- endif -%}
+        <span>
+          Buying here skips the sales tax the marketplaces collect — roughly
+          <strong>{{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }}</strong> on a guitar at this price.<sup>*</sup>
+        </span>
       </p>
     {%- endif -%}
-  {%- elsif s.show_tax_estimate -%}
-    <p class="aeonic-vs__savings">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="2 8.5 6 12.5 14 4"/>
-      </svg>
-      <span>
-        Buying here skips the sales tax the marketplaces collect — roughly
-        <strong>{{ tax_low | money_without_trailing_zeros }}–{{ tax_high | money_without_trailing_zeros }}</strong> on a guitar at this price.<sup>*</sup>
-      </span>
-    </p>
-  {%- endif -%}
 
-  {%- if s.show_tax_estimate and s.footnote != blank -%}
-    <p class="aeonic-vs__footnote">{{ s.footnote }}</p>
+    {%- if s.show_tax_estimate and s.footnote != blank -%}
+      <p class="aeonic-vs__footnote">{{ s.footnote }}</p>
+    {%- endif -%}
+  {%- else -%}
+    <dl class="aeonic-vs__lines">
+      <div class="aeonic-vs__line">
+        <dt>This guitar</dt>
+        <dd>{{ intl_price }}</dd>
+      </div>
+      {%- if cart.duties_included and cart.taxes_included -%}
+        <div class="aeonic-vs__line">
+          <dt>Import duties &amp; taxes</dt>
+          <dd class="aeonic-vs__free">Included</dd>
+        </div>
+      {%- else -%}
+        {%- if cart.duties_included -%}
+          <div class="aeonic-vs__line">
+            <dt>Import duties</dt>
+            <dd class="aeonic-vs__free">Included</dd>
+          </div>
+        {%- endif -%}
+        <div class="aeonic-vs__line">
+          <dt>Taxes</dt>
+          {%- if cart.taxes_included -%}
+            <dd class="aeonic-vs__free">Included</dd>
+          {%- else -%}
+            <dd class="aeonic-vs__later">Calculated at checkout</dd>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="aeonic-vs__line">
+        <dt>Shipping</dt>
+        <dd class="aeonic-vs__later">Calculated at checkout</dd>
+      </div>
+    </dl>
   {%- endif -%}
 </div>
 
-{%- if s.show_delivery -%}
+{%- if s.show_delivery and is_us -%}
   <script>
     (function () {
       // The markup ships with a readable fallback ("3 business days") already in
@@ -245,6 +303,10 @@
   .aeonic-vs__free {
     color: #2ea04d !important;
     font-weight: 600;
+  }
+
+  .aeonic-vs__line dd.aeonic-vs__later {
+    color: rgba(var(--color-foreground), 0.55);
   }
 
   .aeonic-vs__line--total {
