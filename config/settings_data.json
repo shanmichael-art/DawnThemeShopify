@@ -169,7 +169,7 @@
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": false,
         "settings": {
-          "greeting_message": "",
+          "greeting_message": "Hi, it’s Shan. Ask me anything about this guitar: neck feel, originality, condition, more photos. I answer these myself.",
           "show_featured_products": true,
           "featured_products": [],
           "background_color": "#ffffff",
