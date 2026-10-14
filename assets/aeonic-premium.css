@@ -693,6 +693,49 @@ html.aeonic-sticky-on shopify-chat:not([open]) {
   display: none;
 }
 
+/* ---- Already in the cart --------------------------------------------------
+   Every guitar is one of one, so once it is in the cart a second Add to cart
+   can only fail. `.is-in-cart` (server-rendered, kept live by
+   aeonic-product.js) swaps both Add buttons for "In your cart — View cart". */
+.product-form__buttons:not(.is-in-cart) .aeonic-in-cart-link,
+.product-form__buttons.is-in-cart .product-form__submit,
+.aeonic-sticky-atc:not(.is-in-cart) .aeonic-sticky-atc__in-cart,
+.aeonic-sticky-atc.is-in-cart .aeonic-sticky-atc__add {
+  display: none;
+}
+
+.aeonic-in-cart-link__icon,
+.aeonic-sticky-atc__in-cart svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.aeonic-in-cart-link__icon {
+  margin-right: 0.8rem;
+  color: #2ea04d;
+}
+
+.aeonic-sticky-atc__in-cart {
+  gap: 6px;
+  text-decoration: none;
+}
+
+/* Add-to-cart problems, reported where the shopper is looking. */
+.aeonic-sticky-atc__msg {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgb(var(--color-foreground));
+}
+
+.aeonic-sticky-atc__msg[hidden] {
+  display: none;
+}
+
 /* ============================================================
    CART ASSURANCE — concrete costs below the checkout button
    ============================================================ */
@@ -785,9 +828,11 @@ html.aeonic-sticky-on shopify-chat:not([open]) {
   }
 }
 
-/* Phones: "Ask anything" shortens to "Ask". */
+/* Phones: "Ask anything" shortens to "Ask", and "In your cart — View cart"
+   to "View cart" (the tick still says it is in there). */
 @media screen and (max-width: 749px) {
-  .aeonic-sticky-atc__ask-more {
+  .aeonic-sticky-atc__ask-more,
+  .aeonic-sticky-atc__in-cart-more {
     display: none;
   }
 }

@@ -381,7 +381,28 @@
       aeonic-product.js.
     {%- endcomment -%}
     {%- if template.name == 'product' -%}
-      <div class="aeonic-sticky-atc" id="AeonicStickyATC" aria-hidden="true">
+      {%- liquid
+        assign aeonic_bar_variant = product.selected_or_first_available_variant
+        assign aeonic_bar_in_cart = false
+        for item in cart.items
+          if item.variant_id == aeonic_bar_variant.id
+            assign aeonic_bar_in_cart = true
+            break
+          endif
+        endfor
+      -%}
+      <div
+        class="aeonic-sticky-atc{% if aeonic_bar_in_cart %} is-in-cart{% endif %}"
+        id="AeonicStickyATC"
+        data-aeonic-variant="{{ aeonic_bar_variant.id }}"
+        aria-hidden="true"
+      >
+        {%- comment -%}
+          Add-to-cart problems are reported here while the bar is up, because
+          Dawn shows them beside the main button — usually well off-screen by
+          the time someone is using this bar.
+        {%- endcomment -%}
+        <p class="aeonic-sticky-atc__msg page-width" role="status" hidden></p>
         <div class="aeonic-sticky-atc__inner page-width">
           {%- if product.featured_image -%}
             <img
@@ -411,12 +432,22 @@
           {%- if product.available -%}
             <button
               type="button"
-              class="aeonic-sticky-atc__button"
+              class="aeonic-sticky-atc__button aeonic-sticky-atc__add"
               onclick="document.querySelector('[data-type=add-to-cart-form] [type=submit], .product-form__submit')?.click()"
               aria-label="Add {{ product.title | escape }} to cart"
             >
               Add to Cart
             </button>
+            <a
+              class="aeonic-sticky-atc__button aeonic-sticky-atc__in-cart"
+              href="{{ routes.cart_url }}"
+              aria-label="{{ product.title | escape }} is in your cart. View cart"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="2.5 8.5 6.5 12.5 13.5 4"/>
+              </svg>
+              <span><span class="aeonic-sticky-atc__in-cart-more">In your cart — </span>View cart</span>
+            </a>
           {%- else -%}
             <span class="aeonic-sticky-atc__button" style="opacity:0.5;cursor:default;">Sold Out</span>
           {%- endif -%}

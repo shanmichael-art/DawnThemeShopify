@@ -60,7 +60,27 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class="product-form__buttons">
+        {%- liquid
+          comment
+            Every guitar here is one of one, so once it is in the cart a second
+            Add to cart can only fail ("maximum quantity already in your cart").
+            In that state the button is swapped for "In your cart — View cart".
+            Rendered server-side so a returning shopper sees it on page load, and
+            Dawn's section re-render keeps it right per variant; aeonic-product.js
+            flips it live after an add and re-checks the real cart on load.
+          endcomment
+          assign in_cart = false
+          for item in cart.items
+            if item.variant_id == product.selected_or_first_available_variant.id
+              assign in_cart = true
+              break
+            endif
+          endfor
+        -%}
+        <div
+          class="product-form__buttons{% if in_cart %} is-in-cart{% endif %}"
+          data-aeonic-variant="{{ product.selected_or_first_available_variant.id }}"
+        >
           {%- liquid
             assign check_against_inventory = true
             if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -93,6 +113,15 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
+          <a
+            href="{{ routes.cart_url }}"
+            class="aeonic-in-cart-link button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+          >
+            <svg class="aeonic-in-cart-link__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="2.5 8.5 6.5 12.5 13.5 4"/>
+            </svg>
+            <span>In your cart — View cart</span>
+          </a>
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}

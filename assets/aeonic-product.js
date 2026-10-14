@@ -1,18 +1,19 @@
 /*
-  Product page behaviours: the sticky buy bar, and every "ask Shan" entry point
-  wired into Shopify Inbox.
+  Product page behaviours: the sticky buy bar, every "ask Shan" entry point
+  wired into Shopify Inbox, and the one-of-one "already in your cart" state.
 
-  Loaded once, deferred, on the product template. Everything is either
-  delegated from `document` or driven by classes on <html>, because Dawn
-  re-renders the product-info container with innerHTML on variant change —
-  a listener bound to an element inside it would be silently dropped.
+  Loaded once, deferred, on the product template — after Dawn's constants.js
+  and pubsub.js, whose PUB_SUB_EVENTS / subscribe() it relies on. Everything is
+  either delegated from `document` or driven by classes, because Dawn
+  re-renders the product-info container with innerHTML on variant change — a
+  listener bound to an element inside it would be silently dropped.
 
   STICKY BAR
-  Appears once the main Add to Cart has scrolled off the top of the screen and
-  hides whenever that button is back in view, so the two are never on screen
-  together. While it is up, <html> carries `aeonic-sticky-on`; CSS uses that to
-  tuck away Shopify's floating chat bubble, and the bar's own Ask button takes
-  over its job — so nothing ever sits on top of the bar's Add to Cart.
+  Appears once the main buttons row has scrolled off the top of the screen and
+  hides whenever it is back in view, so the two are never on screen together.
+  While it is up, <html> carries `aeonic-sticky-on`; CSS uses that to tuck away
+  Shopify's floating chat bubble, and the bar's own Ask button takes over its
+  job — so nothing ever sits on top of the bar's Add to Cart.
 
   ASK → SHOPIFY INBOX
   <shopify-chat> exposes sendStarterMessage(text, source): it opens the chat and
@@ -25,15 +26,27 @@
   preview on Shan's phone leads with what was asked, and he still knows which
   guitar it is about.
 
+  ALREADY IN YOUR CART
+  Every guitar is one of one. Once it is in the cart a second Add to cart can
+  only fail — and from the sticky bar Dawn reported that failure beside the
+  main button, well off-screen, so the tap looked like it did nothing. Both
+  Add buttons are therefore swapped for "In your cart — View cart" whenever
+  the selected variant is in the cart. Liquid renders the starting state; this
+  file keeps it true after an add, after Dawn's own "already in your cart"
+  error, after a variant change, and after a back/forward-cache restore.
+  Remaining add errors are reported on the sticky bar while it is up.
+
   DEGRADING
   - sendStarterMessage missing or failing → the chat still opens so the shopper
     can type the question themselves.
   - No usable <shopify-chat> at all (Inbox embed switched off) → <html> never
     gets `aeonic-chat-ready`, CSS keeps every ask entry point hidden, and the
     after-description "Ask me anything" link falls through to its real href.
+  - Cart lookup fails → the server-rendered in-cart state stands.
 */
 (function () {
   var root = document.documentElement;
+  var bar = document.getElementById('AeonicStickyATC');
   var MAX_LEN = 500; // sendStarterMessage's own ceiling
 
   /* ------------------------------------------------------------------ chat */
@@ -172,31 +185,147 @@
     }, 500);
   }
 
+  /* --------------------------------------------------- already in your cart */
+
+  var cartVariants = null; // Set of variant ids (strings); null until known
+
+  // Anything carrying data-aeonic-variant — the main buttons row and the
+  // sticky bar — gets `.is-in-cart` while that variant is in the cart.
+  function applyCartState() {
+    if (!cartVariants) return;
+    var els = document.querySelectorAll('[data-aeonic-variant]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.toggle('is-in-cart', cartVariants.has(els[i].getAttribute('data-aeonic-variant')));
+    }
+  }
+
+  function setCart(items) {
+    cartVariants = new Set(
+      items.map(function (item) {
+        return String(item.variant_id);
+      })
+    );
+    applyCartState();
+  }
+
+  function markInCart(variantId) {
+    if (!variantId) return;
+    if (!cartVariants) cartVariants = new Set();
+    cartVariants.add(String(variantId));
+    applyCartState();
+  }
+
+  function syncFromCart() {
+    var base = (window.routes && window.routes.cart_url) || '/cart';
+    return fetch(base + '.js', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (cart) {
+        setCart(cart.items || []);
+      })
+      .catch(function () {}); // keep the server-rendered state
+  }
+
+  // Shopify words "this one-of-one is already in your cart" a few ways.
+  var ALREADY_IN_CART = /already in your cart|are in your cart|can['’]t add more/i;
+
+  function errorText(event) {
+    if (!event) return '';
+    var errors = event.errors;
+    if (typeof errors === 'string') return errors;
+    if (errors && typeof errors === 'object') {
+      var parts = [];
+      Object.keys(errors).forEach(function (key) {
+        parts = parts.concat(errors[key]);
+      });
+      if (parts.length) return parts.join(' ');
+    }
+    return typeof event.message === 'string' ? event.message : '';
+  }
+
+  var flashTimer;
+  function flashOnBar(text) {
+    if (!bar || !bar.classList.contains('is-visible') || !text) return;
+    var msg = bar.querySelector('.aeonic-sticky-atc__msg');
+    if (!msg) return;
+    msg.textContent = text;
+    msg.hidden = false;
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function () {
+      msg.hidden = true;
+    }, 6000);
+  }
+
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.cartUpdate, function (event) {
+      if (!event) return;
+      var cart = event.cartData;
+      if (cart && Array.isArray(cart.items)) setCart(cart.items); // a full cart (cart page / drawer)
+      else if (event.source === 'product-form') markInCart(event.productVariantId);
+    });
+
+    subscribe(PUB_SUB_EVENTS.cartError, function (event) {
+      var text = errorText(event);
+      if (ALREADY_IN_CART.test(text)) {
+        markInCart(event && event.productVariantId);
+        flashOnBar('This guitar is already in your cart.');
+        // Dawn writes its own "maximum quantity" message straight after
+        // publishing this event; the In-your-cart button now says it better.
+        setTimeout(function () {
+          var wrappers = document.querySelectorAll('.product-form__error-message-wrapper');
+          for (var i = 0; i < wrappers.length; i++) wrappers[i].hidden = true;
+        }, 0);
+        return;
+      }
+      flashOnBar(text || 'That didn’t go through. Please try again.');
+    });
+
+    subscribe(PUB_SUB_EVENTS.variantChange, function (event) {
+      var variant = event && event.data && event.data.variant;
+      if (variant && bar) bar.setAttribute('data-aeonic-variant', String(variant.id));
+      setTimeout(applyCartState, 0); // once Dawn has swapped in the new variant's markup
+    });
+  }
+
+  syncFromCart();
+  // A back/forward-cache restore shows the page exactly as it was left — even
+  // if the guitar has since been taken out of the cart on the cart page.
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) syncFromCart();
+  });
+
   /* ------------------------------------------------------------ sticky bar */
 
-  var bar = document.getElementById('AeonicStickyATC');
   if (!bar) return;
 
-  var buyButton = null;
+  var buyAnchor = null;
   var ticking = false;
 
-  function findBuyButton() {
-    buyButton = document.querySelector(
-      '.product-form__submit, [data-type="add-to-cart-form"] [type="submit"]'
-    );
+  // The whole buttons row rather than the Add button: the row stays visible
+  // in the in-cart state (when Add is swapped out), and because it includes
+  // Buy with Shop the bar waits until both have left the screen.
+  function findBuyAnchor() {
+    buyAnchor =
+      document.querySelector('product-info .product-form__buttons') ||
+      document.querySelector('.product-form__buttons');
   }
 
   function updateBar() {
     ticking = false;
-    // Dawn swaps the product form out on variant change; re-find a detached button.
-    if (!buyButton || !buyButton.isConnected) findBuyButton();
-    var show = !!buyButton && buyButton.getBoundingClientRect().bottom < 0;
+    // Dawn swaps the product form out on variant change; re-find a detached row.
+    if (!buyAnchor || !buyAnchor.isConnected) findBuyAnchor();
+    var show = !!buyAnchor && buyAnchor.getBoundingClientRect().bottom < 0;
     if (show === bar.classList.contains('is-visible')) return;
 
     bar.classList.toggle('is-visible', show);
     bar.setAttribute('aria-hidden', String(!show));
     bar.inert = !show; // keep its buttons out of the tab order while it is off-screen
     root.classList.toggle('aeonic-sticky-on', show);
+    if (!show) {
+      var msg = bar.querySelector('.aeonic-sticky-atc__msg');
+      if (msg) msg.hidden = true;
+    }
   }
 
   function requestUpdate() {
@@ -206,8 +335,8 @@
   }
 
   bar.inert = true;
-  findBuyButton();
+  findBuyAnchor();
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate);
-  updateBar(); // a restored scroll position may already be past the button
+  updateBar(); // a restored scroll position may already be past the buttons
 })();
