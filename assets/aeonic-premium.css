@@ -678,17 +678,19 @@ h1, .h1 { letter-spacing: -0.03em; }
    switching the Inbox embed off can never leave a dead button behind.
 
    While the sticky bar is up, its Ask button replaces the floating bubble, so
-   nothing covers the bar's Add to Cart. `activator` is the part Shopify's chat
-   widget exports for outside styling; hiding only that part leaves the chat
-   panel itself untouched. */
+   nothing covers the bar's Add to Cart. The whole widget is taken out of
+   rendering, not just the bubble: hiding the exported `activator` part leaves
+   its wrapper (`activator-nudge`, not exported) catching taps over the button,
+   and the widget forces that wrapper visible, so `visibility` cannot reach it.
+   `:not([open])` brings the widget straight back whenever the chat is open —
+   via Ask, a starter question, or anything else — and display:none does not
+   reload its iframe, so a conversation in progress survives. */
 html:not(.aeonic-chat-ready) .aeonic-chat-only {
   display: none;
 }
 
-html.aeonic-sticky-on shopify-chat::part(activator) {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+html.aeonic-sticky-on shopify-chat:not([open]) {
+  display: none;
 }
 
 /* ============================================================
