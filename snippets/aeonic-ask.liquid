@@ -1,188 +1,86 @@
 {% comment %}
-  Renders the "talk to a human" escape hatch that sits beside the buy button.
+  Renders "Questions about this guitar?" — one-tap starter questions plus a
+  type-your-own field, all sent straight into Shopify Inbox as a live chat.
 
   At $3,000+ the willingness to answer a stranger directly is itself the trust
-  signal — almost nobody actually uses it. That is the point.
-
-  Deliberately does NOT offer a live video walkthrough. Only promise what you
-  can reliably deliver here: an offer that goes unanswered does more damage at
-  this price point than never making it.
+  signal. Deliberately does NOT offer a live video walkthrough: only promise
+  what can reliably be delivered, because an offer that goes unanswered does
+  more damage at this price than never making it.
 
   Accepts:
   - product: {Object} Product liquid object
   - block:   {Object} The ask_block block
 
-  CHAT BUTTON
-  Shopify's chat is the <shopify-chat> custom element. Its entire public surface
-  is `open` (a settable boolean property, NOT a method), `show()`, `close()` and
-  `refreshTheme()`, with observed attributes open/mode/mode-switch/data-identity-fp.
-  There is no prefill API — the conversation UI lives in a separate iframe — so
-  this can open the chat but cannot compose the message. That is why the email
-  path exists alongside it: email is the route that can actually carry the
-  guitar's title, SKU and URL.
+  WHY STARTERS
+  A blank "ask a question" box makes the shopper do the hard part: work out
+  what to ask. The starters are the questions used-guitar buyers actually have
+  (and what SimGym's shoppers went looking for), so asking costs one tap.
+  A tap sends immediately — the same behaviour as the suggestion pills inside
+  Shopify's own chat — and the footnote says so up front.
 
-  The chat button starts hidden and is revealed only once <shopify-chat> is
-  confirmed on the page, so disabling the Inbox app embed can never leave a
-  dead button behind.
-
-  Both hrefs are built in JS with encodeURIComponent at click time rather than
-  url_encode in Liquid, because Liquid's url_encode emits `+` for spaces, which
-  several mail clients render as a literal plus inside a mailto body. The
-  no-JS href is a plain mailto to the same address, so the link still works.
+  Sending, the guitar title attached to every message, and all fallbacks live
+  in assets/aeonic-product.js. The block is marked .aeonic-chat-only, so it
+  stays hidden unless Shopify's chat is actually on the page.
 {% endcomment %}
 
 {%- liquid
   assign s = block.settings
-  assign variant = product.selected_or_first_available_variant
-  assign sku = variant.sku
+  assign heading_id = 'AeonicAskHeading-' | append: block.id
 -%}
 
-{%- if s.contact_email != blank -%}
+<div
+  class="aeonic-ask aeonic-chat-only"
+  data-aeonic-ask
+  data-product-title="{{ product.title | escape }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if s.heading != blank -%}
+    <p class="aeonic-ask__heading" id="{{ heading_id }}">{{ s.heading }}</p>
+  {%- endif -%}
+
   <div
-    class="aeonic-ask"
-    data-aeonic-ask
-    data-product-title="{{ product.title | escape }}"
-    data-product-url="{{ product.url | prepend: request.origin | escape }}"
-    data-product-sku="{{ sku | escape }}"
-    data-email="{{ s.contact_email | escape }}"
-    {{ block.shopify_attributes }}
+    class="aeonic-ask__starters"
+    role="group"
+    {% if s.heading != blank %}aria-labelledby="{{ heading_id }}"{% else %}aria-label="Common questions"{% endif %}
   >
-    {%- if s.heading != blank -%}
-      <p class="aeonic-ask__heading">{{ s.heading }}</p>
-    {%- endif -%}
-
-    <div class="aeonic-ask__actions">
-      <button
-        type="button"
-        class="aeonic-ask__btn aeonic-ask__btn--chat"
-        data-aeonic-chat
-        hidden
-      >
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M14 9.5a2 2 0 0 1-2 2H5.5L2 14V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/>
-        </svg>
-        <span>{{ s.chat_label }}</span>
-      </button>
-
-      <a
-        class="aeonic-ask__btn aeonic-ask__btn--email"
-        href="mailto:{{ s.contact_email }}"
-        data-aeonic-mail="question"
-      >
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="1.5" y="3" width="13" height="10" rx="1.5"/>
-          <path d="m2 4.2 6 4.3 6-4.3"/>
-        </svg>
-        <span>{{ s.email_label }}</span>
-      </a>
-    </div>
-
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign key = 'starter_' | append: i
+        assign question = s[key]
+      -%}
+      {%- if question != blank -%}
+        <button type="button" class="aeonic-ask__starter" data-aeonic-starter="{{ question | escape }}">
+          {{- question | escape -}}
+        </button>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 
-  <script>
-    (function () {
-      if (window.__aeonicAskBound) return;
-      window.__aeonicAskBound = true;
+  <form class="aeonic-ask__form" data-aeonic-ask-form novalidate>
+    <label class="visually-hidden" for="AeonicAsk-{{ block.id }}">
+      {{- s.input_placeholder | default: 'Ask your own question' -}}
+    </label>
+    <input
+      id="AeonicAsk-{{ block.id }}"
+      class="aeonic-ask__input"
+      type="text"
+      name="question"
+      placeholder="{{ s.input_placeholder | default: 'Ask your own question…' | escape }}"
+      maxlength="300"
+      autocomplete="off"
+      enterkeyhint="send"
+    >
+    <button type="submit" class="aeonic-ask__send" aria-label="Send question">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </button>
+  </form>
 
-      // Dawn re-renders the product-info container via innerHTML on variant
-      // change, which would drop any per-element listener. Delegating from
-      // document survives that with no repaint hook needed.
-      document.addEventListener('click', function (event) {
-        var chatBtn = event.target.closest('[data-aeonic-chat]');
-        if (chatBtn) {
-          event.preventDefault();
-          openShopifyChat();
-          return;
-        }
-
-        var mailLink = event.target.closest('[data-aeonic-mail]');
-        if (mailLink) {
-          var root = mailLink.closest('[data-aeonic-ask]');
-          if (root) mailLink.href = buildMailto(root);
-          // Not prevented — let the browser follow the href we just set.
-        }
-      });
-
-      function buildMailto(root) {
-        var title = root.getAttribute('data-product-title') || 'your guitar';
-        var url = root.getAttribute('data-product-url') || '';
-        var sku = root.getAttribute('data-product-sku') || '';
-        var email = root.getAttribute('data-email') || '';
-
-        var subject = 'Question about the ' + title;
-
-        var lines = ['Hi Shan,', '', 'I have a question about this guitar:', '', title];
-        if (sku) lines.push('SKU: ' + sku);
-        if (url) lines.push(url);
-        lines.push('', '');
-
-        return (
-          'mailto:' + email +
-          '?subject=' + encodeURIComponent(subject) +
-          '&body=' + encodeURIComponent(lines.join('\n'))
-        );
-      }
-
-      function getChat() {
-        return document.querySelector('shopify-chat');
-      }
-
-      function openShopifyChat() {
-        var chat = getChat();
-        if (!chat) return;
-
-        // `open` is an accessor property, not a method. show() is the
-        // documented sibling; the shadow-root activator is the last resort and
-        // is exactly what a click on the bubble does.
-        try {
-          if (typeof chat.show === 'function') {
-            chat.show();
-            return;
-          }
-        } catch (e) {}
-
-        try {
-          chat.open = true;
-          if (chat.open) return;
-        } catch (e) {}
-
-        try {
-          var activator =
-            chat.shadowRoot &&
-            chat.shadowRoot.querySelector('button[part="activator"], .activator');
-          if (activator) activator.click();
-        } catch (e) {}
-      }
-
-      // Only reveal the chat button once the widget is actually present, so a
-      // disabled Inbox embed never leaves a button that does nothing.
-      function revealChatButtons() {
-        if (!getChat()) return false;
-        var btns = document.querySelectorAll('[data-aeonic-chat][hidden]');
-        for (var i = 0; i < btns.length; i++) btns[i].hidden = false;
-        return true;
-      }
-
-      // The chat script is deferred and defines its element well after DOMContentLoaded.
-      if (!revealChatButtons()) {
-        if (window.customElements && customElements.whenDefined) {
-          customElements.whenDefined('shopify-chat').then(revealChatButtons);
-        }
-        var tries = 0;
-        var poll = setInterval(function () {
-          if (revealChatButtons() || ++tries > 20) clearInterval(poll);
-        }, 500);
-      }
-
-      // Variant change re-renders the block, which re-hides the button.
-      document.addEventListener('shopify:section:load', revealChatButtons);
-      new MutationObserver(revealChatButtons).observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-    })();
-  </script>
-{%- endif -%}
+  {%- if s.footnote != blank -%}
+    <p class="aeonic-ask__note">{{ s.footnote }}</p>
+  {%- endif -%}
+</div>
 
 {%- style -%}
   .aeonic-ask {
@@ -201,45 +99,110 @@
     color: rgb(var(--color-foreground));
   }
 
-  .aeonic-ask__actions {
+  .aeonic-ask__starters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.7rem;
   }
 
-  .aeonic-ask__btn {
+  .aeonic-ask__starter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 40px;
+    padding: 0.6rem 1.3rem;
+    border: 1px solid rgba(var(--color-foreground), 0.22);
+    border-radius: 999px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    text-align: left;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+  }
+
+  .aeonic-ask__starter:hover:not(:disabled) {
+    border-color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-ask__starter.is-busy {
+    opacity: 0.55;
+    cursor: progress;
+  }
+
+  /* Already asked: confirm it went, and stop it looking like an open invitation
+     to send the same question twice. */
+  .aeonic-ask__starter.is-sent {
+    border-color: rgba(46, 160, 77, 0.5);
+    background: rgba(46, 160, 77, 0.06);
+  }
+
+  .aeonic-ask__starter.is-sent::before {
+    content: '\2713';
+    font-weight: 700;
+    color: #2ea04d;
+  }
+
+  .aeonic-ask__form {
+    display: flex;
+    gap: 0.7rem;
+    margin: 1rem 0 0;
+  }
+
+  .aeonic-ask__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 1.2rem;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 6px;
+    background: rgb(var(--color-background));
+    font-family: inherit;
+    font-size: 1.6rem; /* 16px+ stops iOS zooming the page on focus */
+    color: rgb(var(--color-foreground));
+  }
+
+  .aeonic-ask__input:focus {
+    outline: none;
+    border-color: rgb(var(--color-foreground));
+    box-shadow: 0 0 0 1px rgb(var(--color-foreground));
+  }
+
+  .aeonic-ask__send {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    flex: 1 1 auto;
-    min-width: 14rem;
-    padding: 1rem 1.4rem;
-    border: 1px solid rgba(var(--color-foreground), 0.28);
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
     border-radius: 6px;
     background: transparent;
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.2;
     color: rgb(var(--color-foreground));
-    text-decoration: none;
     cursor: pointer;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
+    transition: border-color 0.15s ease, opacity 0.15s ease;
   }
 
-  .aeonic-ask__btn:hover {
-    border-color: #e7cc87;
-    background: rgba(231, 204, 135, 0.08);
+  .aeonic-ask__send:hover:not(:disabled) {
+    border-color: rgb(var(--color-foreground));
   }
 
-  .aeonic-ask__btn svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    color: #e7cc87;
+  .aeonic-ask__send.is-busy {
+    opacity: 0.55;
+    cursor: progress;
   }
 
-  .aeonic-ask__btn[hidden] {
-    display: none;
+  .aeonic-ask__send svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .aeonic-ask__note {
+    margin: 0.9rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.55);
   }
 {%- endstyle -%}

@@ -2412,7 +2412,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "The chat button opens Shopify Inbox and only appears when the Inbox app embed is active. Shopify's chat has no prefill API, so the email button is the one that carries the guitar's title, SKU and URL."
+          "content": "Questions go straight into Shopify Inbox as a live chat, with the guitar's name attached. Tapping a question sends it immediately. The whole block hides itself if the Inbox chat embed is switched off."
         },
         {
           "type": "text",
@@ -2421,23 +2421,50 @@
           "default": "Questions about this guitar?"
         },
         {
-          "type": "text",
-          "id": "chat_label",
-          "label": "Chat button label",
-          "default": "Ask me now"
+          "type": "header",
+          "content": "One-tap questions"
         },
         {
           "type": "text",
-          "id": "email_label",
-          "label": "Email button label",
-          "default": "Email me about it"
+          "id": "starter_1",
+          "label": "Question 1",
+          "default": "What's the neck profile like?"
         },
         {
           "type": "text",
-          "id": "contact_email",
-          "label": "Your email address",
-          "info": "Required — the block hides entirely without it.",
-          "default": "shan@aeonicfrets.com"
+          "id": "starter_2",
+          "label": "Question 2",
+          "default": "Any repairs or swapped parts?"
+        },
+        {
+          "type": "text",
+          "id": "starter_3",
+          "label": "Question 3",
+          "default": "What's included?"
+        },
+        {
+          "type": "text",
+          "id": "starter_4",
+          "label": "Question 4",
+          "info": "Leave any question blank to hide it.",
+          "default": "Can I see more photos?"
+        },
+        {
+          "type": "header",
+          "content": "Type your own"
+        },
+        {
+          "type": "text",
+          "id": "input_placeholder",
+          "label": "Placeholder",
+          "default": "Ask your own question…"
+        },
+        {
+          "type": "text",
+          "id": "footnote",
+          "label": "Note under the questions",
+          "info": "Leave blank to hide.",
+          "default": "Tap a question to send it to me in chat."
         }
       ]
     },
