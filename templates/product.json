@@ -110,12 +110,12 @@
           "type": "ask_block",
           "settings": {
             "heading": "Questions about this guitar?",
-            "starter_1": "What's the neck profile like?",
-            "starter_2": "Any repairs or swapped parts?",
-            "starter_3": "What's included?",
-            "starter_4": "Can I see more photos?",
-            "input_placeholder": "Ask your own question…",
-            "footnote": "Tap a question to send it to me in chat."
+            "starter_1": "",
+            "starter_2": "",
+            "starter_3": "",
+            "starter_4": "",
+            "input_placeholder": "Type your question…",
+            "footnote": "Your question comes straight to me, and I'll reply in chat."
           }
         },
         "trade_in": {

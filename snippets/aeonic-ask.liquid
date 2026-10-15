@@ -1,6 +1,7 @@
 {% comment %}
-  Renders "Questions about this guitar?" — one-tap starter questions plus a
-  type-your-own field, all sent straight into Shopify Inbox as a live chat.
+  Renders "Questions about this guitar?" — a type-your-own field, plus
+  optional one-tap starter questions, sent straight into Shopify Inbox as a
+  live chat.
 
   At $3,000+ the willingness to answer a stranger directly is itself the trust
   signal. Deliberately does NOT offer a live video walkthrough: only promise
@@ -11,12 +12,13 @@
   - product: {Object} Product liquid object
   - block:   {Object} The ask_block block
 
-  WHY STARTERS
-  A blank "ask a question" box makes the shopper do the hard part: work out
-  what to ask. The starters are the questions used-guitar buyers actually have
-  (and what SimGym's shoppers went looking for), so asking costs one tap.
-  A tap sends immediately — the same behaviour as the suggestion pills inside
-  Shopify's own chat — and the footnote says so up front.
+  STARTER QUESTIONS — SWITCHED OFF
+  Up to four one-tap questions can sit above the field; a tap sends at once,
+  like the suggestion pills inside Shopify's own chat. They are off (all four
+  settings empty): shoppers tapped them instead of reading the description,
+  which already answers most of them, so they mostly produced questions that
+  had been answered. Filling them in again in the theme editor brings them
+  back — the markup below and the JS still support them.
 
   Sending, the guitar title attached to every message, and all fallbacks live
   in assets/aeonic-product.js. The block is marked .aeonic-chat-only, so it
@@ -38,11 +40,7 @@
     <p class="aeonic-ask__heading" id="{{ heading_id }}">{{ s.heading }}</p>
   {%- endif -%}
 
-  <div
-    class="aeonic-ask__starters"
-    role="group"
-    {% if s.heading != blank %}aria-labelledby="{{ heading_id }}"{% else %}aria-label="Common questions"{% endif %}
-  >
+  {%- capture starter_buttons -%}
     {%- for i in (1..4) -%}
       {%- liquid
         assign key = 'starter_' | append: i
@@ -54,7 +52,17 @@
         </button>
       {%- endif -%}
     {%- endfor -%}
-  </div>
+  {%- endcapture -%}
+
+  {%- if starter_buttons != blank -%}
+    <div
+      class="aeonic-ask__starters"
+      role="group"
+      {% if s.heading != blank %}aria-labelledby="{{ heading_id }}"{% else %}aria-label="Common questions"{% endif %}
+    >
+      {{- starter_buttons -}}
+    </div>
+  {%- endif -%}
 
   <form class="aeonic-ask__form" data-aeonic-ask-form novalidate>
     <label class="visually-hidden" for="AeonicAsk-{{ block.id }}">
@@ -148,7 +156,11 @@
   .aeonic-ask__form {
     display: flex;
     gap: 0.7rem;
-    margin: 1rem 0 0;
+    margin: 0;
+  }
+
+  .aeonic-ask__starters + .aeonic-ask__form {
+    margin-top: 1rem;
   }
 
   .aeonic-ask__input {
