@@ -64,6 +64,14 @@
             >
             <label class="field__label" for="{{ input_id }}">{{ 'general.search.search' | t }}</label>
             <input type="hidden" name="options[prefix]" value="last">
+            {%- comment -%}
+              Every search starts on in-stock guitars: the results page shows
+              "In stock" as an active filter, and removing it brings in the sold
+              ones, which Search & Discovery still sorts to the end. Needs the
+              Availability filter switched on in Search & Discovery. The search
+              page's own form (main-search.liquid) does the same.
+            {%- endcomment -%}
+            <input type="hidden" name="filter.v.availability" value="1">
             <button
               type="reset"
               class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"

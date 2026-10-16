@@ -103,6 +103,8 @@
               >
               <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
               <input name="options[prefix]" type="hidden" value="last">
+              {%- comment -%} New searches start on in-stock guitars — see header-search.liquid. {%- endcomment -%}
+              <input name="filter.v.availability" type="hidden" value="1">
 
               {%- if settings.predictive_search_enabled -%}
                 <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
@@ -229,6 +231,30 @@
         {%- endif -%}
         <div class="product-grid-container" id="ProductGridContainer">
           {%- if search.results.size == 0 and search.filters != empty -%}
+            {%- liquid
+              comment
+                Searches start filtered to in-stock guitars (see the hidden input
+                in the form above). When nothing in stock matches but sold guitars
+                do, offer those instead of a dead end — they show the shopper this
+                is a guitar Shan deals in.
+              endcomment
+              assign sold_url = ''
+              assign sold_count = 0
+              for filter in search.filters
+                if filter.param_name == 'filter.v.availability'
+                  for value in filter.active_values
+                    if value.value == '1'
+                      assign sold_url = value.url_to_remove
+                    endif
+                  endfor
+                  for value in filter.values
+                    if value.value == '0'
+                      assign sold_count = value.count
+                    endif
+                  endfor
+                endif
+              endfor
+            -%}
             <div
               class="template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
               id="product-grid"
@@ -237,12 +263,24 @@
               <div class="loading-overlay gradient"></div>
               <div class="title-wrapper center">
                 <h2 class="title title--primary">
-                  {{ 'sections.collection_template.empty' | t -}}
-                  <br>
-                  {{
-                    'sections.collection_template.use_fewer_filters_html'
-                    | t: link: search_url, class: 'underlined-link link'
-                  }}
+                  {%- if sold_url != blank and sold_count > 0 -%}
+                    Nothing in stock matches “{{ search.terms | escape }}” right now.
+                    <br>
+                    <a href="{{ sold_url }}" class="underlined-link link">
+                      {%- if sold_count == 1 -%}
+                        See the one I've sold
+                      {%- else -%}
+                        See the {{ sold_count }} I've sold
+                      {%- endif -%}
+                    </a>
+                  {%- else -%}
+                    {{ 'sections.collection_template.empty' | t -}}
+                    <br>
+                    {{
+                      'sections.collection_template.use_fewer_filters_html'
+                      | t: link: search_url, class: 'underlined-link link'
+                    }}
+                  {%- endif -%}
                 </h2>
               </div>
             </div>
