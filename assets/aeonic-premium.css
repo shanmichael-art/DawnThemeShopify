@@ -289,6 +289,14 @@ h1, .h1 { letter-spacing: -0.03em; }
   position: relative;
 }
 
+/* Sold guitars ("Spoken For") fade back in product grids — search results,
+   collections, "you may also like" — so the in-stock ones stand out. Only the
+   photo block fades (with its condition tag); the "Spoken For" badge sits
+   outside it and, like the title and price, keeps full contrast. */
+.card-wrapper--sold-out .card__media {
+  opacity: 0.6;
+}
+
 .aeonic-card-condition-badge {
   position: absolute;
   top: 10px;

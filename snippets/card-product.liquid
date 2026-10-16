@@ -74,7 +74,7 @@
         assign card_condition_label = 'Fair'
     endcase
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper underline-links-hover{% if card_product.available == false %} card-wrapper--sold-out{% endif %}">
     <div
       class="
         card card--{{ settings.card_style }}
