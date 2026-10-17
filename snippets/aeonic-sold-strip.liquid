@@ -1,0 +1,70 @@
+{% comment %}
+  "Spoken For" strip across the top of a sold guitar's page.
+
+  Sold guitars stay listed — they show what passes through here and keep their
+  search traffic — but a shopper should know before swiping through the
+  photos. On phones the gallery comes first, and until this strip the only
+  "Spoken For" on the page sat below it, beside the price and on the button.
+
+  Uses the same color scheme as the "Spoken For" badges, so it reads as the
+  same status. Renders nothing while the guitar is available.
+
+  Accepts:
+  - product: {Object} Product liquid object
+
+  Usage:
+  {% render 'aeonic-sold-strip', product: product %}
+{% endcomment %}
+
+{%- unless product.available -%}
+  <div class="aeonic-sold-strip color-{{ settings.sold_out_badge_color_scheme }}">
+    <p class="aeonic-sold-strip__text">
+      <strong class="aeonic-sold-strip__label">{{ 'products.product.sold_out' | t }}</strong>
+      This guitar has found its next home.
+    </p>
+    <a class="aeonic-sold-strip__link" href="{{ routes.all_products_collection_url }}">
+      See what's in stock <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  {%- style -%}
+    .aeonic-sold-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem 1.6rem;
+      margin: 0 0 1.6rem;
+      padding: 1.1rem 1.6rem;
+      border-radius: 8px;
+    }
+
+    .aeonic-sold-strip__text {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.45;
+      color: rgba(var(--color-foreground), 0.85);
+    }
+
+    .aeonic-sold-strip__label {
+      margin-right: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e7cc87;
+    }
+
+    .aeonic-sold-strip__link {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: rgb(var(--color-foreground));
+      text-underline-offset: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .aeonic-sold-strip__link:hover {
+      color: #e7cc87;
+    }
+  {%- endstyle -%}
+{%- endunless -%}
