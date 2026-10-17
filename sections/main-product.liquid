@@ -591,7 +591,14 @@
                   {%- endif -%}
                 </div>
               {%- when 'value_stack' -%}
-                {%- render 'aeonic-value-stack', product: product, block: block -%}
+                {%- comment -%}
+                  Not on sold guitars: a total, a delivery date and "you save"
+                  figures read as an offer for a guitar that can't be bought.
+                  The "Spoken For" strip above the photos says what happened.
+                {%- endcomment -%}
+                {%- if product.available -%}
+                  {%- render 'aeonic-value-stack', product: product, block: block -%}
+                {%- endif -%}
               {%- when 'trust_strip' -%}
                 {%- render 'aeonic-trust-strip', block: block -%}
               {%- when 'ask_block' -%}
