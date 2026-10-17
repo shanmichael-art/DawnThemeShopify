@@ -22,7 +22,8 @@
 
   Sending, the guitar title attached to every message, and all fallbacks live
   in assets/aeonic-product.js. The block is marked .aeonic-chat-only, so it
-  stays hidden unless Shopify's chat is actually on the page.
+  stays hidden unless Shopify's chat is actually on the page. Not rendered at
+  all on sold guitars — main-product.liquid skips it.
 {% endcomment %}
 
 {%- liquid

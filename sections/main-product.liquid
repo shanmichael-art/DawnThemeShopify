@@ -609,7 +609,10 @@
               {%- when 'trust_strip' -%}
                 {%- render 'aeonic-trust-strip', block: block -%}
               {%- when 'ask_block' -%}
-                {%- render 'aeonic-ask', product: product, block: block -%}
+                {%- comment -%} Not on sold guitars — like the price card above. {%- endcomment -%}
+                {%- if product.available -%}
+                  {%- render 'aeonic-ask', product: product, block: block -%}
+                {%- endif -%}
               {%- when 'watch_block' -%}
                 {%- render 'aeonic-watch', product: product, block: block -%}
               {%- when 'trade_in' -%}
