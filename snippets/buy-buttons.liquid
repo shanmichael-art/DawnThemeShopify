@@ -122,7 +122,11 @@
             </svg>
             <span>In your cart — View cart</span>
           </a>
-          {%- if show_dynamic_checkout -%}
+          {%- comment -%}
+            Not on sold guitars: Shopify greys "Buy with Shop" out itself, but a
+            pale checkout button still reads as a way to buy.
+          {%- endcomment -%}
+          {%- if show_dynamic_checkout and product.available -%}
             {{ form | payment_button }}
           {%- endif -%}
         </div>
